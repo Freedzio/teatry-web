@@ -7,7 +7,7 @@
 import * as React from 'react';
 import './bootstrap.css';
 
-function navbar () {
+function adminNavbar () {
     return (
         <nav className="navbar navbar-inverse">
             <div className="navbar-header">
@@ -17,14 +17,15 @@ function navbar () {
                 <ul className="nav navbar-nav">
                     <li><a href="#">Teatry</a></li>
                     <li><a href="#">Spektakle</a></li>
+                    <li><a href="#">Panel administratora</a></li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
-                    <li><a href="#">Zaloguj się</a></li>
-                    <li><a href="#">Zarejstruj się</a></li>
+                    <li><a href="#">Witaj, [username]</a></li>
+                    <li><a href="#">Wyloguj</a></li>
                 </ul>
             </div>
         </nav>
     )
 }
 
-export default navbar;
+export default adminNavbar;
