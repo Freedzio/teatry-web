@@ -7,12 +7,12 @@
 import * as React from 'react';
 import './css/bootstrap.css';
 
-export default class navbar {
+export default class Navbar extends React.Component {
     render () {
         return (
             <nav className="navbar navbar-inverse">
                 <div className="navbar-header">
-                    <a href="#" className="navbar-brand">TeatryWeb</a>
+                    <a href="#" className="navbar-brand"><strong>TeatryWeb</strong></a>
                 </div>
                 <div id="navbarCollapse" className="collapse navbar-collapse">
                     <ul className="nav navbar-nav">
