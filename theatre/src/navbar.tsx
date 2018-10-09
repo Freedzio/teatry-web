@@ -5,7 +5,6 @@
 //4. prawa strona - zaloguj i zarejestruj
 
 import * as React from 'react';
-import './css/bootstrap.css';
 
 export default class Navbar extends React.Component {
     render () {

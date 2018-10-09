@@ -1,14 +1,13 @@
 import * as React from 'react';
-import './css/bootstrap.css';
 
-export default class Teatry extends React.Component {
+export default class Plays extends React.Component {
     render () {
         return (
-            <div className="container-fluid">
+            <div className="container">
                 <div className="row">
                     <div className="col-md-12">
                     <h1>
-                        Teatry
+                        Spektakle
                     </h1>
                     </div>
                 </div>
@@ -16,14 +15,14 @@ export default class Teatry extends React.Component {
                     <div className="row">
                         <div className="col-md-6">
                             <button type="button" className="btn btn-default">
-                                Dodaj teatr
+                                Dodaj spektakl
                             </button>
                         </div>
                         <div className="col-md-6">
                             <form>
                                 <div className="form-group">
                                     <label htmlFor="inputSearch">Wyszukaj</label><br />
-                                    <input type="text" id="inputSearch" placeholder="Wyszukaj teatr..." />
+                                    <input type="text" id="inputSearch" placeholder="Wyszukaj spektakl..." />
                                     <button type="submit" className="btn btn-default">Szukaj</button> 
                                 </div>                              
                             </form>
@@ -34,18 +33,21 @@ export default class Teatry extends React.Component {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>Nazwa</th>
-                                <th>Miasto</th>
+                                <th>Tytuł</th>
+                                <th>Kategoria</th>
+                                <th>Teatr</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Teatr 6. piętro</td>
-                                <td>Warszawa</td>
+                                <td><strong>Balladyna</strong></td>
+                                <td>Komedia</td>
+                                <td>Teatr Dramatyczny</td>
                             </tr>
                             <tr>
-                                <td>Teatr Bajka</td>
-                                <td>Warszawa</td>
+                                <td><strong>Hitoria Jakuba</strong></td>
+                                <td>Dramat</td>
+                                <td>Teatr Dramatyczny</td>
                             </tr>
                         </tbody>
                     </table>

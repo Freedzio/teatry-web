@@ -1,12 +1,11 @@
 import * as React from 'react';
-import "./css/bootstrap.css";
 
 export default class MainPage extends React.Component {
     render () {
         return (          
              <div className="container-fluid">
                 <div className="jumbotron">
-                    <img src="/seats.jpg" />
+                    <img src="seats.jpg" />
                 </div>
                 <div className="row">
                     <div className="col-md-4">

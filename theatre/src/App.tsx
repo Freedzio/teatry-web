@@ -1,9 +1,19 @@
 import * as React from 'react';
-import './App.css';
 import Navbar from './navbar';
 import MainPage from './interface';
-import Teatry from './teatry'
+import Theatres from './theatres';
 import logo from './logo.svg';
+import Plays from './plays';
+import TheatreForm from './theatreForm';
+import PlayForm from './playForm';
+import Register from './register';
+import Login from './login';
+import GoogleLogin from './googleLogin';
+import Roles from './roles';
+import RoleAssign from './roleAssign';
+
+import './css/bootstrap.css';
+import './App.css';
 
 class App extends React.Component {
   public render() {
@@ -20,7 +30,31 @@ class App extends React.Component {
           <MainPage/>
         </p>
         <p>
-          <Teatry />
+          <Theatres />
+        </p>
+        <p>
+          <Plays />
+        </p>
+        <p>
+          <TheatreForm />
+        </p>
+        <p>
+          <PlayForm />
+        </p>
+        <p>
+          <Register />
+        </p>
+        <p>
+          <Login />
+        </p>
+        <p>
+          <GoogleLogin />
+        </p>
+        <p>
+          <Roles />
+        </p>
+        <p>
+          <RoleAssign />
         </p>
       </div>
     );
