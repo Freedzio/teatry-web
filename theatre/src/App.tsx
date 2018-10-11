@@ -2,7 +2,6 @@ import * as React from 'react';
 import Navbar from './navbar';
 import MainPage from './interface';
 import Theatres from './theatres';
-import logo from './logo.svg';
 import Plays from './plays';
 import TheatreForm from './theatreForm';
 import PlayForm from './playForm';
@@ -11,6 +10,9 @@ import Login from './login';
 import GoogleLogin from './googleLogin';
 import Roles from './roles';
 import RoleAssign from './roleAssign';
+import mask from './mask.png';
+import AddRole from './addRole';
+import PlayDetails from './playDetails';
 
 import './css/bootstrap.css';
 import './App.css';
@@ -20,8 +22,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Lubię w pupkę</h1>
+          <img src={mask} className="App-logo" alt="logo" />
+          <h1 className="App-title">TeatryWeb</h1>
         </header>
         <p className="App-intro">
           <Navbar />
@@ -55,6 +57,12 @@ class App extends React.Component {
         </p>
         <p>
           <RoleAssign />
+        </p>
+        <p>
+          <AddRole />
+        </p>
+        <p>
+          <PlayDetails />
         </p>
       </div>
     );
