@@ -13,6 +13,7 @@ import RoleAssign from './roleAssign';
 import mask from './mask.png';
 import AddRole from './addRole';
 import PlayDetails from './playDetails';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 import './css/bootstrap.css';
 import './App.css';
