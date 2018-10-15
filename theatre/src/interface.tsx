@@ -1,6 +1,6 @@
 import * as React from 'react';
 import seats from './seats.jpg';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
 import Register from './register';
 
 export default class MainPage extends React.Component {
@@ -44,11 +44,12 @@ export default class MainPage extends React.Component {
                                 </Link>
                             </button>
                         </div>
-                    </div>
-
-                    <Route path="/" exact={true} component={Register} />
-
+                    </div>   
                 </div>
+                <Switch>
+                    <Route path='/register' component={Register} />
+                    <Route exact path='/' comnponent={MainPage} />
+                </Switch>
             </Router>
         );
     }
