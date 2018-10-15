@@ -82,7 +82,6 @@ export default class Register extends React.Component {
                                 <select className="form-control" id="userGender">
                                     <option>Mężczyzna</option>
                                     <option>Kobieta</option>
-                                    <option>Helikopter apache</option>
                                 </select>
                             </div>
                         </div>

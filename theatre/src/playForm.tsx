@@ -43,7 +43,6 @@ export default class PlayForm extends React.Component {
                                         <option>Teatr Dramatyczny</option>
                                         <option>Teatr 6. Piętro</option>
                                         <option>Teatr Muzyczny Roma</option>
-                                        <option>Teatr w pupcię</option>
                                     </select>
                                     <span className="help-block">
                                         Pole wymagane
