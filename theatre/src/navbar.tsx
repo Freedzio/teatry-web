@@ -5,25 +5,28 @@
 //4. prawa strona - zaloguj i zarejestruj
 
 import * as React from 'react';
+import { BrowserRouter as Router, Link} from 'react-router-dom';
 
 export default class Navbar extends React.Component {
     render () {
         return (
-            <nav className="navbar navbar-inverse">
-                <div className="navbar-header">
-                    <a href="#" className="navbar-brand"><strong>TeatryWeb</strong></a>
-                </div>
-                <div id="navbarCollapse" className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav">
-                        <li><a href="#">Teatry</a></li>
-                        <li><a href="#">Spektakle</a></li>
-                    </ul>
-                    <ul className="nav navbar-nav navbar-right">
-                        <li><a href="#">Zaloguj się</a></li>
-                        <li><a href="#">Zarejstruj się</a></li>
-                    </ul>
-                </div>
-            </nav>
+            <Router>
+                <nav className="navbar navbar-inverse">
+                    <div className="navbar-header">
+                        <a href="#" className="navbar-brand"><strong><Link to='/'>TeatryWeb</Link></strong></a>
+                    </div>
+                    <div id="navbarCollapse" className="collapse navbar-collapse">
+                        <ul className="nav navbar-nav">
+                            <li><Link to='/theatres'>Teatry</Link></li>
+                            <li><Link to='/plays'>Spektakle</Link></li>
+                        </ul>
+                        <ul className="nav navbar-nav navbar-right">
+                            <li><Link to='/login'>Zaloguj się</Link></li>
+                            <li><Link to='/register'>Zarejestruj się</Link></li>
+                        </ul>
+                    </div>
+                </nav>
+            </Router>
         )
     }
 }

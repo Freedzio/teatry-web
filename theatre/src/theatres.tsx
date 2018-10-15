@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { BrowserRouter as Router, Link} from 'react-router-dom';
 
 export default class Theatres extends React.Component {
     render () {
         return (
+            <Router>
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
@@ -14,9 +16,11 @@ export default class Theatres extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6">
+                        <Link to='/theatreForm'>
                             <button type="button" className="btn btn-default">
                                 Dodaj teatr
                             </button>
+                        </Link>
                         </div>
                         <div className="col-md-6">
                             <form>
@@ -49,7 +53,8 @@ export default class Theatres extends React.Component {
                         </tbody>
                     </table>
                 </div>        
-             </div>
+            </div>
+            </Router>
         )
     }
 }
