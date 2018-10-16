@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
+
 
 export default class Register extends React.Component {
     render () {
         return (
-            <Router>
-                <div className="container">
+            <div className="container">
                     <div className="row">
                         <div className="col-md-12">
                             <h1>
@@ -106,8 +105,7 @@ export default class Register extends React.Component {
                             </button>    
                         </div>    
                     </div>
-                </div>
-            </Router>
+            </div>
         )
     }
 }

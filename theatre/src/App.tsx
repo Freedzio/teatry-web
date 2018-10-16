@@ -17,16 +17,16 @@ import './App.css';
 class App extends React.Component {
   public render() {
     return (
-      <Router>
-        
+      <Router>        
         <div className="App">
-          <Link to='/'>
-            <header className="App-header">
+          <header className="App-header">
+            <Link to='/'>
               <img src={mask} className="App-logo" alt="logo" />
               <h1 className="App-title">TeatryWeb</h1>
-              <Navbar />
-            </header>
-          </Link>
+            </Link>
+            <Navbar />            
+          </header>    
+                
           <Route exact path='/' component={MainPage} />
           <Route path='/register' component={Register} />
           <Route path='/theatres' component={Theatres} />

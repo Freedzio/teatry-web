@@ -1,16 +1,15 @@
 import * as React from 'react';
 import seats from './seats.jpg';
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
-export default class MainPage extends React.Component {
-    render () {
-        return (     
-            <Router>     
+    export default class MainPage extends React.Component {
+        render () {
+            return (                 
                 <div className="container">
                     <div className="jumbotron">
-                        <img src={seats} width='100%' />
-                    </div>
+                        <img src={seats} width='100%' className='center-block'/>
+                    </div>                
                     <div className="row">
                         <div className="col-md-4">
                             <h2>Dodawaj teatry</h2>
@@ -49,8 +48,7 @@ export default class MainPage extends React.Component {
                             </Link>
                         </div>
                     </div>   
-                </div>                
-            </Router>
-        );
+                </div>           
+            );
+        }
     }
-}
