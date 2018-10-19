@@ -6,9 +6,12 @@
 
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { State } from './state';
+import { SessionActionNames } from './session/sesion.actions';
 
 
-export default class Navbar extends React.Component {
+export class Navbar extends React.Component<NavbarProps> {
     render () {
         return (            
             <nav className="navbar navbar-inverse">
@@ -20,12 +23,32 @@ export default class Navbar extends React.Component {
                         <li><Link to='/theatres'>Teatry</Link></li>
                         <li><Link to='/plays'>Spektakle</Link></li>
                     </ul>
-                    <ul className="nav navbar-nav navbar-right">
+                    {!this.props.isLoggedIn && <ul className="nav navbar-nav navbar-right">
                         <li><Link to='/login'>Zaloguj się</Link></li>
                         <li><Link to='/register'>Zarejestruj się</Link></li>
-                    </ul>
+                    </ul>}
+                    {!!this.props.isLoggedIn && 
+                    <ul className='nav navbar-nav navbar-right'>
+                        <li>{this.props.email}</li>
+                        <li><button className='btn btn-default' onClick={this.props.logOut}>Wyloguj</button></li>
+                    </ul>}
                 </div>
             </nav>            
         )
     }
 }
+
+interface NavbarProps {
+    isLoggedIn: boolean,
+    email: string,
+    logOut: (event: any) => void
+};
+
+const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
+    logOut: () => dispatch({ type: SessionActionNames.SESSION_CLEAR })
+});
+
+export default connect((state: State) => ({
+    isLoggedIn: state.session.email !== null && state.session.password !== null,
+    email: state.session.email
+}), mapDispatchToProps)(Navbar);
