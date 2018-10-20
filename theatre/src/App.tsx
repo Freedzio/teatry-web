@@ -13,6 +13,9 @@ import GoogleLogin from './googleLogin';
 
 import './css/bootstrap.css';
 import './App.css';
+import Roles from './roles';
+import AddRole from './addRole';
+import RoleAssign from './roleAssign';
 
 class App extends React.Component {
   public render() {
@@ -34,7 +37,10 @@ class App extends React.Component {
           <Route path='/login' component={Login} /> 
           <Route path='/theatreForm' component={TheatreForm} />
           <Route path='/playForm' component={PlayForm} />
-          <Route path='/googleLogin' component={GoogleLogin} />          
+          <Route path='/googleLogin' component={GoogleLogin} />
+          <Route exact path='/roles' component={Roles} />
+          <Route path='/roles/addRole' component={AddRole} />
+          <Route path='/roles/roleAssign' component={RoleAssign} />          
         </div>
       </Router>
     );

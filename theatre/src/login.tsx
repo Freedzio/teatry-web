@@ -38,7 +38,6 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
                 isError: true
             })
         }
-
     }
 
     render() {
@@ -81,7 +80,8 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
                                             type="password"
                                             className="form-control"
                                             id="userPassword"
-                                            onChange={this.onPasswordChange.bind(this)} />
+                                            onChange={this.onPasswordChange.bind(this)}
+                                        />
                                     </div>
                                     <div className="col-md-4" />
                                 </div>
@@ -97,8 +97,9 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
                                         <button
                                             type="button"
                                             className="btn btn-default"
-                                            onClick={this.login.bind(this)}
-                                        >Zaloguj</button>
+                                            onClick={this.login.bind(this)}>
+                                            Zaloguj
+                                        </button>
                                         <br />
                                     </div>
                                     <div className="col-md-4" />
@@ -143,7 +144,8 @@ interface LoginScreenProps {
 var users = [
     { email: 'basia@wp.pl', password: 'qwer' },
     { email: 'kasia@wp.pl', password: '1234' },
-    { email: 'misiaczek@buziaczek.pl', password: 'dupa' }
+    { email: 'misiaczek@buziaczek.pl', password: 'dupa' },
+    { email: 'admin@admin.pl', password: 'admin' }
 ]
 
 const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: LoginScreenProps) => ({

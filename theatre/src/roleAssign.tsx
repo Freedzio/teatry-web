@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class RoleAssign extends React.Component {
     render () {
@@ -53,7 +54,7 @@ export default class RoleAssign extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <a href="#"><strong>Wróc do panelu administratora</strong></a>
+                        <Link to='/roles'><strong>Wróc do panelu administratora</strong></Link>
                     </div>
                 </div>
             </div>

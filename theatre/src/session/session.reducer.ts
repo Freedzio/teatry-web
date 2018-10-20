@@ -21,6 +21,13 @@ export const sessionReducer = (state: SessionState = {
                 password: null
         }
 
+        case SessionActionNames.REGISTER_USER:
+            return {
+                ...state,
+                regEmail: action.regEmail,
+                regPassword: action.regPassword
+            }
+
         default:
             return state;
     }

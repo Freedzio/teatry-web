@@ -22,15 +22,15 @@ export class Navbar extends React.Component<NavbarProps> {
                     <ul className="nav navbar-nav">
                         <li><Link to='/theatres'>Teatry</Link></li>
                         <li><Link to='/plays'>Spektakle</Link></li>
+                        {!!this.props.isAdmin && <li><Link to='/roles'>Panel administratora</Link></li>}
                     </ul>
                     {!this.props.isLoggedIn && <ul className="nav navbar-nav navbar-right">
                         <li><Link to='/login'>Zaloguj się</Link></li>
                         <li><Link to='/register'>Zarejestruj się</Link></li>
                     </ul>}
-                    {!!this.props.isLoggedIn && 
-                    <ul className='nav navbar-nav navbar-right'>
-                        <li>{this.props.email}</li>
-                        <li><button className='btn btn-default' onClick={this.props.logOut}>Wyloguj</button></li>
+                    {!!this.props.isLoggedIn && <ul className='nav navbar-nav navbar-right'>
+                        <li><Link to='/'>Hello, {this.props.email}</Link></li>
+                        <li onClick={this.props.logOut}><Link to='/'>Wyloguj</Link></li>
                     </ul>}
                 </div>
             </nav>            
@@ -40,6 +40,7 @@ export class Navbar extends React.Component<NavbarProps> {
 
 interface NavbarProps {
     isLoggedIn: boolean,
+    isAdmin: boolean,
     email: string,
     logOut: (event: any) => void
 };
@@ -50,5 +51,6 @@ const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
 
 export default connect((state: State) => ({
     isLoggedIn: state.session.email !== null && state.session.password !== null,
+    isAdmin: state.session.email === 'admin@admin.pl',
     email: state.session.email
 }), mapDispatchToProps)(Navbar);
