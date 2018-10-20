@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SessionActionNames } from './session/sesion.actions';
 import { __values } from 'tslib';
+import users from './users';
 
 export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
     constructor(props: any) {
@@ -141,12 +142,15 @@ interface LoginScreenProps {
     isError: boolean;
 }
 
-var users = [
+{/*
+    var users = [
     { email: 'basia@wp.pl', password: 'qwer' },
     { email: 'kasia@wp.pl', password: '1234' },
     { email: 'misiaczek@buziaczek.pl', password: 'dupa' },
     { email: 'admin@admin.pl', password: 'admin' }
 ]
+
+*/}
 
 const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: LoginScreenProps) => ({
     setSession: (email: string, password: string) => dispatch({ type: SessionActionNames.SESSION_SET, email, password })
