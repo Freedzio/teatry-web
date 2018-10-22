@@ -3,14 +3,17 @@ import { SessionState } from './session.state';
 
 export const sessionReducer = (state: SessionState = {
     email: null,
-    password: null
+    password: null,
+    isAdmin: false,
+
 }, action: SessionAction) => {
     switch (action.type) {
         case SessionActionNames.SESSION_SET:
             return {
                 ...state,
                 email: action.email,
-                password: action.password
+                password: action.password,
+                isAdmin: action.isAdmin
             }
 
 
@@ -18,7 +21,8 @@ export const sessionReducer = (state: SessionState = {
             return {
                 ...state,
                 email: null,
-                password: null
+                password: null,
+                isAdmin: false
         }
 
         case SessionActionNames.REGISTER_USER:

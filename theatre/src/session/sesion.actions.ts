@@ -7,7 +7,7 @@ export enum SessionActionNames {
 };
 
 export const SessionActions = {
-    setSession: (email: string, password: string) => createAction(SessionActionNames.SESSION_SET, { email, password }),
+    setSession: (email: string, password: string, isAdmin: boolean) => createAction(SessionActionNames.SESSION_SET, { email, password, isAdmin }),
     clearSession: () => createAction(SessionActionNames.SESSION_CLEAR),
     registerUser: (regEmail: string, regPassword: string) => createAction(SessionActionNames.REGISTER_USER, { regEmail, regPassword }),
 };

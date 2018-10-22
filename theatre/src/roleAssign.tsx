@@ -36,17 +36,11 @@ export default class RoleAssign extends React.Component {
                                 <UsersList />
 
                                     {/*
-                                    <select className="form-control" id="userName">
-                                        
-
-                                    
+                                    <select className="form-control" id="userName">  
                                         <option>ala@wp.pl</option>
                                         <option>dyzio@gmail.com</option>
                                         <option>basia@amorki.pl</option>
                                         <option>durczok-kamil@tvn.pl</option>
-                                    
-
-
                                     </select>
                                     */}
                                 </div>

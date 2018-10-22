@@ -51,6 +51,6 @@ const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
 
 export default connect((state: State) => ({
     isLoggedIn: state.session.email !== null && state.session.password !== null,
-    isAdmin: state.session.email === 'admin@admin.pl',
+    isAdmin: state.session.isAdmin === true,
     email: state.session.email
 }), mapDispatchToProps)(Navbar);

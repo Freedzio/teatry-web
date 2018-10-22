@@ -14,6 +14,7 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
             password: '',
             isLoggedIn: false,
             isError: false,
+            isAdmin: false
         };
     }
 
@@ -30,11 +31,28 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
     }
 
     private login(event: any) {
+
         for (var i = 0; i < users.length; i++) {
-            if (this.state.email === users[i].email && this.state.password === users[i].password) {
-                this.props.setSession(this.state.email, this.state.password);
-                this.props.history.push('/');
+            if (users[i].role === 'admin') {
+                this.setState({
+                    isAdmin: true
+                });
+                
                 break;
+            }
+        }
+
+
+        for (var i = 0; i < users.length; i++) {
+
+
+
+            if (this.state.email === users[i].email && this.state.password === users[i].password) {
+                this.props.setSession(this.state.email, this.state.password, this.state.isAdmin);
+                this.props.history.push('/');
+
+                break;
+
             } else this.setState({
                 isError: true
             })
@@ -132,14 +150,15 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
 interface LoginScreenState {
     email: string;
     password: string;
+    isAdmin: boolean;
     isLoggedIn: boolean;
     isError: boolean;
+
 }
 
 interface LoginScreenProps {
     history: any;
-    setSession: (email: string, password: string) => void;
-    isError: boolean;
+    setSession: (email: string, password: string, isAdmin: boolean) => void;
 }
 
 {/*
@@ -153,7 +172,7 @@ interface LoginScreenProps {
 */}
 
 const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: LoginScreenProps) => ({
-    setSession: (email: string, password: string) => dispatch({ type: SessionActionNames.SESSION_SET, email, password })
+    setSession: (email: string, password: string, isAdmin: boolean) => dispatch({ type: SessionActionNames.SESSION_SET, email, password, isAdmin })
 });
 
 const mapStateToProps = () => ({})
