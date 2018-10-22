@@ -33,21 +33,17 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
     private login(event: any) {
 
         for (var i = 0; i < users.length; i++) {
-            if (users[i].role === 'admin') {
+            if (this.state.email === users[i].email && this.state.password === users[i].password && users[i].role === 'admin') {
                 this.setState({
                     isAdmin: true
                 });
                 
+                this.props.setSession(this.state.email, this.state.password, this.state.isAdmin);
+                this.props.history.push('/');
+
                 break;
-            }
-        }
 
-
-        for (var i = 0; i < users.length; i++) {
-
-
-
-            if (this.state.email === users[i].email && this.state.password === users[i].password) {
+            } else if (this.state.email === users[i].email && this.state.password === users[i].password) {
                 this.props.setSession(this.state.email, this.state.password, this.state.isAdmin);
                 this.props.history.push('/');
 
