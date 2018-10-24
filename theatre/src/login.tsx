@@ -5,11 +5,7 @@ import { SessionActionNames } from './session/sesion.actions';
 import { __values } from 'tslib';
 import users from './users';
 
-const sessionProps = {
-    email: '',
-    password: '',
-    role: ''
-};
+
 
 export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
     constructor(props: any) {
@@ -26,21 +22,30 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
 
 
     onEmailChange(event: any) {
-        sessionProps.email = event.target.value
+        this.setState({
+            email: event.target.value
+        })
     }
 
     onPasswordChange(event: any) {
-        sessionProps.password = event.target.value
+        this.setState({
+            password: event.target.value
+        })
     }
 
     private login(event: any) {
+
+        const sessionProps = {
+            email: this.state.email,
+            password: this.state.password,
+            role: ''
+        };
+
         for (var i = 0; i < users.length; i++) {
-            if (sessionProps.email === users[i].email && sessionProps.password === users[i].password) {
+            if (this.state.email === users[i].email && this.state.password === users[i].password) {
                 sessionProps.role = users[i].role
 
                 this.setState({
-                    email: sessionProps.email,
-                    password: sessionProps.password,
                     role: sessionProps.role
                 });
 
