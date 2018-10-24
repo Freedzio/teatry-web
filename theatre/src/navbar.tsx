@@ -4,16 +4,10 @@ import { connect } from 'react-redux';
 import { State } from './state';
 import { SessionActionNames } from './session/sesion.actions';
 
-<<<<<<< HEAD
-export default class Navbar extends React.Component {
-    render () {
-        return (            
-=======
 export class Navbar extends React.Component<NavbarProps, NavbarState> {
 
     render() {
         return (
->>>>>>> conditional-rendering
             <nav className="navbar navbar-inverse">
                 <div className="navbar-header navbar-brand">
                     <strong><Link to='/'>TeatryWeb</Link></strong>
@@ -37,8 +31,6 @@ export class Navbar extends React.Component<NavbarProps, NavbarState> {
         )
     }
 }
-<<<<<<< HEAD
-=======
 
 interface NavbarProps {
     isLoggedIn: boolean,
@@ -60,4 +52,3 @@ export default connect((state: State) => ({
     isAdmin: state.session.role === 'admin',
     email: state.session.email
 }), mapDispatchToProps)(Navbar);
->>>>>>> conditional-rendering

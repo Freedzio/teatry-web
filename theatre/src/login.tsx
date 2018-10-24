@@ -1,10 +1,4 @@
 import * as React from 'react';
-<<<<<<< HEAD
-import { Link } from 'react-router-dom';
-
-class Login extends React.Component {
-    render () {
-=======
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SessionActionNames } from './session/sesion.actions';
@@ -61,7 +55,6 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
     }
 
     render() {
->>>>>>> conditional-rendering
         return (
             <div className="container">
                 <div className="row">
@@ -149,9 +142,6 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
     }
 }
 
-<<<<<<< HEAD
-export default Login
-=======
 interface LoginScreenState {
     email: string;
     password: string;
@@ -180,4 +170,3 @@ const LoginRedux = connect(
 )(withRouter(Login));
 
 export default LoginRedux
->>>>>>> conditional-rendering
