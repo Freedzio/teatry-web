@@ -10,15 +10,15 @@ import { connect } from 'react-redux';
 import { State } from './state';
 import { SessionActionNames } from './session/sesion.actions';
 
+export class Navbar extends React.Component<NavbarProps, NavbarState> {
 
-export class Navbar extends React.Component<NavbarProps> {
-    render () {
-        return (            
+    render() {
+        return (
             <nav className="navbar navbar-inverse">
                 <div className="navbar-header navbar-brand">
                     <strong><Link to='/'>TeatryWeb</Link></strong>
-                 </div>
-                 <div id="navbarCollapse" className="collapse navbar-collapse">
+                </div>
+                <div id="navbarCollapse" className="collapse navbar-collapse">
                     <ul className="nav navbar-nav">
                         <li><Link to='/theatres'>Teatry</Link></li>
                         <li><Link to='/plays'>Spektakle</Link></li>
@@ -33,7 +33,7 @@ export class Navbar extends React.Component<NavbarProps> {
                         <li onClick={this.props.logOut}><Link to='/'>Wyloguj</Link></li>
                     </ul>}
                 </div>
-            </nav>            
+            </nav>
         )
     }
 }
@@ -45,12 +45,16 @@ interface NavbarProps {
     logOut: (event: any) => void
 };
 
+interface NavbarState {
+    isAdmin: boolean
+}
+
 const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
     logOut: () => dispatch({ type: SessionActionNames.SESSION_CLEAR })
 });
 
 export default connect((state: State) => ({
     isLoggedIn: state.session.email !== null && state.session.password !== null,
-    isAdmin: state.session.isAdmin === true,
+    isAdmin: state.session.role === 'admin',
     email: state.session.email
 }), mapDispatchToProps)(Navbar);

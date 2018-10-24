@@ -5,6 +5,12 @@ import { SessionActionNames } from './session/sesion.actions';
 import { __values } from 'tslib';
 import users from './users';
 
+var sessionProps = {
+    email: '',
+    password: '',
+    role: ''
+};
+
 export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
     constructor(props: any) {
         super(props);
@@ -12,46 +18,41 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
         this.state = {
             email: '',
             password: '',
+            role: '',
             isLoggedIn: false,
             isError: false,
-            isAdmin: false
         };
     }
 
+
     onEmailChange(event: any) {
-        this.setState({
-            email: event.target.value
-        })
+        sessionProps.email = event.target.value
     }
 
     onPasswordChange(event: any) {
-        this.setState({
-            password: event.target.value
-        })
+        sessionProps.password = event.target.value
     }
 
     private login(event: any) {
 
         for (var i = 0; i < users.length; i++) {
-            if (this.state.email === users[i].email && this.state.password === users[i].password && users[i].role === 'admin') {
+            if (sessionProps.email === users[i].email && sessionProps.password === users[i].password) {
+                sessionProps.role = users[i].role
+
                 this.setState({
-                    isAdmin: true
+                    email: sessionProps.email,
+                    password: sessionProps.password,
+                    role: sessionProps.role
                 });
-                
-                this.props.setSession(this.state.email, this.state.password, this.state.isAdmin);
-                this.props.history.push('/');
 
-                break;
-
-            } else if (this.state.email === users[i].email && this.state.password === users[i].password) {
-                this.props.setSession(this.state.email, this.state.password, this.state.isAdmin);
+                this.props.setSession(this.state.email, this.state.password, this.state.role);
                 this.props.history.push('/');
 
                 break;
 
             } else this.setState({
                 isError: true
-            })
+            });
         }
     }
 
@@ -146,29 +147,21 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
 interface LoginScreenState {
     email: string;
     password: string;
-    isAdmin: boolean;
+    role: string;
     isLoggedIn: boolean;
     isError: boolean;
-
 }
 
 interface LoginScreenProps {
     history: any;
-    setSession: (email: string, password: string, isAdmin: boolean) => void;
+    email: string;
+    password: string;
+    role: string;
+    setSession: (email: string, password: string, role: string) => void;
 }
 
-{/*
-    var users = [
-    { email: 'basia@wp.pl', password: 'qwer' },
-    { email: 'kasia@wp.pl', password: '1234' },
-    { email: 'misiaczek@buziaczek.pl', password: 'dupa' },
-    { email: 'admin@admin.pl', password: 'admin' }
-]
-
-*/}
-
 const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: LoginScreenProps) => ({
-    setSession: (email: string, password: string, isAdmin: boolean) => dispatch({ type: SessionActionNames.SESSION_SET, email, password, isAdmin })
+    setSession: (email: string, password: string, role: string) => dispatch({ type: SessionActionNames.SESSION_SET, email, password, role })
 });
 
 const mapStateToProps = () => ({})
