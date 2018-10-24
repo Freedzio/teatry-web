@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Roles extends React.Component {
     render () {
@@ -14,11 +15,11 @@ export default class Roles extends React.Component {
                 <div className="row">
                     <div className="col-md-6">
                         <p>
-                            <a href="#">Dodaj rolę</a>
+                            <Link to='/roles/addRole'>Dodaj rolę</Link>
                         </p>
                     </div>
                     <div className="col-md-6">
-                        <a href="#">Przypisz rolę do użytkownika</a>
+                        <Link to='/roles/roleAssign'>Przypisz rolę do użytkownika</Link>
                     </div>
                 </div>
                 <div className="row">
