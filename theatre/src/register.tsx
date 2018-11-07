@@ -50,16 +50,18 @@ export class Register extends React.Component<RegisterScreenProps, RegisterScree
 
                 break;
 
-                
-
-            } 
+            }
         }
 
-        users.push({
-            email: registerProps.regEmail,
-            password: registerProps.regPassword,
-            role: registerProps.regRole
-        });
+        if (this.state.isRegisterError === false) {
+            registerProps.regRole = 'user'
+
+            users.push({
+                email: registerProps.regEmail,
+                password: registerProps.regPassword,
+                role: registerProps.regRole
+            });
+        }
     }
 
     render() {
