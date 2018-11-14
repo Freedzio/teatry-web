@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { State } from './state';
 
-export default class Theatres extends React.Component {
+export class Theatres extends React.Component<TheatresProps> {
     render () {
         return (
             <div className="container">
@@ -15,11 +17,11 @@ export default class Theatres extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6">
-                        <Link to='/theatreForm'>
+                        {!!this.props.isLoggedIn && <Link to='/theatreForm'>
                             <button type="button" className="btn btn-default">
                                 Dodaj teatr
                             </button>
-                        </Link>
+                        </Link>}
                         </div>
                         <div className="col-md-6">
                             <form>
@@ -56,3 +58,13 @@ export default class Theatres extends React.Component {
         )
     }
 }
+
+interface TheatresProps {
+    isLoggedIn: boolean
+};
+
+const mapDispatchToProps = () => ({})
+
+export default connect((state: State) => ({
+    isLoggedIn: state.session.email !== null && state.session.password !== null
+}), mapDispatchToProps)(Theatres);
