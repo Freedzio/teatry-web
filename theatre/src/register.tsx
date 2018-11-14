@@ -39,7 +39,7 @@ export class Register extends React.Component<RegisterScreenProps, RegisterScree
         const registerProps = {
             regEmail: this.state.regEmail,
             regPassword: this.state.regPassword,
-            regRole: this.state.regRole
+            regRole: ''
         };
 
         for (var i = 0; i < users.length; i++) {
@@ -61,6 +61,7 @@ export class Register extends React.Component<RegisterScreenProps, RegisterScree
                 password: registerProps.regPassword,
                 role: registerProps.regRole
             });
+            this.props.history.push('/')
         }
     }
 

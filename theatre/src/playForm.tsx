@@ -1,101 +1,192 @@
 import * as React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import playList from './playList';
 
-export default class PlayForm extends React.Component {
-    render () {
+export default class PlayForm extends React.Component <AddPlayScreenProps, AddPlayScreenState> {
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            title: '',
+            theatre: '',
+            category: '',
+            isError: false
+        };
+    }
+
+    onTitleChange(event: any) {
+        this.setState({
+            title: event.target.value
+        })
+    }
+
+    onTheatreChange(event: any) {
+        this.setState({
+            theatre: event.target.value
+        })
+    }
+
+    onCategoryChange(event: any) {
+        this.setState({
+            category: event.target.value
+        })
+    }
+
+    private addPlay(event: any) {
+
+        const playProps = {
+            title: this.state.title,
+            theatre: this.state.theatre,
+            category: this.state.category
+        };
+
+        for (var i = 0; i < playList.length; i++) {
+            if (this.state.title === playList[i].title) {
+                this.setState({
+                    isError: true
+                });
+
+                break;
+
+            }
+        }
+
+        if (this.state.isError === false) {
+            playList.push({
+                title: playProps.title,
+                theatre: playProps.theatre,
+                category: playProps.category
+
+            })
+        }
+
+    }
+
+    render() {
         return (
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h1>
-                                Dodaj spektakl
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12">
+                        <h1>
+                            Dodaj spektakl
                             </h1>
-                            <form className="form-horizontal">
-                                <div className="form-group">
-                                    <div className="col-md-3" />
-                                    <label htmlFor="titleName" className="control-label col-md-2">
-                                        Tytuł
+                        <form className="form-horizontal">
+                            <div className="form-group">
+                                <div className="col-md-3" />
+                                <label htmlFor="titleName" className="control-label col-md-2">
+                                    Tytuł
                                     </label>
-                                    <div className="col-md-3">
-                                        <input type="text" className="form-control" id="titleName" />
-                                        <span className="help-block">
-                                            Pole wymagane
+                                <div className="col-md-3">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="titleName"
+                                        onChange={this.onTitleChange.bind(this)} />
+                                    <span className="help-block">
+                                        Pole wymagane
                                         </span>
-                                    </div>
-                                    <div className="col-md-3" />
-                                </div> 
-                                <div className="form-group">
-                                    <div className="col-md-3" />
-                                    <label htmlFor="descName" className="control-label col-md-2">
-                                        Opis
-                                    </label>
-                                    <div className="col-md-3">
-                                        <textarea className="form-control" rows={3} id="descName" />
-                                    </div>
-                                    <div className="col-md-3" />
                                 </div>
-                                <div className="form-group">
-                                    <div className="col-md-3" />
-                                    <label htmlFor="theatreName" className="control-label col-md-2">
-                                        Wybierz teatr
+                                <div className="col-md-3" />
+                            </div>
+                            <div className="form-group">
+                                <div className="col-md-3" />
+                                <label htmlFor="descName" className="control-label col-md-2">
+                                    Opis
                                     </label>
-                                    <div className="col-md-3">
-                                        <select className="form-control" id="theatreName">
-                                            <option>Teatr Dramatyczny</option>
-                                            <option>Teatr 6. Piętro</option>
-                                            <option>Teatr Muzyczny Roma</option>
-                                        </select>
-                                        <span className="help-block">
-                                            Pole wymagane
+                                <div className="col-md-3">
+                                    <textarea
+                                        className="form-control" rows={3} id="descName" />
+                                </div>
+                                <div className="col-md-3" />
+                            </div>
+                            <div className="form-group">
+                                <div className="col-md-3" />
+                                <label htmlFor="theatreName" className="control-label col-md-2">
+                                    Wybierz teatr
+                                    </label>
+                                <div className="col-md-3">
+                                    <select
+                                        className="form-control"
+                                        id="theatreName"
+                                        onChange={this.onTheatreChange.bind(this)}>
+                                        <option>Teatr Dramatyczny</option>
+                                        <option>Teatr 6. Piętro</option>
+                                        <option>Teatr Muzyczny Roma</option>
+                                    </select>
+                                    <span className="help-block">
+                                        Pole wymagane
                                         </span>
-                                    </div>
-                                    <div className="col-md-3" />
                                 </div>
-                                <div className="form-group">
-                                    <div className="col-md-3" />
-                                    <label htmlFor="categoryName" className="control-label col-md-2">
-                                        Kategoria
+                                <div className="col-md-3" />
+                            </div>
+                            <div className="form-group">
+                                <div className="col-md-3" />
+                                <label htmlFor="categoryName" className="control-label col-md-2">
+                                    Kategoria
                                     </label>
-                                    <div className="col-md-3">
-                                        <select className="form-control" id="categoryName">
-                                            <option>Komedia</option>
-                                            <option>Dramat</option>
-                                            <option>Musical</option>
-                                            <option>Obyczajowy</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-md-3" />
+                                <div className="col-md-3">
+                                    <select
+                                        className="form-control"
+                                        id="categoryName"
+                                        onChange={this.onCategoryChange.bind(this)}>
+                                        <option>Komedia</option>
+                                        <option>Dramat</option>
+                                        <option>Musical</option>
+                                        <option>Obyczajowy</option>
+                                    </select>
                                 </div>
-                                <div className="form-group">
-                                    <div className="col-md-3" />
-                                    <label htmlFor="linkName" className="control-label col-md-2">
-                                        Link do strony teatru
+                                <div className="col-md-3" />
+                            </div>
+                            <div className="form-group">
+                                <div className="col-md-3" />
+                                <label htmlFor="linkName" className="control-label col-md-2">
+                                    Link do strony teatru
                                     </label>
-                                    <div className="col-md-3">
-                                        <input type="url" className="form-control" id="linkName" />
-                                    </div>    
-                                    <div className="col-md-3" />
+                                <div className="col-md-3">
+                                    <input type="url" className="form-control" id="linkName" />
                                 </div>
-                                <div className="row">
-                                    <div className="col-md-5" />
-                                    <div className="col-md-3">
-                                        <button type="button" className="btn btn-default">
-                                            <strong>Dodaj spektakl</strong>    
-                                        </button>
-                                    </div>
-                                    <div className="col-md-4" />
+                                <div className="col-md-3" />
+                            </div>
+                            {!!this.state.isError && <span>Spektakl o takim tytule już jest w bazie</span>}
+                            <div className="row">
+                                <div className="col-md-5" />
+                                <div className="col-md-3">
+                                    <button 
+                                    type="button"
+                                     className="btn btn-default"
+                                     onClick={this.addPlay.bind(this)}>
+                                        <strong>Dodaj spektakl</strong>
+                                    </button>
                                 </div>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <p>
-                                            <strong><Link to='/plays'>Wróc do listy spektakli</Link></strong>
-                                        </p>
-                                    </div>
+                                <div className="col-md-4" />
+                            </div>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <p>
+                                        <strong><Link to='/plays'>Wróc do listy spektakli</Link></strong>
+                                    </p>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
-                </div>            
+                </div>
+            </div>
         )
     }
+}
+
+interface AddPlayScreenState {
+    title: string,
+    theatre: string,
+    category: string,
+    isError: boolean
+
+}
+
+interface AddPlayScreenProps {
+    title: string,
+    theatre: string,
+    category: string,
+    isError: boolean,
+    addPlay: (title: string, theatre: string, category: string) => void;
 }
