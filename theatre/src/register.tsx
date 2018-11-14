@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { SessionActionNames } from './session/sesion.actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import users from './users';
 
 export class Register extends React.Component<RegisterScreenProps, RegisterScreenState> {
     constructor(props: any) {
@@ -10,6 +10,8 @@ export class Register extends React.Component<RegisterScreenProps, RegisterScree
         this.state = {
             regEmail: '',
             regPassword: '',
+            regConfirmPassword: '',
+            regRole: '',
             isRegisterError: false,
         };
     }
@@ -26,8 +28,40 @@ export class Register extends React.Component<RegisterScreenProps, RegisterScree
         })
     }
 
+    onPasswordConfirmChange(event: any) {
+        this.setState({
+            regConfirmPassword: event.target.value
+        })
+    }
+
     private register(event: any) {
-        this.props.registerUser(this.state.regEmail, this.state.regPassword)
+
+        const registerProps = {
+            regEmail: this.state.regEmail,
+            regPassword: this.state.regPassword,
+            regRole: this.state.regRole
+        };
+
+        for (var i = 0; i < users.length; i++) {
+            if (this.state.regEmail === users[i].email || this.state.regPassword !== this.state.regConfirmPassword) {
+                this.setState({
+                    isRegisterError: true
+                });
+
+                break;
+
+            }
+        }
+
+        if (this.state.isRegisterError === false) {
+            registerProps.regRole = 'user'
+
+            users.push({
+                email: registerProps.regEmail,
+                password: registerProps.regPassword,
+                role: registerProps.regRole
+            });
+        }
     }
 
     render() {
@@ -103,11 +137,15 @@ export class Register extends React.Component<RegisterScreenProps, RegisterScree
                         </div>
                         <div className="form-group">
                             <div className="col-md-3" />
-                            <label htmlFor="userPassword2" className="control-label col-md-2">
+                            <label htmlFor="userConfirmPassword" className="control-label col-md-2">
                                 Powtórz hasło
                                 </label>
                             <div className="col-md-3">
-                                <input type="password" className="form-control" id="userPassword2" />
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="userConfirmPassword"
+                                    onChange={this.onPasswordConfirmChange.bind(this)} />
                             </div>
                         </div>
                         <div className="form-group">
@@ -133,6 +171,8 @@ export class Register extends React.Component<RegisterScreenProps, RegisterScree
                         </div>
                     </form>
                 </div>
+                {!!this.state.isRegisterError && <span>Taki email jest już w bazie lub podane hasła są nieprawidłowe</span>}
+
                 <div className="row">
                     <div className="col-md-5" />
                     <div className="col-md-3">
@@ -144,6 +184,7 @@ export class Register extends React.Component<RegisterScreenProps, RegisterScree
                                 Zarejestruj
                             </strong>
                         </button>
+
                     </div>
                 </div>
             </div>
@@ -152,18 +193,22 @@ export class Register extends React.Component<RegisterScreenProps, RegisterScree
 }
 
 interface RegisterScreenProps {
-    registerUser: (regEmail: string, regPassword: string) => void;
+    history: any;
+    regEmail: string;
+    regPassword: string;
+    regRole: string;
+    registerUser: (regEmail: string, regPassword: string, regRole: string) => void;
 }
 
 interface RegisterScreenState {
     regEmail: string;
     regPassword: string;
+    regConfirmPassword: string;
+    regRole: string;
     isRegisterError: boolean;
 }
 
-const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: RegisterScreenProps) => ({
-    registerUser: (regEmail: string, regPassword: string) => dispatch({ type: SessionActionNames.REGISTER_USER, regEmail, regPassword })
-});
+const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: RegisterScreenProps) => ({})
 
 const mapStateToProps = () => ({})
 

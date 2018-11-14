@@ -36,7 +36,7 @@ export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
         const sessionProps = {
             email: this.state.email,
             password: this.state.password,
-            role: this.state.role
+            role: ''
         };
 
         for (var i = 0; i < users.length; i++) {
