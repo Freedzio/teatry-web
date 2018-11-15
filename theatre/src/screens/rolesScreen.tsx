@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-export default class Roles extends React.Component {
+export default class RolesScreen extends React.Component {
     render () {
         return (
             <div className="container">

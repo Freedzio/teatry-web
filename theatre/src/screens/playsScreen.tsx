@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { State } from './state';
+import { State } from 'src/state';
 import { connect } from 'react-redux'
+import PlaysComponent from 'src/components/playsComponent'
 
-export class Plays extends React.Component<PlaysProps> {
+export class PlaysScreen extends React.Component<PlaysProps> {
     render() {
         return (
             <div className="container">
@@ -35,27 +36,7 @@ export class Plays extends React.Component<PlaysProps> {
                     </div>
                 </div>
                 <div>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>Tytuł</th>
-                                <th>Kategoria</th>
-                                <th>Teatr</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Balladyna</strong></td>
-                                <td>Komedia</td>
-                                <td>Teatr Dramatyczny</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Hitoria Jakuba</strong></td>
-                                <td>Dramat</td>
-                                <td>Teatr Dramatyczny</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <PlaysComponent />
                 </div>
             </div>
         )
@@ -70,4 +51,4 @@ const mapDispatchToProps = () => ({})
 
 export default connect((state: State) => ({
     isLoggedIn: state.session.email !== null && state.session.password !== null
-}), mapDispatchToProps)(Plays);
+}), mapDispatchToProps)(PlaysScreen);

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { State } from './state';
+import { State } from 'src/state';
+import TheatresComponent from 'src/components/theatresComponent';
 
-export class Theatres extends React.Component<TheatresProps> {
+export class TheatresScreen extends React.Component<TheatresProps> {
     render () {
         return (
             <div className="container">
@@ -35,24 +36,7 @@ export class Theatres extends React.Component<TheatresProps> {
                     </div>
                 </div>
                 <div>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>Nazwa</th>
-                                <th>Miasto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Teatr 6. piętro</td>
-                                <td>Warszawa</td>
-                            </tr>
-                            <tr>
-                                <td>Teatr Bajka</td>
-                                <td>Warszawa</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <TheatresComponent />
                 </div>        
             </div>            
         )
@@ -67,4 +51,4 @@ const mapDispatchToProps = () => ({})
 
 export default connect((state: State) => ({
     isLoggedIn: state.session.email !== null && state.session.password !== null
-}), mapDispatchToProps)(Theatres);
+}), mapDispatchToProps)(TheatresScreen);

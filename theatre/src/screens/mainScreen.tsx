@@ -1,9 +1,9 @@
 import * as React from 'react';
-import seats from './seats.jpg';
+import seats from 'src/seats.jpg';
 import { Link } from 'react-router-dom';
 
 
-    export default class MainPage extends React.Component {
+    export default class MainScreen extends React.Component {
         render () {
             return (                 
                 <div className="container">

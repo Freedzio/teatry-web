@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default class AddRole extends React.Component {
+export default class AddRoleForm extends React.Component {
     render () {
         return (
                 <div className="container">

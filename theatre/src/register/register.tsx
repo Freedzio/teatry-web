@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import users from './users';
+import users from 'src/database/usersDatabase';
 
-export class Register extends React.Component<RegisterScreenProps, RegisterScreenState> {
+export class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreenState> {
     constructor(props: any) {
         super(props);
 
@@ -216,6 +216,6 @@ const mapStateToProps = () => ({})
 const RegisterRedux = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(Register));
+)(withRouter(RegisterScreen));
 
 export default RegisterRedux

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import theatresList from './theatreList'
-import theatreList from './theatreList';
+import theatres from 'src/database/theatresDatabase';
 
-export default class TheatreForm extends React.Component<AddTheatreScreenState, AddTheatreScreenProps> {
+export default class AddTheatreForm extends React.Component<AddTheatreScreenState, AddTheatreScreenProps> {
     constructor(props: any) {
         super(props);
 
@@ -32,8 +31,8 @@ export default class TheatreForm extends React.Component<AddTheatreScreenState, 
             town: this.state.town
         };
 
-        for (var i = 0; i < theatresList.length; i++) {
-            if (this.state.name === theatresList[i].name && this.state.town === theatresList[i].town) {
+        for (var i = 0; i < theatres.length; i++) {
+            if (this.state.name === theatres[i].name && this.state.town === theatres[i].town) {
                 this.setState({
                     isError: true
                 });
@@ -44,7 +43,7 @@ export default class TheatreForm extends React.Component<AddTheatreScreenState, 
         }
 
         if (this.state.isError === false) {
-            theatreList.push({
+            theatres.push({
                 name: theatreProps.name,
                 town: theatreProps.town
             });

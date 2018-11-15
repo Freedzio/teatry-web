@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default class PlayDetails extends React.Component {
+export default class PlayDetailsScreen extends React.Component {
     render () {
         return (
             <div className="container">

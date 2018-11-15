@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import UsersList from './usersList';
+import UsersComponent from 'src/components/usersComponent';
 
-export default class RoleAssign extends React.Component {
+export default class RoleAssignScreen extends React.Component {
     render() {
         return (
             <div className="container">
@@ -33,7 +33,7 @@ export default class RoleAssign extends React.Component {
                                     <strong>Wybierz użytkownika</strong>
                                 </label>
                                 <div className="col-md-4">
-                                <UsersList />
+                                <UsersComponent />
 
                                     {/*
                                     <select className="form-control" id="userName">  

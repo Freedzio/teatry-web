@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import playList from './playList';
+import plays from 'src/database/playsDatabase';
+import theatres from 'src/database/theatresDatabase';
 
-export default class PlayForm extends React.Component <AddPlayScreenProps, AddPlayScreenState> {
+export default class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScreenState> {
+
     constructor(props: any) {
         super(props);
 
@@ -13,6 +15,8 @@ export default class PlayForm extends React.Component <AddPlayScreenProps, AddPl
             isError: false
         };
     }
+
+
 
     onTitleChange(event: any) {
         this.setState({
@@ -40,8 +44,8 @@ export default class PlayForm extends React.Component <AddPlayScreenProps, AddPl
             category: this.state.category
         };
 
-        for (var i = 0; i < playList.length; i++) {
-            if (this.state.title === playList[i].title) {
+        for (var i = 0; i < plays.length; i++) {
+            if (this.state.title === plays[i].title) {
                 this.setState({
                     isError: true
                 });
@@ -52,7 +56,7 @@ export default class PlayForm extends React.Component <AddPlayScreenProps, AddPl
         }
 
         if (this.state.isError === false) {
-            playList.push({
+            plays.push({
                 title: playProps.title,
                 theatre: playProps.theatre,
                 category: playProps.category
@@ -109,9 +113,11 @@ export default class PlayForm extends React.Component <AddPlayScreenProps, AddPl
                                         className="form-control"
                                         id="theatreName"
                                         onChange={this.onTheatreChange.bind(this)}>
-                                        <option>Teatr Dramatyczny</option>
-                                        <option>Teatr 6. Piętro</option>
-                                        <option>Teatr Muzyczny Roma</option>
+                                        {theatres.map((theatre, index) =>
+                                            <option key={theatre.name + index}>
+                                                {theatre.name}, {theatre.town}
+                                            </option>
+                                        )}
                                     </select>
                                     <span className="help-block">
                                         Pole wymagane
@@ -151,10 +157,10 @@ export default class PlayForm extends React.Component <AddPlayScreenProps, AddPl
                             <div className="row">
                                 <div className="col-md-5" />
                                 <div className="col-md-3">
-                                    <button 
-                                    type="button"
-                                     className="btn btn-default"
-                                     onClick={this.addPlay.bind(this)}>
+                                    <button
+                                        type="button"
+                                        className="btn btn-default"
+                                        onClick={this.addPlay.bind(this)}>
                                         <strong>Dodaj spektakl</strong>
                                     </button>
                                 </div>
@@ -179,7 +185,7 @@ interface AddPlayScreenState {
     title: string,
     theatre: string,
     category: string,
-    isError: boolean
+    isError: boolean,
 
 }
 

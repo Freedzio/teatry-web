@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { SessionActionNames } from './session/sesion.actions';
+import { SessionActionNames } from 'src/session/sesion.actions';
 import { __values } from 'tslib';
-import users from './users';
+import users from 'src/database/usersDatabase';
 
-export class Login extends React.Component<LoginScreenProps, LoginScreenState>{
+export class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState>{
     constructor(props: any) {
         super(props);
 
@@ -167,6 +167,6 @@ const mapStateToProps = () => ({})
 const LoginRedux = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(Login));
+)(withRouter(LoginScreen));
 
 export default LoginRedux

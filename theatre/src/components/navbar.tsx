@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { State } from './state';
-import { SessionActionNames } from './session/sesion.actions';
+import { State } from 'src/state';
+import { SessionActionNames } from 'src/session/sesion.actions';
 
 export class Navbar extends React.Component<NavbarProps, NavbarState> {
 
