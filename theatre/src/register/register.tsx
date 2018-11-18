@@ -61,7 +61,6 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
                 password: registerProps.regPassword,
                 role: registerProps.regRole
             });
-            this.props.history.push('/')
         }
     }
 

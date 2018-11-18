@@ -1,7 +1,7 @@
 import * as React from 'react'
 import plays from 'src/database/playsDatabase'
 
-function PlaysComponent() {
+function PlaysTableComponent() {
     return (
         <table className='table'>
             <thead>
@@ -24,4 +24,4 @@ function PlaysComponent() {
     )
 }
 
-export default PlaysComponent
+export default PlaysTableComponent

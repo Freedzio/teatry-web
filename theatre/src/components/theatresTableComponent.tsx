@@ -1,9 +1,8 @@
 import theatres from 'src/database/theatresDatabase'
-import * as React from 'react';
+import * as React from 'react'
 
-function TheatresComponent() {
+function TheatresTableComponent() {
     return (
-
         <table className="table">
             <thead>
                 <tr>
@@ -13,7 +12,7 @@ function TheatresComponent() {
             </thead>
             <tbody>
                 {theatres.map((theatre, index) =>
-                    <tr key={theatre.name + index}>
+                    <tr key={theatre.name + theatre.town + index}>
                         <td>{theatre.name}</td>
                         <td>{theatre.town}</td>
                     </tr>
@@ -23,4 +22,4 @@ function TheatresComponent() {
     )
 }
 
-export default TheatresComponent
+export default TheatresTableComponent

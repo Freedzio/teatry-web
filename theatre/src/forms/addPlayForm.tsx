@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import plays from 'src/database/playsDatabase';
 import theatres from 'src/database/theatresDatabase';
+import categories from 'src/database/categoriesDatabase';
 
 export default class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScreenState> {
 
@@ -12,11 +13,12 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
             title: '',
             theatre: '',
             category: '',
-            isError: false
+            isError: false,
+            theatreError: false,
+            categoryError: false,
+            titleError: false
         };
     }
-
-
 
     onTitleChange(event: any) {
         this.setState({
@@ -45,7 +47,7 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
         };
 
         for (var i = 0; i < plays.length; i++) {
-            if (this.state.title === plays[i].title) {
+            if (this.state.title === plays[i].title && this.state.theatre === plays[i].theatre) {
                 this.setState({
                     isError: true
                 });
@@ -55,7 +57,25 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
             }
         }
 
-        if (this.state.isError === false) {
+        if (this.state.theatre === '') {
+            this.setState({
+                theatreError: true
+            })
+        }
+
+        if (this.state.category === '') {
+            this.setState({
+                categoryError: true
+            })
+        }
+
+        if (this.state.title === '') {
+            this.setState({
+                titleError: true
+            })
+        }
+
+        if (this.state.isError === false && this.state.categoryError === false && this.state.titleError === false && this.state.theatreError === false) {
             plays.push({
                 title: playProps.title,
                 theatre: playProps.theatre,
@@ -63,7 +83,6 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
 
             })
         }
-
     }
 
     render() {
@@ -113,6 +132,7 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                         className="form-control"
                                         id="theatreName"
                                         onChange={this.onTheatreChange.bind(this)}>
+                                        <option>Wybierz teatr...</option>
                                         {theatres.map((theatre, index) =>
                                             <option key={theatre.name + index}>
                                                 {theatre.name}, {theatre.town}
@@ -135,10 +155,14 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                         className="form-control"
                                         id="categoryName"
                                         onChange={this.onCategoryChange.bind(this)}>
-                                        <option>Komedia</option>
-                                        <option>Dramat</option>
-                                        <option>Musical</option>
-                                        <option>Obyczajowy</option>
+                                        <option>
+                                            Wybierz kategorię...
+                                        </option>
+                                        {categories.map((category, index) =>
+                                            <option key={category + index}>
+                                                {category}
+                                            </option>
+                                        )}
                                     </select>
                                 </div>
                                 <div className="col-md-3" />
@@ -154,6 +178,9 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                 <div className="col-md-3" />
                             </div>
                             {!!this.state.isError && <span>Spektakl o takim tytule już jest w bazie</span>}
+                            {!!this.state.categoryError && <span>Wybierz kategorię spektaklu</span>}
+                            {!!this.state.theatreError && <span>Wybierz teatr</span>}
+                            {!!this.state.titleError && <span>Wpisz tytuł sztuki</span>}
                             <div className="row">
                                 <div className="col-md-5" />
                                 <div className="col-md-3">
@@ -186,7 +213,9 @@ interface AddPlayScreenState {
     theatre: string,
     category: string,
     isError: boolean,
-
+    theatreError: boolean,
+    categoryError: boolean,
+    titleError: boolean
 }
 
 interface AddPlayScreenProps {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { State } from 'src/state';
 import { connect } from 'react-redux'
-import PlaysComponent from 'src/components/playsComponent'
+import PlaysTableComponent from 'src/components/playsTableComponent'
 
 export class PlaysScreen extends React.Component<PlaysProps> {
     render() {
@@ -36,7 +36,7 @@ export class PlaysScreen extends React.Component<PlaysProps> {
                     </div>
                 </div>
                 <div>
-                    <PlaysComponent />
+                    <PlaysTableComponent />
                 </div>
             </div>
         )

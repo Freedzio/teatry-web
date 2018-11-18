@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { State } from 'src/state';
-import TheatresComponent from 'src/components/theatresComponent';
+import TheatresTableComponent from 'src/components/theatresTableComponent';
 
 export class TheatresScreen extends React.Component<TheatresProps> {
     render () {
@@ -36,7 +36,7 @@ export class TheatresScreen extends React.Component<TheatresProps> {
                     </div>
                 </div>
                 <div>
-                    <TheatresComponent />
+                    <TheatresTableComponent />
                 </div>        
             </div>            
         )

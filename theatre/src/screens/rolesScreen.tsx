@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import RolesTableComponent from 'src/components/rolesTableComponent';
 
 export default class RolesScreen extends React.Component {
     render () {
@@ -24,21 +25,7 @@ export default class RolesScreen extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Nazwa roli</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Admin</td>
-                                </tr>
-                                <tr>
-                                    <td>Moderator</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <RolesTableComponent />
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import users from 'src/database/usersDatabase'
 import * as React from 'react';
 
-function UsersComponent() {
+function UsersListComponent() {
     return (
         <select className='form-control' id='userName'>
             {users.map((user, index) =>
@@ -13,4 +13,4 @@ function UsersComponent() {
     )
 }
 
-export default UsersComponent
+export default UsersListComponent

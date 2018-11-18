@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import UsersComponent from 'src/components/usersComponent';
+import UsersListComponent from 'src/components/usersListComponent';
+import RolesListComponent from 'src/components/rolesListComponent';
 
 export default class RoleAssignScreen extends React.Component {
     render() {
@@ -20,10 +21,7 @@ export default class RoleAssignScreen extends React.Component {
                                     <strong>Wybierz rolę</strong>
                                 </label>
                                 <div className="col-md-4">
-                                    <select className="form-control" id="roleName">
-                                        <option>Admin</option>
-                                        <option>Moderator</option>
-                                    </select>
+                                    <RolesListComponent />
                                 </div>
                                 <div className="col-md-4" />
                             </div>
@@ -33,16 +31,7 @@ export default class RoleAssignScreen extends React.Component {
                                     <strong>Wybierz użytkownika</strong>
                                 </label>
                                 <div className="col-md-4">
-                                <UsersComponent />
-
-                                    {/*
-                                    <select className="form-control" id="userName">  
-                                        <option>ala@wp.pl</option>
-                                        <option>dyzio@gmail.com</option>
-                                        <option>basia@amorki.pl</option>
-                                        <option>durczok-kamil@tvn.pl</option>
-                                    </select>
-                                    */}
+                                    <UsersListComponent />
                                 </div>
                                 <div className="col-md-4" />
                             </div>
