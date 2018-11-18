@@ -52,37 +52,48 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                     isError: true
                 });
 
-                break;
+                return;
 
             }
         }
 
-        if (this.state.theatre === '') {
-            this.setState({
-                theatreError: true
-            })
+        let stateResult = {
+            categoryError: false,
+            theatreError: false,
+            titleError: false
         }
 
-        if (this.state.category === '') {
-            this.setState({
+        if (this.state.theatre === '' || this.state.theatre === 'Wybierz teatr...') {
+           stateResult = {
+               ...stateResult,
+               theatreError: true
+           };
+        }
+
+        if (this.state.category === '' || this.state.category === 'Wybierz kategorię...') {
+            stateResult = {
+                ...stateResult,
                 categoryError: true
-            })
+            };
         }
 
         if (this.state.title === '') {
-            this.setState({
+            stateResult = {
+                ...stateResult,
                 titleError: true
-            })
+            };
         }
 
-        if (this.state.isError === false && this.state.categoryError === false && this.state.titleError === false && this.state.theatreError === false) {
+        if (this.state.isError === false && stateResult.categoryError === false && stateResult.titleError === false && stateResult.theatreError === false) {
             plays.push({
                 title: playProps.title,
                 theatre: playProps.theatre,
                 category: playProps.category
 
-            })
+            });
         }
+
+        this.setState(stateResult);
     }
 
     render() {
@@ -223,5 +234,8 @@ interface AddPlayScreenProps {
     theatre: string,
     category: string,
     isError: boolean,
+    theatreError: boolean,
+    categoryError: boolean,
+    titleError: boolean,
     addPlay: (title: string, theatre: string, category: string) => void;
 }

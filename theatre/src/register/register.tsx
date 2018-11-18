@@ -13,6 +13,9 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             regConfirmPassword: '',
             regRole: '',
             isRegisterError: false,
+            emailError: false,
+            passwordError: false,
+            passwordConfirmError: false
         };
     }
 
@@ -48,12 +51,39 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
                     isRegisterError: true
                 });
 
-                break;
+                return;
 
             }
         }
 
-        if (this.state.isRegisterError === false) {
+        let stateResult = {
+            emailError: false,
+            passwordError: false,
+            passwordConfirmError: false
+        }
+
+        if (this.state.regEmail === '') {
+            stateResult = {
+                ...stateResult,
+                emailError: true
+            }
+        }
+
+        if (this.state.regPassword === '') {
+            stateResult = {
+                ...stateResult,
+                passwordError: true
+            }
+        }
+
+        if (this.state.regConfirmPassword !== this.state.regPassword) {
+            stateResult = {
+                ...stateResult,
+                passwordConfirmError: true
+            }
+        }
+
+        if (this.state.isRegisterError === false && stateResult.emailError === false && stateResult.passwordError === false && stateResult.passwordConfirmError === false) {
             registerProps.regRole = 'user'
 
             users.push({
@@ -61,6 +91,7 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
                 password: registerProps.regPassword,
                 role: registerProps.regRole
             });
+            this.props.history.push('/')
         }
     }
 
@@ -172,7 +203,9 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
                     </form>
                 </div>
                 {!!this.state.isRegisterError && <span>Taki email jest już w bazie lub podane hasła są nieprawidłowe</span>}
-
+                {!!this.state.emailError && <span>Podaj adres e-mail</span>}
+                {!!this.state.passwordError && <span>Podaj hasło</span>}
+                {!!this.state.passwordConfirmError && <span> Podane hasła nie zgadzają się</span>}
                 <div className="row">
                     <div className="col-md-5" />
                     <div className="col-md-3">
@@ -197,6 +230,9 @@ interface RegisterScreenProps {
     regEmail: string;
     regPassword: string;
     regRole: string;
+    emailError: boolean,
+    passwordError: boolean,
+    passwordConfirmError: boolean,
     registerUser: (regEmail: string, regPassword: string, regRole: string) => void;
 }
 
@@ -206,6 +242,9 @@ interface RegisterScreenState {
     regConfirmPassword: string;
     regRole: string;
     isRegisterError: boolean;
+    emailError: boolean,
+    passwordError: boolean,
+    passwordConfirmError: boolean,
 }
 
 const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: RegisterScreenProps) => ({})
