@@ -4,6 +4,7 @@ import plays from 'src/database/playsDatabase';
 import theatres from 'src/database/theatresDatabase';
 import categories from 'src/database/categoriesDatabase';
 
+
 export default class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScreenState> {
 
     constructor(props: any) {
