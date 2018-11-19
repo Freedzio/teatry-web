@@ -146,7 +146,7 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                         <option>Wybierz teatr...</option>
                                         {theatres.map((theatre, index) =>
                                             <option key={theatre.name + index}>
-                                                {theatre.name}, {theatre.town}
+                                                {theatre.name}
                                             </option>
                                         )}
                                     </select>
@@ -188,10 +188,10 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                 </div>
                                 <div className="col-md-3" />
                             </div>
-                            {!!this.state.isError && <span>Spektakl o takim tytule już jest w bazie</span>}
-                            {!!this.state.categoryError && <span>Wybierz kategorię spektaklu</span>}
-                            {!!this.state.theatreError && <span>Wybierz teatr</span>}
-                            {!!this.state.titleError && <span>Wpisz tytuł sztuki</span>}
+                            {!!this.state.isError && <div>Spektakl o takim tytule już jest w bazie</div>}
+                            {!!this.state.categoryError && <div>Wybierz kategorię spektaklu</div>}
+                            {!!this.state.theatreError && <div>Wybierz teatr</div>}
+                            {!!this.state.titleError && <div>Wpisz tytuł sztuki</div>}
                             <div className="row">
                                 <div className="col-md-5" />
                                 <div className="col-md-3">

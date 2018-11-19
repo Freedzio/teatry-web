@@ -93,6 +93,8 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             });
             this.props.history.push('/')
         }
+
+        this.setState(stateResult);
     }
 
     render() {
@@ -202,10 +204,10 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
                         </div>
                     </form>
                 </div>
-                {!!this.state.isRegisterError && <span>Taki email jest już w bazie lub podane hasła są nieprawidłowe</span>}
-                {!!this.state.emailError && <span>Podaj adres e-mail</span>}
-                {!!this.state.passwordError && <span>Podaj hasło</span>}
-                {!!this.state.passwordConfirmError && <span> Podane hasła nie zgadzają się</span>}
+                {!!this.state.isRegisterError && <div>Taki email jest już w bazie lub podane hasła są nieprawidłowe</div>}
+                {!!this.state.emailError && <div>Podaj adres e-mail</div>}
+                {!!this.state.passwordError && <div>Podaj hasło</div>}
+                {!!this.state.passwordConfirmError && <div> Podane hasła nie zgadzają się</div>}
                 <div className="row">
                     <div className="col-md-5" />
                     <div className="col-md-3">

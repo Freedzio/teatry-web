@@ -8,7 +8,7 @@ export default class AddRoleForm extends React.Component<AddRoleScreenProps, Add
 
         this.state = {
             role: '',
-            isError: false
+            isError: false            
         };
     }
 
@@ -28,7 +28,7 @@ export default class AddRoleForm extends React.Component<AddRoleScreenProps, Add
                     isError: true
                 });
 
-                break;
+                return;
             }
         }
 

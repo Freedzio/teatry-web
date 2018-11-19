@@ -9,7 +9,9 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
         this.state = {
             name: '',
             town: '',
-            isError: false
+            isError: false,
+            nameError: false,
+            townError: false,
         };
     }
 
@@ -26,6 +28,7 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
     }
 
     private addTheatre(event: any) {
+
         const theatreProps = {
             name: this.state.name,
             town: this.state.town
@@ -37,22 +40,41 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
                     isError: true
                 });
 
-                break;
-
+                return;
             }
         }
 
-        if (this.state.isError === false) {
+        let stateResult = {
+            nameError: false,
+            townError: false
+        }
+
+        if (this.state.name === '') {
+            stateResult = {
+                ...stateResult,
+                nameError: true
+            };
+        }
+
+        if (this.state.town === '') {
+            stateResult = {
+                ...stateResult,
+                townError: true
+            }
+        }
+
+        if (this.state.isError === false && stateResult.townError === false && stateResult.nameError === false) {
             theatres.push({
                 name: theatreProps.name,
                 town: theatreProps.town
             });
         }
+
+        this.setState(stateResult);
     }
 
     render() {
         return (
-
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
@@ -128,7 +150,9 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
 
                     </div>
                 </div>
-                {!!this.state.isError && <span>Ten teatr jest już w bazie danych</span>}
+                {!!this.state.isError && <div>Ten teatr jest już w bazie danych</div>}
+                {!!this.state.nameError && <div>Podaj nazwę teatru</div>}
+                {!!this.state.townError && <div> Podaj miasto</div>}
                 <div className="row">
                     <div className="col-md-5" />
                     <div className="col-md-3">
@@ -163,5 +187,7 @@ interface AddTheatreScreenState {
 interface AddTheatreScreenProps {
     name: string,
     town: string,
-    isError: boolean
+    isError: boolean,
+    townError: boolean,
+    nameError: boolean
 }
