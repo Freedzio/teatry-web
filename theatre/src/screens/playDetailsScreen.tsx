@@ -72,9 +72,9 @@ export class PlayDetailsScreen extends React.Component <any, any>{
                                 Edytuj dane spektaklu
                             </a> | <Link to='/plays'>
                                 Wróc do listy spektakli
-                            </Link> | {!!this.props.isAdmin && <a href='#'>
-                                Usuń spektakl
-                            </a>}
+                            </Link> {!!this.props.isAdmin && <span> | <a href='#'>
+                                Usuń spektakl  </a> </span>}
+                           
                         </strong></p>
                     </div>
                 </div>

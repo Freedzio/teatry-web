@@ -19,6 +19,13 @@ var plays = [
         category: 'Komedia',
         theatre: 'Teatr Kamienica',
         link: 'teatrkamienica/kolacjanaczteryrece/yadayada'
+    },
+    {
+        title: 'Metro',
+        description: 'Sztuka ukazuje znój i trud robotników pracujących przy budowie drugiej linii metra w Warszawie',
+        category: 'Dramat',
+        theatre: "Teatr 6. Piętro",
+        link: 'waw.gov.pl/2liniajuzniedlugo'
     }
 ]
 

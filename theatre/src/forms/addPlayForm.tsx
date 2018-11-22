@@ -132,6 +132,7 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                 category: playProps.category,
                 link: playProps.link
             });
+            this.props.history.push('/plays')
         }
 
         this.setState(stateResult);
@@ -289,5 +290,5 @@ interface AddPlayScreenProps {
     theatreError: boolean,
     categoryError: boolean,
     titleError: boolean,
-    addPlay: (title: string, theatre: string, category: string) => void;
+    history: any
 }
