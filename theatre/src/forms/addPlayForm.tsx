@@ -14,10 +14,14 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
             title: '',
             theatre: '',
             category: '',
+            link: '',
+            description: '',
             isError: false,
             theatreError: false,
             categoryError: false,
-            titleError: false
+            titleError: false,
+            descriptionError: false,
+            linkError: false
         };
     }
 
@@ -39,12 +43,26 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
         })
     }
 
+    onDescriptionChange(event: any) {
+        this.setState({
+            description: event.target.value
+        })
+    }
+
+    onLinkChange(event: any) {
+        this.setState({
+            link: event.target.value
+        })
+    }
+
     private addPlay(event: any) {
 
         const playProps = {
             title: this.state.title,
             theatre: this.state.theatre,
-            category: this.state.category
+            category: this.state.category,
+            link: this.state.link,
+            description: this.state.description
         };
 
         for (var i = 0; i < plays.length; i++) {
@@ -61,14 +79,16 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
         let stateResult = {
             categoryError: false,
             theatreError: false,
-            titleError: false
+            titleError: false,
+            descriptionError: false,
+            linkError: false
         }
 
         if (this.state.theatre === '' || this.state.theatre === 'Wybierz teatr...') {
-           stateResult = {
-               ...stateResult,
-               theatreError: true
-           };
+            stateResult = {
+                ...stateResult,
+                theatreError: true
+            };
         }
 
         if (this.state.category === '' || this.state.category === 'Wybierz kategorię...') {
@@ -85,12 +105,32 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
             };
         }
 
-        if (this.state.isError === false && stateResult.categoryError === false && stateResult.titleError === false && stateResult.theatreError === false) {
+        if (this.state.link === '') {
+            stateResult = {
+                ...stateResult,
+                linkError: true
+            };
+        }
+
+        if (this.state.description === '') {
+            stateResult = {
+                ...stateResult,
+                descriptionError: true
+            };
+        }
+
+        if (this.state.isError === false
+            && stateResult.categoryError === false
+            && stateResult.titleError === false
+            && stateResult.theatreError === false
+            && stateResult.linkError === false
+            && stateResult.descriptionError === false) {
             plays.push({
                 title: playProps.title,
+                description: playProps.description,
                 theatre: playProps.theatre,
-                category: playProps.category
-
+                category: playProps.category,
+                link: playProps.link
             });
         }
 
@@ -130,7 +170,9 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                     </label>
                                 <div className="col-md-3">
                                     <textarea
-                                        className="form-control" rows={3} id="descName" />
+                                        className="form-control"
+                                        rows={3} id="descName"
+                                        onChange={this.onDescriptionChange.bind(this)} />
                                 </div>
                                 <div className="col-md-3" />
                             </div>
@@ -185,7 +227,10 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                     Link do strony teatru
                                     </label>
                                 <div className="col-md-3">
-                                    <input type="url" className="form-control" id="linkName" />
+                                    <input type="url"
+                                        className="form-control"
+                                        id="linkName"
+                                        onChange={this.onLinkChange.bind(this)} />
                                 </div>
                                 <div className="col-md-3" />
                             </div>
@@ -193,6 +238,8 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                             {!!this.state.categoryError && <div>Wybierz kategorię spektaklu</div>}
                             {!!this.state.theatreError && <div>Wybierz teatr</div>}
                             {!!this.state.titleError && <div>Wpisz tytuł sztuki</div>}
+                            {!!this.state.linkError && <div>Podaj link do strony sztuki</div>}
+                            {!!this.state.descriptionError && <div>Podaj opis sztuki</div>}
                             <div className="row">
                                 <div className="col-md-5" />
                                 <div className="col-md-3">
@@ -224,10 +271,14 @@ interface AddPlayScreenState {
     title: string,
     theatre: string,
     category: string,
+    link: string,
+    description: string,
     isError: boolean,
     theatreError: boolean,
     categoryError: boolean,
-    titleError: boolean
+    titleError: boolean,
+    descriptionError: boolean,
+    linkError: boolean
 }
 
 interface AddPlayScreenProps {

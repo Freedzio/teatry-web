@@ -1,7 +1,10 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { State } from 'src/state';
 
-export default class PlayDetailsScreen extends React.Component {
-    render () {
+export class PlayDetailsScreen extends React.Component <any, any>{
+    render() {
         return (
             <div className="container">
                 <div className='row'>
@@ -24,7 +27,7 @@ export default class PlayDetailsScreen extends React.Component {
                                 </label>
                                 <div className='col-md-9'>
                                     <p className='form-control-static'>
-                                        Historia Jakuba
+                                        {this.props.title}
                                     </p>
                                 </div>
                             </div>
@@ -34,7 +37,7 @@ export default class PlayDetailsScreen extends React.Component {
                                 </label>
                                 <div className='col-md-9'>
                                     <p className='form-control-static'>
-                                        Opowieść inspirowana faktami o księdzu i filozofie, który dowiaduje się, że nie jest tym, kim jest. Próbuje odkryć swoją prawdziwą tożsamość, ale we wspólczesnym świecie, gdzie trzeba jasno określać pochodzenie, wiarę czy narodowość, zaczyna coraz bardziej odczuwać inność i obcość. Próby scalenia na nowo swojej osobowości raz po raz narażają go na nieoczekiwane sytuacje i przygody, które od tragizmu chroni śmiech i wartka, burleskowa akcja.
+                                        {this.props.description}
                                     </p>
                                 </div>
                             </div>
@@ -44,7 +47,7 @@ export default class PlayDetailsScreen extends React.Component {
                                 </label>
                                 <div className='col-md-9'>
                                     <p className='form-control-static'>
-                                        Dramat
+                                        {this.props.category}
                                     </p>
                                 </div>
                             </div>
@@ -54,7 +57,7 @@ export default class PlayDetailsScreen extends React.Component {
                                 </label>
                                 <div className='col-md-9'>
                                     <p className='form-control-static'>
-                                        http://adresteatru.pl/yadayada/yada
+                                       {this.props.link}
                                     </p>
                                 </div>
                             </div>
@@ -66,12 +69,12 @@ export default class PlayDetailsScreen extends React.Component {
                     <div className='col-md-12'>
                         <p><strong>
                             <a href='#'>
-                                Edytuj dane spektaklu 
-                            </a> | <a href='#'>
-                                Wróc do listy spektakli 
-                            </a> | <a href='#'>
+                                Edytuj dane spektaklu
+                            </a> | <Link to='/plays'>
+                                Wróc do listy spektakli
+                            </Link> | {!!this.props.isAdmin && <a href='#'>
                                 Usuń spektakl
-                            </a>
+                            </a>}
                         </strong></p>
                     </div>
                 </div>
@@ -81,7 +84,7 @@ export default class PlayDetailsScreen extends React.Component {
                             Bilety
                         </h1>
                         <a href='#'><strong>
-                            Dodaj bilet    
+                            Dodaj bilet
                         </strong></a>
                         <table className='table'>
                             <thead>
@@ -104,7 +107,7 @@ export default class PlayDetailsScreen extends React.Component {
                                     <td>Studencki</td>
                                     <td>40,00 zł</td>
                                     <td><strong>Usuń</strong></td>
-                                </tr>                                    
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -115,7 +118,7 @@ export default class PlayDetailsScreen extends React.Component {
                             Recenzje
                         </h1>
                         <a href='#'><strong>
-                        Dodaj recenzję    
+                            Dodaj recenzję
                         </strong></a>
                         <table className='table'>
                             <thead>
@@ -147,3 +150,11 @@ export default class PlayDetailsScreen extends React.Component {
         )
     }
 }
+
+
+
+const mapDispatchToProps = () => ({})
+
+export default connect((state: State) => ({
+    isAdmin: state.session.role === 'Administrator'
+}), mapDispatchToProps)(PlayDetailsScreen);
