@@ -40,7 +40,6 @@ interface NavbarProps {
 };
 
 interface NavbarState {
-    isAdmin: boolean
 }
 
 const mapDispatchToProps = (dispatch: (arg: any) => void) => ({

@@ -7,7 +7,7 @@ import PlayDetailsScreen from 'src/screens/playDetailsScreen'
 
 function MappedPlaysDetailsComponent() {
     return (
-        <div>
+        <>
             {plays.map(({ title, description, category, link }) => (
                 <Route
                     exact path={`/plays/${title}`}
@@ -21,7 +21,7 @@ function MappedPlaysDetailsComponent() {
                 />
             ))
             }
-        </div>
+        </>
     )
 }
 

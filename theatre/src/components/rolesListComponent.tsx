@@ -1,14 +1,18 @@
 import * as React from 'react'
 import roles from 'src/database/rolesDatabase'
 
-function RolesListComponent () {
+function RolesListComponent() {
     return (
-        <select className='form-control' id='roleName'>
-            {roles.map((role, index) => 
-                <option key={role + index}>
-                    {role}
-                </option>)}
-        </select>
+        <>
+            <option>Wybierz rolę...</option>
+            {
+                roles.map((role, index) =>
+                    <option key={role + index}>
+                        {role}
+                    </option>
+                )
+            }
+        </>
     )
 }
 

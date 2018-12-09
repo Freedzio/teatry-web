@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import plays from 'src/database/playsDatabase';
-import theatres from 'src/database/theatresDatabase';
-import categories from 'src/database/categoriesDatabase';
+import MappedTheatresListComponent from 'src/components/mappedTheatresList';
+import MappedCategoriesListComponent from 'src/components/mappedCategoriesList';
 
 
 export default class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScreenState> {
@@ -130,8 +130,10 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                 description: playProps.description,
                 theatre: playProps.theatre,
                 category: playProps.category,
-                link: playProps.link
+                link: playProps.link,
+                tickets: []
             });
+
             this.props.history.push('/plays')
         }
 
@@ -187,12 +189,7 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                         className="form-control"
                                         id="theatreName"
                                         onChange={this.onTheatreChange.bind(this)}>
-                                        <option>Wybierz teatr...</option>
-                                        {theatres.map((theatre, index) =>
-                                            <option key={theatre.name + index}>
-                                                {theatre.name}
-                                            </option>
-                                        )}
+                                        <MappedTheatresListComponent />
                                     </select>
                                     <span className="help-block">
                                         Pole wymagane
@@ -210,14 +207,7 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                         className="form-control"
                                         id="categoryName"
                                         onChange={this.onCategoryChange.bind(this)}>
-                                        <option>
-                                            Wybierz kategorię...
-                                        </option>
-                                        {categories.map((category, index) =>
-                                            <option key={category + index}>
-                                                {category}
-                                            </option>
-                                        )}
+                                        <MappedCategoriesListComponent />
                                     </select>
                                 </div>
                                 <div className="col-md-3" />
@@ -283,12 +273,5 @@ interface AddPlayScreenState {
 }
 
 interface AddPlayScreenProps {
-    title: string,
-    theatre: string,
-    category: string,
-    isError: boolean,
-    theatreError: boolean,
-    categoryError: boolean,
-    titleError: boolean,
     history: any
 }
