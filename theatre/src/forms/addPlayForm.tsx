@@ -4,7 +4,6 @@ import plays from 'src/database/playsDatabase';
 import MappedTheatresListComponent from 'src/components/mappedTheatresList';
 import MappedCategoriesListComponent from 'src/components/mappedCategoriesList';
 
-
 export default class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScreenState> {
 
     constructor(props: any) {
@@ -131,7 +130,16 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                 theatre: playProps.theatre,
                 category: playProps.category,
                 link: playProps.link,
-                tickets: []
+                tickets: [{
+                    user: '',
+                    type: '',
+                    price: ''
+                }],
+                reviews: [{
+                    user: '',
+                    rating: '',
+                    content: ''
+                }]
             });
 
             this.props.history.push('/plays')
@@ -225,15 +233,15 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                 </div>
                                 <div className="col-md-3" />
                             </div>
-                            {!!this.state.isError && <div>Spektakl o takim tytule już jest w bazie</div>}
-                            {!!this.state.categoryError && <div>Wybierz kategorię spektaklu</div>}
-                            {!!this.state.theatreError && <div>Wybierz teatr</div>}
-                            {!!this.state.titleError && <div>Wpisz tytuł sztuki</div>}
-                            {!!this.state.linkError && <div>Podaj link do strony sztuki</div>}
-                            {!!this.state.descriptionError && <div>Podaj opis sztuki</div>}
                             <div className="row">
                                 <div className="col-md-5" />
                                 <div className="col-md-3">
+                                    {!!this.state.isError && <div>Spektakl o takim tytule już jest w bazie</div>}
+                                    {!!this.state.categoryError && <div>Wybierz kategorię spektaklu</div>}
+                                    {!!this.state.theatreError && <div>Wybierz teatr</div>}
+                                    {!!this.state.titleError && <div>Wpisz tytuł sztuki</div>}
+                                    {!!this.state.linkError && <div>Podaj link do strony sztuki</div>}
+                                    {!!this.state.descriptionError && <div>Podaj opis sztuki</div>}
                                     <button
                                         type="button"
                                         className="btn btn-default"

@@ -150,12 +150,12 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
 
                     </div>
                 </div>
-                {!!this.state.isError && <div>Ten teatr jest już w bazie danych</div>}
-                {!!this.state.nameError && <div>Podaj nazwę teatru</div>}
-                {!!this.state.townError && <div> Podaj miasto</div>}
                 <div className="row">
                     <div className="col-md-5" />
                     <div className="col-md-3">
+                        {!!this.state.isError && <div>Ten teatr jest już w bazie danych</div>}
+                        {!!this.state.nameError && <div>Podaj nazwę teatru</div>}
+                        {!!this.state.townError && <div> Podaj miasto</div>}
                         <button
                             type="button"
                             className="btn btn-default"

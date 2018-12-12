@@ -102,7 +102,7 @@ export class LoginScreen extends React.Component<LoginScreenProps, LoginScreenSt
                                     <div className="col-md-4" />
                                     <label><input type="checkbox" />Zapamiętać Cię?</label>
                                 </div>
-                                {!!this.state.isError && <span>Error</span>}
+                                {!!this.state.isError && <span>Nieprawidłowe dane logowania</span>}
                                 <div className="col-md-12">
                                     <div className="col-md-4" />
                                     <div className="col-md-4">

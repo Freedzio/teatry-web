@@ -7,22 +7,15 @@ import RegisterScreen from 'src/register/register';
 import TheatresScreen from 'src/screens/theatresScreen';
 import PlaysScreen from 'src/screens/playsScreen';
 import LoginScreen from 'src/login/loginScreen';
-import AddTheatreForm from 'src/forms/addTheatreForm';
-import AddPlayForm from 'src/forms/addPlayForm';
-import GoogleLogin from 'src/login/googleLogin';
-
-import './css/bootstrap.css';
-import './App.css';
-import RolesScreen from 'src/screens/rolesScreen';
-import AddRoleForm from 'src/forms/addRoleForm';
-import RoleAssignScreen from 'src/screens/roleAssignScreen';
-
-/*
-import plays from './database/playsDatabase';
-import PlayDetailsScreen from './screens/playDetailsScreen';
-*/
-
-import MappedPlaysDetailsComponent from './components/mappedPlaysDetails';
+import AddTheatreForm from 'src/forms/addTheatreForm'
+import AddPlayForm from 'src/forms/addPlayForm'
+import GoogleLogin from 'src/login/googleLogin'
+import './css/bootstrap.css'
+import './App.css'
+import RolesScreen from 'src/screens/rolesScreen'
+import AddRoleForm from 'src/forms/addRoleForm'
+import RoleAssignScreen from 'src/screens/roleAssignScreen'
+import MappedPlaysDetailsComponent from './components/mappedPlaysDetails'
 
 class App extends React.Component {
   public render() {
@@ -49,21 +42,6 @@ class App extends React.Component {
           <Route path='/roles/addRole' component={AddRoleForm} />
           <Route path='/roles/roleAssign' component={RoleAssignScreen} />
           <MappedPlaysDetailsComponent />
-          {/*
-          {plays.map(({ title, description, category, link }) => (
-            <Route
-              exact path={`/plays/${title}`}
-              render={() =>
-                <PlayDetailsScreen
-                  title={title}
-                  description={description}
-                  category={category}
-                  link={link}
-                   />}
-            />
-          ))}
-              */}
-
         </div>
       </Router>
     );

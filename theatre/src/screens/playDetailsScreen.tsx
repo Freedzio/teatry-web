@@ -96,7 +96,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                 <div className='row'>
                     <div className='col-md-12'>
                         <p><strong>
-                        <Link to='/plays'>
+                            <Link to='/plays'>
                                 Wróc do listy spektakli
                             </Link>
                             {!!this.props.isAdmin && <span> | <button
@@ -105,7 +105,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 onClick={this.toggleEdit.bind(this)}>
                                 Edytuj dane spektaklu
                             </button> | <a href='#'>
-                                Usuń spektakl  </a> </span>}
+                                    Usuń spektakl  </a> </span>}
 
                         </strong></p>
                     </div>
@@ -115,9 +115,10 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                         <h1>
                             Bilety
                         </h1>
-                        <a href='#'><strong>
+                        <Link to={`/plays/${this.props.title}/addTicket`}>
+                        <button className='btn btn-default'><strong>
                             Dodaj bilet
-                        </strong></a>
+                        </strong></button></Link>
                         <table className='table'>
                             <thead>
                                 <tr>
@@ -128,20 +129,15 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 </tr>
                             </thead>
                             <tbody>
-                                {/*<tr>
-                                    <td>{this.props.ticketAuthor}</td>
-                                    <td>{this.props.ticketType}</td>
-                                    <td>{this.props.ticketPrice}</td>
-                                    <td><strong>Usuń</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>Patrycja</td>
-                                    <td>Studencki</td>
-                                    <td>40,00 zł</td>
-                                    <td><strong>Usuń</strong></td>
-                                </tr>*/}
-
-
+                                {this.props.tickets.map(({ user, type, price }) => (
+                                    <tr>
+                                        <td>{user}</td>
+                                        <td>{type}</td>
+                                        <td>{price}</td>
+                                        <td><strong>Usuń</strong></td>
+                                    </tr>
+                                ))
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -164,18 +160,15 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Mocna sztuka! Porusza tematy, o których często się nie mówi, do tego bardzo wzruszająco okazane, polecam z czystym sercem :)</td>
-                                    <td>Jan</td>
-                                    <td><strong>Usuń</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Fajne, ale czuję niedosyt</td>
-                                    <td>Patrycja</td>
-                                    <td><strong>Usuń</strong></td>
-                                </tr>
+                                {this.props.reviews.map(({ user, rating, content }) => (
+                                    <tr>
+                                        <td>{rating}</td>
+                                        <td>{content}</td>
+                                        <td>{user}</td>
+                                        <td><strong>Usuń</strong></td>
+                                    </tr>
+                                ))
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -191,9 +184,16 @@ interface PlayDetailsScreenProps {
     category: string,
     link: string,
     isAdmin: boolean,
-    ticketAuthor: string,
-    ticketType: string,
-    ticketPrice: string
+    tickets: [{
+        user: string,
+        type: string,
+        price: string
+    }],
+    reviews: [{
+        user: string,
+        rating: string,
+        content: string
+    }]
 }
 
 
