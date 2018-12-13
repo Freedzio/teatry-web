@@ -130,16 +130,8 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                 theatre: playProps.theatre,
                 category: playProps.category,
                 link: playProps.link,
-                tickets: [{
-                    user: '',
-                    type: '',
-                    price: ''
-                }],
-                reviews: [{
-                    user: '',
-                    rating: '',
-                    content: ''
-                }]
+                tickets: [],
+                reviews: []
             });
 
             this.props.history.push('/plays')

@@ -16,6 +16,7 @@ import RolesScreen from 'src/screens/rolesScreen'
 import AddRoleForm from 'src/forms/addRoleForm'
 import RoleAssignScreen from 'src/screens/roleAssignScreen'
 import MappedPlaysDetailsComponent from './components/mappedPlaysDetails'
+import MappedAddTicket from './components/mappedAddTicket';
 
 class App extends React.Component {
   public render() {
@@ -42,6 +43,7 @@ class App extends React.Component {
           <Route path='/roles/addRole' component={AddRoleForm} />
           <Route path='/roles/roleAssign' component={RoleAssignScreen} />
           <MappedPlaysDetailsComponent />
+          <MappedAddTicket />
         </div>
       </Router>
     );

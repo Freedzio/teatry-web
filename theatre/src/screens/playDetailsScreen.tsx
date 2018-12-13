@@ -116,8 +116,8 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                             Bilety
                         </h1>
                         <Link to={`/plays/${this.props.title}/addTicket`}>
-                        <button className='btn btn-default'><strong>
-                            Dodaj bilet
+                            <button className='btn btn-default'><strong>
+                                Dodaj bilet
                         </strong></button></Link>
                         <table className='table'>
                             <thead>
@@ -147,9 +147,13 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                         <h1>
                             Recenzje
                         </h1>
-                        <a href='#'><strong>
-                            Dodaj recenzję
-                        </strong></a>
+                        <Link to={`/plays/${this.props.title}/addReview`}>
+                            <button type='button' className='btn btn-default'>
+                                <strong>
+                                    Dodaj recenzję
+                                </strong>
+                            </button>
+                        </Link>
                         <table className='table'>
                             <thead>
                                 <tr>

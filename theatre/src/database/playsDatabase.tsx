@@ -7,13 +7,13 @@ var plays = [
         link: 'teatrdramatyczny/balladyna.pl',
         tickets: [
             {
-                user: 'Jan',
+                user: "YadaMen",
                 type: 'Ulgowy',
                 price: '20.00zł'
             },
 
             {
-                user: 'Betty',
+                user: "YadaMen",
                 type: 'Studencki',
                 price: '15.00zł'
             }
@@ -42,13 +42,13 @@ var plays = [
         link: 'teatrdramatyczny/historiajakuba.eu',
         tickets: [
             {
-                user: 'Adam',
+                user: "YadaMen",
                 type: 'Rodzinny',
                 price: '65.00zł'
             },
 
             {
-                user: 'Ricky Martin',
+                user: "YadaMen",
                 type: 'Weterani',
                 price: '0.00zł'
             }
@@ -71,13 +71,12 @@ var plays = [
         link: 'teatrkamienica/kolacjanaczteryrece/yadayada',
         tickets: [
             {
-                user: 'Patrycja',
+                user: "YadaMen",
                 type: 'Normalny',
                 price: '78.00zł'
             },
 
             {
-                user: 'Pamela',
                 type: 'Weekendowy',
                 price: '69.00zł'
             }
@@ -100,13 +99,13 @@ var plays = [
         link: 'waw.gov.pl/2liniajuzniedlugo',
         tickets: [
             {
-                user: 'Jan',
+                user: "YadaMen",
                 type: 'Ulgowy',
                 price: '20.00zł'
             },
 
             {
-                user: 'He-Man',
+                user: "YadaMen",
                 type: 'Ulgowy',
                 price: '9.00zł'
             }
