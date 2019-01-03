@@ -11,10 +11,10 @@ function TheatresTableComponent() {
                 </tr>
             </thead>
             <tbody>
-                {theatres.map((theatre, index) =>
-                    <tr key={theatre.name + theatre.town + index}>
-                        <td>{theatre.name}</td>
-                        <td>{theatre.town}</td>
+                {theatres.map(({ name, description, town, contact, link}, index) =>
+                    <tr key={name + town + index}>
+                        <td>{name}</td>
+                        <td>{town}</td>
                     </tr>
                 )}
             </tbody>

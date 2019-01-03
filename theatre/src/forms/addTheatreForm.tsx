@@ -2,16 +2,22 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import theatres from 'src/database/theatresDatabase';
 
-export default class AddTheatreForm extends React.Component<AddTheatreScreenState, AddTheatreScreenProps> {
+export default class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTheatreScreenState> {
     constructor(props: any) {
         super(props);
 
         this.state = {
             name: '',
             town: '',
+            description: '',
+            contact: '',
+            link: '',
             isError: false,
             nameError: false,
             townError: false,
+            descriptionError: false,
+            linkError: false,
+            contactError: false
         };
     }
 
@@ -27,11 +33,33 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
         })
     }
 
+    onDescriptionChange(event: any) {
+        this.setState({
+            description: event.target.value
+        })
+    }
+
+    onLinkChange(event: any) {
+        this.setState({
+            link: event.target.value
+        })
+    }
+
+    onContactChange(event: any) {
+        this.setState({
+            contact: event.target.value
+        })
+    }
+
     private addTheatre(event: any) {
 
         const theatreProps = {
             name: this.state.name,
-            town: this.state.town
+            description: this.state.description,
+            town: this.state.town,
+            contact: this.state.contact,
+            link: this.state.contact
+
         };
 
         for (var i = 0; i < theatres.length; i++) {
@@ -46,7 +74,10 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
 
         let stateResult = {
             nameError: false,
-            townError: false
+            townError: false,
+            descriptionError: false,
+            contactError: false,
+            linkError: false
         }
 
         if (this.state.name === '') {
@@ -63,11 +94,42 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
             }
         }
 
-        if (this.state.isError === false && stateResult.townError === false && stateResult.nameError === false) {
+        if (this.state.description === '') {
+            stateResult = {
+                ...stateResult,
+                descriptionError: true
+            }
+        }
+
+        if (this.state.link === '') {
+            stateResult = {
+                ...stateResult,
+                linkError: true
+            }
+        }
+
+        if (this.state.contact === '') {
+            stateResult = {
+                ...stateResult,
+                contactError: true
+            }
+        }
+
+        if (this.state.isError === false
+            && stateResult.townError === false
+            && stateResult.nameError === false
+            && stateResult.linkError === false
+            && stateResult.contactError === false
+            && stateResult.descriptionError === false) {
             theatres.push({
                 name: theatreProps.name,
-                town: theatreProps.town
+                description: theatreProps.description,
+                town: theatreProps.town,
+                contact: theatreProps.contact,
+                link: theatreProps.link
             });
+
+            this.props.history.push('/theatres')
         }
 
         this.setState(stateResult);
@@ -105,7 +167,11 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
                                     Opis
                                     </label>
                                 <div className="col-md-3">
-                                    <textarea className="form-control" rows={3} id="descName" />
+                                    <textarea
+                                        className="form-control"
+                                        rows={3}
+                                        id="descName"
+                                        onChange={this.onDescriptionChange.bind(this)} />
                                 </div>
                                 <div className="col-md-3" />
                             </div>
@@ -132,7 +198,11 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
                                     Kontakt
                                     </label>
                                 <div className="col-md-3">
-                                    <input type="text" className="form-control" id="contactName" />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="contactName"
+                                        onChange={this.onContactChange.bind(this)} />
                                 </div>
                                 <div className="col-md-3" />
                             </div>
@@ -142,12 +212,15 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
                                     Link do strony teatru
                                     </label>
                                 <div className="col-md-3">
-                                    <input type="url" className="form-control" id="linkName" />
+                                    <input
+                                     type="url" 
+                                     className="form-control"
+                                      id="linkName"
+                                      onChange={this.onLinkChange.bind(this)} />
                                 </div>
                                 <div className="col-md-3" />
                             </div>
                         </form>
-
                     </div>
                 </div>
                 <div className="row">
@@ -180,14 +253,18 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
 interface AddTheatreScreenState {
     name: string,
     town: string,
-    isError: boolean
+    description: string,
+    link: string,
+    contact: string,
+    isError: boolean,
+    nameError: boolean,
+    townError: boolean,
+    descriptionError: boolean,
+    linkError: boolean,
+    contactError: boolean
 }
 
 
 interface AddTheatreScreenProps {
-    name: string,
-    town: string,
-    isError: boolean,
-    townError: boolean,
-    nameError: boolean
+    history: any
 }
