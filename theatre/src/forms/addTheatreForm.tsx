@@ -229,6 +229,9 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenProp
                         {!!this.state.isError && <div>Ten teatr jest już w bazie danych</div>}
                         {!!this.state.nameError && <div>Podaj nazwę teatru</div>}
                         {!!this.state.townError && <div> Podaj miasto</div>}
+                        {!!this.state.linkError && <div> Podaj link do strony teatru</div>}
+                        {!!this.state.contactError && <div>Podaj kontakt do teatru</div>}
+                        {!!this.state.descriptionError && <div> Podaj opis teatru</div>}
                         <button
                             type="button"
                             className="btn btn-default"

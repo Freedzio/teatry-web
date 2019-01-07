@@ -77,6 +77,7 @@ var plays = [
             },
 
             {
+                user: 'Bobby',
                 type: 'Weekendowy',
                 price: '69.00zł'
             }

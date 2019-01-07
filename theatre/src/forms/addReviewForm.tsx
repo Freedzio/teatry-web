@@ -164,8 +164,6 @@ export class AddReviewForm extends React.Component<AddReviewProps, AddReviewStat
     }
 }
 
-
-
 interface AddReviewProps {
     title: string,
     user: string

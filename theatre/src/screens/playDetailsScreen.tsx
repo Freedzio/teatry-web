@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { State } from 'src/state';
+import plays from 'src/database/playsDatabase';
 
 export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, PlayDetailsScreenState>{
     constructor(props: any) {
@@ -11,13 +12,32 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
             title: this.props.title,
             description: this.props.description,
             category: this.props.category,
-            link: this.props.link
+            link: this.props.link,
+            itemIndex: 5
         }
+        this.deleteTicket = this.deleteTicket.bind(this)
     }
 
     toggleEdit() {
         this.setState({ isEditing: !this.state.isEditing })
     }
+
+    deleteTicket(index: number) {
+        for (var i = 0; i < plays.length; i++) {
+            if (this.props.title === plays[i].title) {
+                plays[i].tickets.splice(index, 1)
+            }
+        }
+    }
+
+    deleteReview(key: number) {
+        for (var i = 0; i < plays.length; i++) {
+            if (this.props.title === plays[i].title) {
+                plays[i].reviews.splice(key, 1)
+            }
+        }
+    }
+
 
     render() {
         if (this.state.isEditing) {
@@ -95,19 +115,24 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                 </div>
                 <div className='row'>
                     <div className='col-md-12'>
-                        <p><strong>
-                            <Link to='/plays'>
-                                Wróc do listy spektakli
-                            </Link>
-                            {!!this.props.isAdmin && <span> | <button
-                                type='button'
-                                className='btn btn-default'
-                                onClick={this.toggleEdit.bind(this)}>
-                                Edytuj dane spektaklu
-                            </button> | <a href='#'>
-                                    Usuń spektakl  </a> </span>}
+                        <p>
+                            <strong>
+                                <Link to='/plays'>
+                                    <button
+                                        className='btn btn-default'>
+                                        Wróc do listy spektakli
+                                    </button>
+                                </Link>
+                                {!!this.props.isAdmin && <span> | <button
+                                    type='button'
+                                    className='btn btn-default'
+                                    onClick={this.toggleEdit.bind(this)}>
+                                    Edytuj dane spektaklu
+                                    </button> | <button
+                                        className='btn btn-default'>
+                                        Usuń spektakl  </button> </span>}
 
-                        </strong></p>
+                            </strong></p>
                     </div>
                 </div>
                 <div className='row'>
@@ -129,12 +154,19 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.props.tickets.map(({ user, type, price }) => (
-                                    <tr>
+                                {this.props.tickets.map(({ user, type, price }, index) => (
+                                    <tr key={index}>
                                         <td>{user}</td>
                                         <td>{type}</td>
                                         <td>{price}</td>
-                                        <td><strong>Usuń</strong></td>
+                                        <td>
+                                            <button
+                                                type='button'
+                                                className='btn btn-default'
+                                                onClick={() => {this.deleteTicket(index)}}
+                                            >Usuń
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))
                                 }
@@ -164,12 +196,16 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.props.reviews.map(({ user, rating, content }) => (
-                                    <tr>
+                                {this.props.reviews.map(({ user, rating, content }, index) => (
+                                    <tr key={index}>
                                         <td>{rating}</td>
                                         <td>{content}</td>
                                         <td>{user}</td>
-                                        <td><strong>Usuń</strong></td>
+                                        <td><button
+                                            type='button'
+                                            className='btn btn-default'
+                                        >Usuń
+                                            </button></td>
                                     </tr>
                                 ))
                                 }
@@ -206,7 +242,8 @@ interface PlayDetailsScreenState {
     title: string,
     description: string,
     category: string,
-    link: string
+    link: string,
+    itemIndex: number
 }
 
 const mapDispatchToProps = () => ({})
