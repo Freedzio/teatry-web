@@ -12,10 +12,10 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
             title: this.props.title,
             description: this.props.description,
             category: this.props.category,
-            link: this.props.link,
-            itemIndex: 5
+            link: this.props.link
         }
         this.deleteTicket = this.deleteTicket.bind(this)
+        this.deleteReview = this.deleteReview.bind(this)
     }
 
     toggleEdit() {
@@ -30,10 +30,10 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
         }
     }
 
-    deleteReview(key: number) {
+    deleteReview(index: number) {
         for (var i = 0; i < plays.length; i++) {
             if (this.props.title === plays[i].title) {
-                plays[i].reviews.splice(key, 1)
+                plays[i].reviews.splice(index, 1)
             }
         }
     }
@@ -204,6 +204,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                         <td><button
                                             type='button'
                                             className='btn btn-default'
+                                            onClick={() => this.deleteReview(index)}
                                         >Usuń
                                             </button></td>
                                     </tr>
@@ -242,8 +243,7 @@ interface PlayDetailsScreenState {
     title: string,
     description: string,
     category: string,
-    link: string,
-    itemIndex: number
+    link: string
 }
 
 const mapDispatchToProps = () => ({})
