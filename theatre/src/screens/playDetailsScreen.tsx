@@ -140,10 +140,10 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                         <h1>
                             Bilety
                         </h1>
-                        <Link to={`/plays/${this.props.title}/addTicket`}>
+                        {!!this.props.isLoggedIn && <Link to={`/plays/${this.props.title}/addTicket`}>
                             <button className='btn btn-default'><strong>
                                 Dodaj bilet
-                        </strong></button></Link>
+                        </strong></button></Link>}
                         <table className='table'>
                             <thead>
                                 <tr>
@@ -159,14 +159,15 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                         <td>{user}</td>
                                         <td>{type}</td>
                                         <td>{price}</td>
-                                        <td>
+                                        {!!this.props.isAdmin && <td>
                                             <button
                                                 type='button'
                                                 className='btn btn-default'
                                                 onClick={() => {this.deleteTicket(index)}}
                                             >Usuń
                                             </button>
-                                        </td>
+                                        </td>}
+                                        {!this.props.isAdmin && <td></td>}
                                     </tr>
                                 ))
                                 }
@@ -179,13 +180,13 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                         <h1>
                             Recenzje
                         </h1>
-                        <Link to={`/plays/${this.props.title}/addReview`}>
+                        {!!this.props.isLoggedIn && <Link to={`/plays/${this.props.title}/addReview`}>
                             <button type='button' className='btn btn-default'>
                                 <strong>
                                     Dodaj recenzję
                                 </strong>
                             </button>
-                        </Link>
+                        </Link>}
                         <table className='table'>
                             <thead>
                                 <tr>
@@ -201,12 +202,13 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                         <td>{rating}</td>
                                         <td>{content}</td>
                                         <td>{user}</td>
-                                        <td><button
+                                        {!!this.props.isAdmin && <td><button
                                             type='button'
                                             className='btn btn-default'
                                             onClick={() => this.deleteReview(index)}
                                         >Usuń
-                                            </button></td>
+                                            </button></td>}
+                                            {!this.props.isAdmin && <td></td>}
                                     </tr>
                                 ))
                                 }
@@ -225,6 +227,7 @@ interface PlayDetailsScreenProps {
     category: string,
     link: string,
     isAdmin: boolean,
+    isLoggedIn: boolean,
     tickets: [{
         user: string,
         type: string,
@@ -249,5 +252,6 @@ interface PlayDetailsScreenState {
 const mapDispatchToProps = () => ({})
 
 export default connect((state: State) => ({
-    isAdmin: state.session.role === 'Administrator'
+    isAdmin: state.session.role === 'Administrator',
+    isLoggedIn: state.session.email !== null && state.session.password !== null
 }), mapDispatchToProps)(PlayDetailsScreen);
