@@ -1,8 +1,12 @@
 import * as React from 'react'
-import plays from 'src/database/playsDatabase'
 import { Link, withRouter } from 'react-router-dom'
+import { State } from 'src/state';
+import { connect } from 'react-redux';
+import * as _ from 'lodash';
+import { PlayEntity } from 'src/plays/Plays.state';
 
-function PlaysTableComponent() {
+function PlaysTableComponent(props: PlaysTableComponentProps) {
+    console.log(props);
     return (
         <table className='table'>
             <thead>
@@ -13,7 +17,7 @@ function PlaysTableComponent() {
                 </tr>
             </thead>
             <tbody>
-                {plays.map((play, index) =>
+                {props.plays.map((play, index) =>
                     <tr key={play.title + play.theatre + index}>
                         <td><Link to={`/plays/${play.title}`}><strong>{play.title}</strong></Link></td>
                         <td>{play.category}</td>
@@ -25,4 +29,16 @@ function PlaysTableComponent() {
     )
 }
 
-export default withRouter(PlaysTableComponent)
+export interface PlaysTableComponentProps {
+    plays: PlayEntity[];
+}
+
+const mapStateToProps = (state: State) => ({
+    plays: mapObjectToArray(state.plays)
+})
+
+function mapObjectToArray(obj: any) {
+    return Object.keys(obj).map((item) => obj[item]);
+}
+
+export default connect(mapStateToProps, _.noop)(withRouter(PlaysTableComponent as any))

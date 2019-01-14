@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { State } from 'src/state';
-import theatres from 'src/database/theatresDatabase';
+import TheatresTableComponent from 'src/components/theatresTableComponent';
 
 export class TheatresScreen extends React.Component<TheatresProps, TheatresState> {
     constructor(props: any) {
@@ -17,11 +17,11 @@ export class TheatresScreen extends React.Component<TheatresProps, TheatresState
     }
 
     render() {
-        let filteredTheatres = theatres.filter(
-            (theatre) => {
-                return theatre.name.toLocaleLowerCase().indexOf(this.state.search) !== -1
-            }
-        )
+        // let filteredTheatres = theatres.filter(
+        //     (theatre) => {
+        //         return theatre.name.toLocaleLowerCase().indexOf(this.state.search) !== -1
+        //     }
+        // )
         return (
             <div className="container">
                 <div className="row">
@@ -55,25 +55,25 @@ export class TheatresScreen extends React.Component<TheatresProps, TheatresState
                     </div>
                 </div>
                 <div>
-                <table className="table">
-            <thead>
-                <tr>
-                    <th>Nazwa</th>
-                    <th>Miasto</th>
-                </tr>
-            </thead>
-            <tbody>
-                {filteredTheatres.map(({ name, description, town, contact, link}, index) =>
-                    <tr key={name + town + index}>
-                        <td>{name}</td>
-                        <td>{town}</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>
+                    {/*<table className="table">
+                        <thead>
+                            <tr>
+                                <th>Nazwa</th>
+                                <th>Miasto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredTheatres.map(({ name, description, town, contact, link }, index) =>
+                                <tr key={name + town + index}>
+                                    <td>{name}</td>
+                                    <td>{town}</td>
+                                </tr>
+                            )}
+                        </tbody>
+        </table>*/}
 
 
-                    {/*<TheatresTableComponent />*/}
+                    <TheatresTableComponent />
                 </div>
             </div>
         )

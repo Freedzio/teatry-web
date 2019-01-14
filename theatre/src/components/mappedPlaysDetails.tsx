@@ -1,23 +1,28 @@
 import * as React from 'react'
-import plays from 'src/database/playsDatabase'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import PlayDetailsScreen from 'src/screens/playDetailsScreen'
+import { PlayEntity } from 'src/plays/Plays.state';
+import { State } from 'src/state';
+import {mapObjectToArray} from 'src/common/mapObjectToArray';
+import { connect } from 'react-redux';
 
-function MappedPlaysDetailsComponent() {
+function MappedPlaysDetailsComponent(props: MappedPlaysDetailsComponentProps) {
     return (
         <>
             {
-                plays.map(({ title, description, category, link, tickets, reviews }) => (
+                props.plays.map(({ id, title, theatre, description, category, link }) => (
                     <Route
                         exact path={`/plays/${title}`}
                         render={() =>
                             <PlayDetailsScreen
+                                id={id as string}
                                 title={title}
+                                theatre={theatre}
                                 description={description}
                                 category={category}
                                 link={link}
-                                tickets={tickets}
-                                reviews={reviews}
+                                tickets={[] as any}
+                                reviews={[] as any}
                             />
                         }
                     />
@@ -27,5 +32,13 @@ function MappedPlaysDetailsComponent() {
     )
 }
 
-export default MappedPlaysDetailsComponent
+export interface MappedPlaysDetailsComponentProps {
+    plays: PlayEntity[];
+}
+
+const mapStateToProps = (state: State) => ({
+    plays: mapObjectToArray(state.plays)
+})
+
+export default connect(mapStateToProps)(withRouter(MappedPlaysDetailsComponent as any))
 

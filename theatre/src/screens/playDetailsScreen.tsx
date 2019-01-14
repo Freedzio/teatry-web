@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { State } from 'src/state';
 import plays from 'src/database/playsDatabase';
 import AddPlayForm from 'src/forms/addPlayForm';
+import { PlaysActionNames } from 'src/plays/plays.actions';
 
 export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, PlayDetailsScreenState>{
     constructor(props: any) {
@@ -39,6 +40,9 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
         }
     }
 
+    deletePlay() {
+        this.props.deletePlay(this.props.id)
+    }
 
     render() {
         if (this.state.isEditing) {
@@ -137,7 +141,8 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                     onClick={this.toggleEdit.bind(this)}>
                                     Edytuj dane spektaklu
                                     </button> | <button
-                                        className='btn btn-default'>
+                                        className='btn btn-default'
+                                        onClick={this.deletePlay.bind(this)}>
                                         Usuń spektakl  </button> </span>}
 
                             </strong></p>
@@ -230,6 +235,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
 }
 
 interface PlayDetailsScreenProps {
+    id: string,
     title: string,
     description: string,
     category: string,
@@ -246,7 +252,8 @@ interface PlayDetailsScreenProps {
         user: string,
         rating: string,
         content: string
-    }]
+    }],
+    deletePlay: (id: string) => void;
 }
 
 
@@ -258,9 +265,13 @@ interface PlayDetailsScreenState {
     link: string
 }
 
-const mapDispatchToProps = () => ({})
+const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
+    deletePlay: (id: string) => dispatch({type: PlaysActionNames.DELETE_PLAY, id})
+});
 
-export default connect((state: State) => ({
+const mapStateToProps = () => (state: State) => ({
     isAdmin: state.session.role === 'Administrator',
     isLoggedIn: state.session.email !== null && state.session.password !== null
-}), mapDispatchToProps)(PlayDetailsScreen);
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayDetailsScreen);

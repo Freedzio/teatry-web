@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import plays from 'src/database/playsDatabase';
 import MappedTheatresListComponent from 'src/components/mappedTheatresList';
 import MappedCategoriesListComponent from 'src/components/mappedCategoriesList';
+import { PlayEntity } from 'src/plays/Plays.state';
+import { connect } from 'react-redux';
+import { PlaysActionNames } from 'src/plays/plays.actions';
+import { generateGuid } from 'src/common/guid';
 
-export default class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScreenState> {
+export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScreenState> {
 
     constructor(props: any) {
         super(props);
@@ -128,15 +132,17 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
             && stateResult.theatreError === false
             && stateResult.linkError === false
             && stateResult.descriptionError === false) {
-            plays.push({
-                title: playProps.title,
-                description: playProps.description,
-                theatre: playProps.theatre,
-                category: playProps.category,
-                link: playProps.link,
-                tickets: [],
-                reviews: []
-            });
+            // plays.push({
+            //     title: playProps.title,
+            //     description: playProps.description,
+            //     theatre: playProps.theatre,
+            //     category: playProps.category,
+            //     link: playProps.link,
+            //     tickets: [],
+            //     reviews: []
+            // });
+
+            this.props.addPlay({ ...playProps, id: generateGuid()});
 
             stateResult = {
                 ...stateResult,
@@ -414,11 +420,15 @@ interface AddPlayScreenState {
     playEdited: boolean
 }
 
-interface AddPlayScreenProps {
+interface AddPlayScreenProps extends PlayEntity {
     editing: boolean,
-    title: string,
-    theatre: string,
-    category: string,
-    link: string,
-    description: string
+    addPlay: (play: PlayEntity) => void;
 }
+
+const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
+    addPlay: (play: PlayEntity) => dispatch({ type: PlaysActionNames.ADD_PLAY, play })
+});
+
+const mapStateToProps = () => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPlayForm);

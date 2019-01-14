@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import theatres from 'src/database/theatresDatabase';
+import { TheatreEntity } from 'src/theatres/theatres.state';
+import { TheatresActionNames } from 'src/theatres/theatres.actions';
+import { connect } from 'react-redux';
+import { generateGuid } from 'src/common/guid';
 
-export default class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTheatreScreenState> {
+export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTheatreScreenState> {
     constructor(props: any) {
         super(props);
 
@@ -121,13 +125,8 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenProp
             && stateResult.linkError === false
             && stateResult.contactError === false
             && stateResult.descriptionError === false) {
-            theatres.push({
-                name: theatreProps.name,
-                description: theatreProps.description,
-                town: theatreProps.town,
-                contact: theatreProps.contact,
-                link: theatreProps.link
-            });
+            
+                this.props.addTheatre({ ...theatreProps, id: generateGuid()})
 
             this.props.history.push('/theatres')
         }
@@ -268,6 +267,15 @@ interface AddTheatreScreenState {
 }
 
 
-interface AddTheatreScreenProps {
-    history: any
+interface AddTheatreScreenProps extends TheatreEntity{
+    history: any,
+    addTheatre: (theatre: TheatreEntity) => void;
 }
+
+const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
+    addTheatre: (theatre: TheatreEntity) => dispatch({ type: TheatresActionNames.ADD_THEATRE, theatre})
+})
+
+const mapStateToProps = () => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTheatreForm);

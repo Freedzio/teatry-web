@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { State } from 'src/state';
 import { connect } from 'react-redux'
-import plays from 'src/database/playsDatabase';
+// import plays from 'src/database/playsDatabase';
+import PlaysTableComponent from '../components/playsTableComponent';
 
 export class PlaysScreen extends React.Component<PlaysProps, PlaysState> {
     constructor(props: any) {
@@ -17,11 +18,12 @@ export class PlaysScreen extends React.Component<PlaysProps, PlaysState> {
     }
 
     render() {
-        let filteredPlays = plays.filter(
-            (play) => {
-                return play.title.toLowerCase().indexOf(this.state.search) !== -1;
-            }
-        )
+        // let filteredPlays = plays.filter(
+        //     (play) => {
+        //         return play.title.toLowerCase().indexOf(this.state.search) !== -1;
+        //     }
+        // )
+
         return (
             <div className="container">
                 <div className="row">
@@ -55,9 +57,9 @@ export class PlaysScreen extends React.Component<PlaysProps, PlaysState> {
                     </div>
                 </div>
                 <div>
-                    {/*} <PlaysTableComponent /> */}
+                    <PlaysTableComponent />
 
-                    <table className='table'>
+                    {/* <table className='table'>
                         <thead>
                             <tr>
                                 <th>Tytuł</th>
@@ -74,7 +76,7 @@ export class PlaysScreen extends React.Component<PlaysProps, PlaysState> {
                                 </tr>
                             )}
                         </tbody>
-                    </table>
+                    </table> */}
                 </div>
             </div>
         )
