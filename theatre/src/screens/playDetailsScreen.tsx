@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { State } from 'src/state';
 import plays from 'src/database/playsDatabase';
+import AddPlayForm from 'src/forms/addPlayForm';
 
 export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, PlayDetailsScreenState>{
     constructor(props: any) {
@@ -43,12 +44,19 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
         if (this.state.isEditing) {
             return (
                 <div>
-                    <h1> Edycja spektaklu</h1>
+                    <h1> Edycja spektaklu {this.props.title}</h1>
+                    <AddPlayForm
+                        editing={true}
+                        title={this.props.title}
+                        theatre={this.props.theatre}
+                        link={this.props.link}
+                        category={this.props.category}
+                        description={this.props.description} />
                     <button
                         type='button'
                         className='btn btn-default'
                         onClick={this.toggleEdit.bind(this)}>
-                        Edytuj dane spektaklu
+                        Zakończ edycję
                             </button>
                 </div>
             )
@@ -163,7 +171,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                             <button
                                                 type='button'
                                                 className='btn btn-default'
-                                                onClick={() => {this.deleteTicket(index)}}
+                                                onClick={() => { this.deleteTicket(index) }}
                                             >Usuń
                                             </button>
                                         </td>}
@@ -208,7 +216,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                             onClick={() => this.deleteReview(index)}
                                         >Usuń
                                             </button></td>}
-                                            {!this.props.isAdmin && <td></td>}
+                                        {!this.props.isAdmin && <td></td>}
                                     </tr>
                                 ))
                                 }
@@ -226,6 +234,7 @@ interface PlayDetailsScreenProps {
     description: string,
     category: string,
     link: string,
+    theatre: string,
     isAdmin: boolean,
     isLoggedIn: boolean,
     tickets: [{

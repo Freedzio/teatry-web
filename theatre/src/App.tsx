@@ -8,7 +8,6 @@ import TheatresScreen from 'src/screens/theatresScreen';
 import PlaysScreen from 'src/screens/playsScreen';
 import LoginScreen from 'src/login/loginScreen';
 import AddTheatreForm from 'src/forms/addTheatreForm'
-import AddPlayForm from 'src/forms/addPlayForm'
 import GoogleLogin from 'src/login/googleLogin'
 import './css/bootstrap.css'
 import './App.css'
@@ -18,6 +17,7 @@ import RoleAssignScreen from 'src/screens/roleAssignScreen'
 import MappedPlaysDetailsComponent from './components/mappedPlaysDetails'
 import MappedAddTicket from './components/mappedAddTicket';
 import MappedAddReview from './components/mappedAddReview';
+import AddNewPlayScreen from './screens/addNewPlayScreen';
 
 class App extends React.Component {
   public render() {
@@ -38,7 +38,7 @@ class App extends React.Component {
           <Route exact path='/plays' component={PlaysScreen} />
           <Route path='/login' component={LoginScreen} />
           <Route path='/theatreForm' component={AddTheatreForm} />
-          <Route path='/playForm' component={AddPlayForm} />
+          <Route path='/playForm' component={AddNewPlayScreen} />
           <Route path='/googleLogin' component={GoogleLogin} />
           <Route exact path='/roles' component={RolesScreen} />
           <Route path='/roles/addRole' component={AddRoleForm} />

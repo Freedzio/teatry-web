@@ -10,17 +10,19 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
         super(props);
 
         this.state = {
-            title: '',
-            theatre: '',
-            category: '',
-            link: '',
-            description: '',
+            title: this.props.title,
+            theatre: this.props.theatre,
+            category: this.props.category,
+            link: this.props.link,
+            description: this.props.description,
             isError: false,
             theatreError: false,
             categoryError: false,
             titleError: false,
             descriptionError: false,
-            linkError: false
+            linkError: false,
+            playSubmitted: false,
+            playEdited: false
         };
     }
 
@@ -80,7 +82,9 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
             theatreError: false,
             titleError: false,
             descriptionError: false,
-            linkError: false
+            linkError: false,
+            playSubmitted: false,
+            playEdited: false
         }
 
         if (this.state.theatre === '' || this.state.theatre === 'Wybierz teatr...') {
@@ -134,20 +138,146 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                 reviews: []
             });
 
-            this.props.history.push('/plays')
+            stateResult = {
+                ...stateResult,
+                playSubmitted: true
+            }
         }
 
         this.setState(stateResult);
     }
 
+    private editPlay(event: any) {
+
+        const playProps = {
+            title: this.state.title,
+            theatre: this.state.theatre,
+            category: this.state.category,
+            link: this.state.link,
+            description: this.state.description
+        };
+
+        /*for (var i = 0; i < plays.length; i++) {
+            if (this.props.title === plays[i].title && this.props.theatre === plays[i].theatre) {
+                plays[i].title = playProps.title
+                plays[i].theatre = playProps.theatre
+                plays[i].category = playProps.category
+                plays[i].link = playProps.link
+                plays[i].description = playProps.description
+
+                return;
+
+            }
+        }*/
+
+        let stateResult = {
+            categoryError: false,
+            theatreError: false,
+            titleError: false,
+            descriptionError: false,
+            linkError: false,
+            playSubmitted: false,
+            playEdited: false
+        }
+
+        if (this.state.theatre === '' || this.state.theatre === 'Wybierz teatr...') {
+            stateResult = {
+                ...stateResult,
+                theatreError: true
+            };
+        }
+
+        if (this.state.category === '' || this.state.category === 'Wybierz kategorię...') {
+            stateResult = {
+                ...stateResult,
+                categoryError: true
+            };
+        }
+
+        if (this.state.title === '') {
+            stateResult = {
+                ...stateResult,
+                titleError: true
+            };
+        }
+
+        if (this.state.link === '') {
+            stateResult = {
+                ...stateResult,
+                linkError: true
+            };
+        }
+
+        if (this.state.description === '') {
+            stateResult = {
+                ...stateResult,
+                descriptionError: true
+            };
+        }
+
+        for (var i = 0; i < plays.length; i++) {
+
+            if (this.props.title === plays[i].title
+                && this.props.theatre === plays[i].theatre
+                && stateResult.categoryError === false
+                && stateResult.titleError === false
+                && stateResult.theatreError === false
+                && stateResult.linkError === false
+                && stateResult.descriptionError === false) {
+
+                plays.splice(i, 1, {
+                    title: playProps.title,
+                    theatre: playProps.theatre,
+                    category: playProps.category,
+                    link: playProps.link,
+                    description: playProps.link,
+                    tickets: plays[i].tickets,
+                    reviews: plays[i].reviews
+                })
+
+                /*plays[i].title = playProps.title
+                plays[i].theatre = playProps.theatre
+                plays[i].category = playProps.category
+                plays[i].link = playProps.link
+                plays[i].description = playProps.description*/
+
+                stateResult = {
+                    ...stateResult,
+                    playEdited: true
+                }
+
+                return;
+
+            }
+        }
+
+        this.setState(stateResult);
+
+    }
+
     render() {
+        if (this.state.playSubmitted) {
+            return (
+                <div>
+                    <h1>Pomyślnie dodano sztukę {this.state.title}</h1>
+                    <Link to='/plays'>
+                        <button
+                            className='btn btn-default'
+                            type='button'>
+                            Wróć do listy spektakli
+                        </button>
+                    </Link>
+                </div>
+            )
+        }
+
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                        <h1>
+                        {!this.props.editing && <h1>
                             Dodaj spektakl
-                            </h1>
+                            </h1>}
                         <form className="form-horizontal">
                             <div className="form-group">
                                 <div className="col-md-3" />
@@ -159,6 +289,7 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                         type="text"
                                         className="form-control"
                                         id="titleName"
+                                        placeholder='qwertyasddfg'
                                         onChange={this.onTitleChange.bind(this)} />
                                     <span className="help-block">
                                         Pole wymagane
@@ -234,20 +365,29 @@ export default class AddPlayForm extends React.Component<AddPlayScreenProps, Add
                                     {!!this.state.titleError && <div>Wpisz tytuł sztuki</div>}
                                     {!!this.state.linkError && <div>Podaj link do strony sztuki</div>}
                                     {!!this.state.descriptionError && <div>Podaj opis sztuki</div>}
-                                    <button
-                                        type="button"
-                                        className="btn btn-default"
-                                        onClick={this.addPlay.bind(this)}>
-                                        <strong>Dodaj spektakl</strong>
-                                    </button>
+                                    {!!this.props.editing &&
+                                            <button
+                                                type="button"
+                                                className="btn btn-default"
+                                                onClick={this.editPlay.bind(this)}>
+                                                <strong>Zapisz zmiany</strong>
+                                            </button>}
+                                    {!this.props.editing &&
+                                        <button
+                                            type="button"
+                                            className="btn btn-default"
+                                            onClick={this.addPlay.bind(this)}>
+                                            <strong>Dodaj spektakl</strong>
+                                        </button>}
                                 </div>
                                 <div className="col-md-4" />
                             </div>
                             <div className="row">
                                 <div className="col-md-12">
-                                    <p>
-                                        <strong><Link to='/plays'>Wróc do listy spektakli</Link></strong>
-                                    </p>
+                                    {!this.props.editing &&
+                                        <p>
+                                            <strong><Link to='/plays'>Wróc do listy spektakli</Link></strong>
+                                        </p>}
                                 </div>
                             </div>
                         </form>
@@ -269,9 +409,16 @@ interface AddPlayScreenState {
     categoryError: boolean,
     titleError: boolean,
     descriptionError: boolean,
-    linkError: boolean
+    linkError: boolean,
+    playSubmitted: boolean,
+    playEdited: boolean
 }
 
 interface AddPlayScreenProps {
-    history: any
+    editing: boolean,
+    title: string,
+    theatre: string,
+    category: string,
+    link: string,
+    description: string
 }
