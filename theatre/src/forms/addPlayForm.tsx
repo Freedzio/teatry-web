@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import plays from 'src/database/playsDatabase';
 import MappedTheatresListComponent from 'src/components/mappedTheatresList';
 import MappedCategoriesListComponent from 'src/components/mappedCategoriesList';
@@ -7,8 +7,12 @@ import { PlayEntity } from 'src/plays/Plays.state';
 import { connect } from 'react-redux';
 import { PlaysActionNames } from 'src/plays/plays.actions';
 import { generateGuid } from 'src/common/guid';
+import autobind from 'autobind-decorator'
+import { State } from 'src/state';
+import { mapObjectToArray2 } from 'src/common/mapObjectToArray2';
+import { EditingActionNames } from 'src/editing/editing.actions';
 
-export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScreenState> {
+export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteComponentProps<any>, AddPlayScreenState> {
 
     constructor(props: any) {
         super(props);
@@ -59,7 +63,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
             link: event.target.value
         })
     }
-
+    @autobind
     private addPlay(event: any) {
 
         const playProps = {
@@ -153,6 +157,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
         this.setState(stateResult);
     }
 
+    @autobind
     private editPlay(event: any) {
 
         const playProps = {
@@ -220,10 +225,10 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
             };
         }
 
-        for (var i = 0; i < plays.length; i++) {
+        for (var i = 0; i < this.props.allPlays.length; i++) {
 
-            if (this.props.title === plays[i].title
-                && this.props.theatre === plays[i].theatre
+            if (this.props.title === this.props.allPlays[i].title
+                && this.props.theatre === this.props.allPlays[i].theatre
                 && stateResult.categoryError === false
                 && stateResult.titleError === false
                 && stateResult.theatreError === false
@@ -246,7 +251,11 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
                 plays[i].link = playProps.link
                 plays[i].description = playProps.description*/
 
-                this.props.editPlay(this.props.id as string,{...playProps, id: this.props.id})
+                this.props.editPlay(this.props.id as string, { ...playProps, id: this.props.id })
+
+                this.props.changeEditing(this.props.editing)
+
+                this.props.history.push(`/plays/${playProps.title}`)
 
                 return;
 
@@ -370,7 +379,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
                                         <button
                                             type="button"
                                             className="btn btn-default"
-                                            onClick={this.addPlay.bind(this)}>
+                                            onClick={this.addPlay}>
                                             <strong>Dodaj spektakl</strong>
                                         </button>
                                     </div>
@@ -474,7 +483,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
                                         <button
                                             type="button"
                                             className="btn btn-default"
-                                            onClick={this.editPlay.bind(this)}>
+                                            onClick={this.editPlay}>
                                             <strong>Zapisz zmiany</strong>
                                         </button>
                                     </div>
@@ -508,13 +517,18 @@ interface AddPlayScreenProps extends PlayEntity {
     editing: boolean,
     addPlay: (play: PlayEntity) => void;
     editPlay: (id: string, play: PlayEntity) => void;
+    changeEditing: (editing: boolean) => void;
+    allPlays: PlayEntity[]
 }
 
 const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
     addPlay: (play: PlayEntity) => dispatch({ type: PlaysActionNames.ADD_PLAY, play }),
-    editPlay: (id: string, play: PlayEntity) => dispatch({ type: PlaysActionNames.EDIT_PLAY, id, play })
+    editPlay: (id: string, play: PlayEntity) => dispatch({ type: PlaysActionNames.EDIT_PLAY, id, play }),
+    changeEditing: (editing: boolean) => dispatch({type: EditingActionNames.CHANGE_EDITING, editing})
 });
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state: State) => ({
+    allPlays: mapObjectToArray2(state.plays),
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPlayForm);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddPlayForm));

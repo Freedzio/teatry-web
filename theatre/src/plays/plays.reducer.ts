@@ -22,7 +22,7 @@ export const playsReducer = (state: PlaysState = {}, action: PlaysAction) => {
 
         case PlaysActionNames.EDIT_PLAY:
             var newState = { ...state };
-            delete newState[action.play.id as string]
+            delete newState[action.id as string]
             return {
                 ...newState,
                 [action.play.id as string]: {

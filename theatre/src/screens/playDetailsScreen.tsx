@@ -5,12 +5,12 @@ import { State } from 'src/state';
 import plays from 'src/database/playsDatabase';
 import AddPlayForm from 'src/forms/addPlayForm';
 import { PlaysActionNames } from 'src/plays/plays.actions';
+import { EditingActionNames } from 'src/editing/editing.actions';
 
 export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, PlayDetailsScreenState>{
     constructor(props: any) {
         super(props);
         this.state = {
-            isEditing: false,
             title: this.props.title,
             description: this.props.description,
             category: this.props.category,
@@ -21,7 +21,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
     }
 
     toggleEdit() {
-        this.setState({ isEditing: !this.state.isEditing })
+        this.props.changeEditing(this.props.editing)
     }
 
     deleteTicket(index: number) {
@@ -45,12 +45,11 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
     }
 
     render() {
-        if (this.state.isEditing) {
+        if (this.props.editing) {
             return (
                 <div>
                     <h1> Edycja spektaklu {this.props.title}</h1>
                     <AddPlayForm
-                        editing={true}
                         id={this.props.id as string}
                         title={this.props.title}
                         theatre={this.props.theatre}
@@ -255,11 +254,12 @@ interface PlayDetailsScreenProps {
         content: string
     }],
     deletePlay: (id: string) => void;
+    changeEditing: (editing: boolean) => void;
+    editing: boolean
 }
 
 
 interface PlayDetailsScreenState {
-    isEditing: boolean,
     title: string,
     description: string,
     category: string,
@@ -267,12 +267,14 @@ interface PlayDetailsScreenState {
 }
 
 const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
-    deletePlay: (id: string) => dispatch({type: PlaysActionNames.DELETE_PLAY, id})
+    deletePlay: (id: string) => dispatch({type: PlaysActionNames.DELETE_PLAY, id}),
+    changeEditing: (editing: boolean) => dispatch({type: EditingActionNames.CHANGE_EDITING, editing})
 });
 
 const mapStateToProps = () => (state: State) => ({
     isAdmin: state.session.role === 'Administrator',
-    isLoggedIn: state.session.email !== null && state.session.password !== null
+    isLoggedIn: state.session.email !== null && state.session.password !== null,
+    editing: state.editing.editing
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayDetailsScreen);

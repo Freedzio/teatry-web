@@ -9,4 +9,4 @@ export interface PlayEntity {
     category: string,
     link: string,
     description: string
-}
+};
