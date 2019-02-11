@@ -13,12 +13,23 @@ export const playsReducer = (state: PlaysState = {}, action: PlaysAction) => {
             };
 
         case PlaysActionNames.DELETE_PLAY:
-            const newState = { ...state };
+            var newState = { ...state };
             delete newState[action.id as string];
 
             return {
                 ...newState
             };
+
+        case PlaysActionNames.EDIT_PLAY:
+            var newState = { ...state };
+            delete newState[action.play.id as string]
+            return {
+                ...newState,
+                [action.play.id as string]: {
+                    ...action.play
+                }
+            }
+
 
         default:
             return state;

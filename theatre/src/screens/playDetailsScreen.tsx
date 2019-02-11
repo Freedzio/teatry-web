@@ -51,6 +51,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                     <h1> Edycja spektaklu {this.props.title}</h1>
                     <AddPlayForm
                         editing={true}
+                        id={this.props.id as string}
                         title={this.props.title}
                         theatre={this.props.theatre}
                         link={this.props.link}

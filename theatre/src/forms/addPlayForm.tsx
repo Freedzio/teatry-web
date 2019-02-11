@@ -14,11 +14,11 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
         super(props);
 
         this.state = {
-            title: this.props.title,
-            theatre: this.props.theatre,
-            category: this.props.category,
-            link: this.props.link,
-            description: this.props.description,
+            title: '',
+            theatre: '',
+            category: '',
+            link: '',
+            description: '',
             isError: false,
             theatreError: false,
             categoryError: false,
@@ -142,7 +142,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
             //     reviews: []
             // });
 
-            this.props.addPlay({ ...playProps, id: generateGuid()});
+            this.props.addPlay({ ...playProps, id: generateGuid() });
 
             stateResult = {
                 ...stateResult,
@@ -182,8 +182,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
             titleError: false,
             descriptionError: false,
             linkError: false,
-            playSubmitted: false,
-            playEdited: false
+            playSubmitted: false
         }
 
         if (this.state.theatre === '' || this.state.theatre === 'Wybierz teatr...') {
@@ -231,15 +230,15 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
                 && stateResult.linkError === false
                 && stateResult.descriptionError === false) {
 
-                plays.splice(i, 1, {
-                    title: playProps.title,
-                    theatre: playProps.theatre,
-                    category: playProps.category,
-                    link: playProps.link,
-                    description: playProps.link,
-                    tickets: plays[i].tickets,
-                    reviews: plays[i].reviews
-                })
+                // plays.splice(i, 1, {
+                //     title: playProps.title,
+                //     theatre: playProps.theatre,
+                //     category: playProps.category,
+                //     link: playProps.link,
+                //     description: playProps.link,
+                //     tickets: plays[i].tickets,
+                //     reviews: plays[i].reviews
+                // })
 
                 /*plays[i].title = playProps.title
                 plays[i].theatre = playProps.theatre
@@ -247,10 +246,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
                 plays[i].link = playProps.link
                 plays[i].description = playProps.description*/
 
-                stateResult = {
-                    ...stateResult,
-                    playEdited: true
-                }
+                this.props.editPlay(this.props.id as string,{...playProps, id: this.props.id})
 
                 return;
 
@@ -284,119 +280,207 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps, AddPlayScre
                         {!this.props.editing && <h1>
                             Dodaj spektakl
                             </h1>}
-                        <form className="form-horizontal">
-                            <div className="form-group">
-                                <div className="col-md-3" />
-                                <label htmlFor="titleName" className="control-label col-md-2">
-                                    Tytuł
+                        {!this.props.editing &&
+                            <form className="form-horizontal">
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="titleName" className="control-label col-md-2">
+                                        Tytuł
                                     </label>
-                                <div className="col-md-3">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="titleName"
-                                        placeholder='qwertyasddfg'
-                                        onChange={this.onTitleChange.bind(this)} />
-                                    <span className="help-block">
-                                        Pole wymagane
+                                    <div className="col-md-3">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="titleName"
+                                            onChange={this.onTitleChange.bind(this)} />
+                                        <span className="help-block">
+                                            Pole wymagane
                                         </span>
+                                    </div>
+                                    <div className="col-md-3" />
                                 </div>
-                                <div className="col-md-3" />
-                            </div>
-                            <div className="form-group">
-                                <div className="col-md-3" />
-                                <label htmlFor="descName" className="control-label col-md-2">
-                                    Opis
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="descName" className="control-label col-md-2">
+                                        Opis
                                     </label>
-                                <div className="col-md-3">
-                                    <textarea
-                                        className="form-control"
-                                        rows={3} id="descName"
-                                        onChange={this.onDescriptionChange.bind(this)} />
+                                    <div className="col-md-3">
+                                        <textarea
+                                            className="form-control"
+                                            rows={3} id="descName"
+                                            onChange={this.onDescriptionChange.bind(this)} />
+                                    </div>
+                                    <div className="col-md-3" />
                                 </div>
-                                <div className="col-md-3" />
-                            </div>
-                            <div className="form-group">
-                                <div className="col-md-3" />
-                                <label htmlFor="theatreName" className="control-label col-md-2">
-                                    Wybierz teatr
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="theatreName" className="control-label col-md-2">
+                                        Wybierz teatr
                                     </label>
-                                <div className="col-md-3">
-                                    <select
-                                        className="form-control"
-                                        id="theatreName"
-                                        onChange={this.onTheatreChange.bind(this)}>
-                                        <MappedTheatresListComponent />
-                                    </select>
-                                    <span className="help-block">
-                                        Pole wymagane
+                                    <div className="col-md-3">
+                                        <select
+                                            className="form-control"
+                                            id="theatreName"
+                                            onChange={this.onTheatreChange.bind(this)}>
+                                            <MappedTheatresListComponent />
+                                        </select>
+                                        <span className="help-block">
+                                            Pole wymagane
                                         </span>
+                                    </div>
+                                    <div className="col-md-3" />
                                 </div>
-                                <div className="col-md-3" />
-                            </div>
-                            <div className="form-group">
-                                <div className="col-md-3" />
-                                <label htmlFor="categoryName" className="control-label col-md-2">
-                                    Kategoria
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="categoryName" className="control-label col-md-2">
+                                        Kategoria
                                     </label>
-                                <div className="col-md-3">
-                                    <select
-                                        className="form-control"
-                                        id="categoryName"
-                                        onChange={this.onCategoryChange.bind(this)}>
-                                        <MappedCategoriesListComponent />
-                                    </select>
+                                    <div className="col-md-3">
+                                        <select
+                                            className="form-control"
+                                            id="categoryName"
+                                            onChange={this.onCategoryChange.bind(this)}>
+                                            <MappedCategoriesListComponent />
+                                        </select>
+                                    </div>
+                                    <div className="col-md-3" />
                                 </div>
-                                <div className="col-md-3" />
-                            </div>
-                            <div className="form-group">
-                                <div className="col-md-3" />
-                                <label htmlFor="linkName" className="control-label col-md-2">
-                                    Link do strony teatru
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="linkName" className="control-label col-md-2">
+                                        Link do strony teatru
                                     </label>
-                                <div className="col-md-3">
-                                    <input type="url"
-                                        className="form-control"
-                                        id="linkName"
-                                        onChange={this.onLinkChange.bind(this)} />
+                                    <div className="col-md-3">
+                                        <input type="url"
+                                            className="form-control"
+                                            id="linkName"
+                                            onChange={this.onLinkChange.bind(this)} />
+                                    </div>
+                                    <div className="col-md-3" />
                                 </div>
-                                <div className="col-md-3" />
-                            </div>
-                            <div className="row">
-                                <div className="col-md-5" />
-                                <div className="col-md-3">
-                                    {!!this.state.isError && <div>Spektakl o takim tytule już jest w bazie</div>}
-                                    {!!this.state.categoryError && <div>Wybierz kategorię spektaklu</div>}
-                                    {!!this.state.theatreError && <div>Wybierz teatr</div>}
-                                    {!!this.state.titleError && <div>Wpisz tytuł sztuki</div>}
-                                    {!!this.state.linkError && <div>Podaj link do strony sztuki</div>}
-                                    {!!this.state.descriptionError && <div>Podaj opis sztuki</div>}
-                                    {!!this.props.editing &&
-                                            <button
-                                                type="button"
-                                                className="btn btn-default"
-                                                onClick={this.editPlay.bind(this)}>
-                                                <strong>Zapisz zmiany</strong>
-                                            </button>}
-                                    {!this.props.editing &&
+                                <div className="row">
+                                    <div className="col-md-5" />
+                                    <div className="col-md-3">
+                                        {!!this.state.isError && <div>Spektakl o takim tytule już jest w bazie</div>}
+                                        {!!this.state.categoryError && <div>Wybierz kategorię spektaklu</div>}
+                                        {!!this.state.theatreError && <div>Wybierz teatr</div>}
+                                        {!!this.state.titleError && <div>Wpisz tytuł sztuki</div>}
+                                        {!!this.state.linkError && <div>Podaj link do strony sztuki</div>}
+                                        {!!this.state.descriptionError && <div>Podaj opis sztuki</div>}
                                         <button
                                             type="button"
                                             className="btn btn-default"
                                             onClick={this.addPlay.bind(this)}>
                                             <strong>Dodaj spektakl</strong>
-                                        </button>}
+                                        </button>
+                                    </div>
+                                    <div className="col-md-4" />
                                 </div>
-                                <div className="col-md-4" />
-                            </div>
-                            <div className="row">
-                                <div className="col-md-12">
-                                    {!this.props.editing &&
+                                <div className="row">
+                                    <div className="col-md-12">
                                         <p>
                                             <strong><Link to='/plays'>Wróc do listy spektakli</Link></strong>
-                                        </p>}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>}
+                        {!!this.props.editing &&
+                            <form className="form-horizontal">
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="titleName" className="control-label col-md-2">
+                                        Tytuł
+                                    </label>
+                                    <div className="col-md-3">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="titleName"
+                                            onChange={this.onTitleChange.bind(this)} />
+                                        <span className="help-block">
+                                            Pole wymagane
+                                        </span>
+                                    </div>
+                                    <div className="col-md-3" />
+                                </div>
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="descName" className="control-label col-md-2">
+                                        Opis
+                                    </label>
+                                    <div className="col-md-3">
+                                        <textarea
+                                            className="form-control"
+                                            rows={3} id="descName"
+                                            onChange={this.onDescriptionChange.bind(this)} />
+                                    </div>
+                                    <div className="col-md-3" />
+                                </div>
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="theatreName" className="control-label col-md-2">
+                                        Wybierz teatr
+                                    </label>
+                                    <div className="col-md-3">
+                                        <select
+                                            className="form-control"
+                                            id="theatreName"
+                                            onChange={this.onTheatreChange.bind(this)}>
+                                            <MappedTheatresListComponent />
+                                        </select>
+                                        <span className="help-block">
+                                            Pole wymagane
+                                        </span>
+                                    </div>
+                                    <div className="col-md-3" />
+                                </div>
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="categoryName" className="control-label col-md-2">
+                                        Kategoria
+                                    </label>
+                                    <div className="col-md-3">
+                                        <select
+                                            className="form-control"
+                                            id="categoryName"
+                                            onChange={this.onCategoryChange.bind(this)}>
+                                            <MappedCategoriesListComponent />
+                                        </select>
+                                    </div>
+                                    <div className="col-md-3" />
+                                </div>
+                                <div className="form-group">
+                                    <div className="col-md-3" />
+                                    <label htmlFor="linkName" className="control-label col-md-2">
+                                        Link do strony teatru
+                                    </label>
+                                    <div className="col-md-3">
+                                        <input type="url"
+                                            className="form-control"
+                                            id="linkName"
+                                            onChange={this.onLinkChange.bind(this)} />
+                                    </div>
+                                    <div className="col-md-3" />
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-5" />
+                                    <div className="col-md-3">
+                                        {!!this.state.isError && <div>Spektakl o takim tytule już jest w bazie</div>}
+                                        {!!this.state.categoryError && <div>Wybierz kategorię spektaklu</div>}
+                                        {!!this.state.theatreError && <div>Wybierz teatr</div>}
+                                        {!!this.state.titleError && <div>Wpisz tytuł sztuki</div>}
+                                        {!!this.state.linkError && <div>Podaj link do strony sztuki</div>}
+                                        {!!this.state.descriptionError && <div>Podaj opis sztuki</div>}
+                                        <button
+                                            type="button"
+                                            className="btn btn-default"
+                                            onClick={this.editPlay.bind(this)}>
+                                            <strong>Zapisz zmiany</strong>
+                                        </button>
+                                    </div>
+                                    <div className="col-md-4" />
+                                </div>
+                            </form>}
                     </div>
                 </div>
             </div>
@@ -423,10 +507,12 @@ interface AddPlayScreenState {
 interface AddPlayScreenProps extends PlayEntity {
     editing: boolean,
     addPlay: (play: PlayEntity) => void;
+    editPlay: (id: string, play: PlayEntity) => void;
 }
 
 const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
-    addPlay: (play: PlayEntity) => dispatch({ type: PlaysActionNames.ADD_PLAY, play })
+    addPlay: (play: PlayEntity) => dispatch({ type: PlaysActionNames.ADD_PLAY, play }),
+    editPlay: (id: string, play: PlayEntity) => dispatch({ type: PlaysActionNames.EDIT_PLAY, id, play })
 });
 
 const mapStateToProps = () => ({})

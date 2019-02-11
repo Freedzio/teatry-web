@@ -54,4 +54,43 @@ describe('Plays reducer', () => {
 
         expect(result).toEqual({})
     })
+
+    it('edit play', () => {
+        const initialState = {
+            '12345-67890': {
+                id: '12345-67890',
+                title: 'Test',
+                theatre: 'test',
+                category: 'test',
+                description: 'test',
+                link: 'http://'
+            }
+        }
+
+        const editPlayAction = {
+            type: PlaysActionNames.EDIT_PLAY,
+            id: '12345-67890',
+            play: {
+                id: '12345-67890',
+                title: 'Test2345',
+                theatre: 'test',
+                category: 'test',
+                description: 'test',
+                link: 'http://'
+            }
+        }
+
+        const result = playsReducer(initialState, editPlayAction as any)
+
+        expect(result).toEqual({
+            '12345-67890': {
+                id: '12345-67890',
+                title: 'Test2345',
+                theatre: 'test',
+                category: 'test',
+                description: 'test',
+                link: 'http://'
+            }
+        })
+    })
 });
