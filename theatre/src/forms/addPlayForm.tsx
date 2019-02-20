@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
-import plays from 'src/database/playsDatabase';
 import MappedTheatresListComponent from 'src/components/mappedTheatresList';
 import MappedCategoriesListComponent from 'src/components/mappedCategoriesList';
 import { PlayEntity } from 'src/plays/Plays.state';
@@ -33,31 +32,31 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
             playEdited: false
         };
     }
-
+    @autobind
     onTitleChange(event: any) {
         this.setState({
             title: event.target.value
         })
     }
-
+    @autobind
     onTheatreChange(event: any) {
         this.setState({
             theatre: event.target.value
         })
     }
-
+    @autobind
     onCategoryChange(event: any) {
         this.setState({
             category: event.target.value
         })
     }
-
+    @autobind
     onDescriptionChange(event: any) {
         this.setState({
             description: event.target.value
         })
     }
-
+    @autobind
     onLinkChange(event: any) {
         this.setState({
             link: event.target.value
@@ -74,8 +73,9 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
             description: this.state.description
         };
 
-        for (var i = 0; i < plays.length; i++) {
-            if (this.state.title === plays[i].title && this.state.theatre === plays[i].theatre) {
+        for (var i = 0; i < this.props.allPlays.length; i++) {
+            if (this.state.title === this.props.allPlays[i].title
+                && this.state.theatre === this.props.allPlays[i].theatre) {
                 this.setState({
                     isError: true
                 });
@@ -405,7 +405,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
                                             type="text"
                                             className="form-control"
                                             id="titleName"
-                                            onChange={this.onTitleChange.bind(this)} />
+                                            onChange={this.onTitleChange} />
                                         <span className="help-block">
                                             Pole wymagane
                                         </span>
@@ -421,7 +421,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
                                         <textarea
                                             className="form-control"
                                             rows={3} id="descName"
-                                            onChange={this.onDescriptionChange.bind(this)} />
+                                            onChange={this.onDescriptionChange} />
                                     </div>
                                     <div className="col-md-3" />
                                 </div>
@@ -524,7 +524,7 @@ interface AddPlayScreenProps extends PlayEntity {
 const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
     addPlay: (play: PlayEntity) => dispatch({ type: PlaysActionNames.ADD_PLAY, play }),
     editPlay: (id: string, play: PlayEntity) => dispatch({ type: PlaysActionNames.EDIT_PLAY, id, play }),
-    changeEditing: (editing: boolean) => dispatch({type: EditingActionNames.CHANGE_EDITING, editing})
+    changeEditing: (editing: boolean) => dispatch({ type: EditingActionNames.CHANGE_EDITING, editing })
 });
 
 const mapStateToProps = (state: State) => ({
