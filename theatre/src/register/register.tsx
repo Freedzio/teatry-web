@@ -4,9 +4,9 @@ import { withRouter } from 'react-router-dom';
 import { UsersActionNames } from 'src/users/users.actions';
 import { UserEntity } from 'src/users/users.state';
 import autobind from 'autobind-decorator';
-import { State } from 'src/state';
 import { generateGuid } from 'src/common/guid';
 import { mapObjectToArray } from 'src/common/mapObjectToArray';
+import { State } from 'src/state';
 
 export class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreenState> {
     constructor(props: any) {
@@ -47,7 +47,7 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
         const registerProps = {
             email: this.state.regEmail,
             password: this.state.regPassword,
-            regRole: ''
+            role: ''
         };
 
         for (var i = 0; i < this.props.allUsers.length; i++) {
@@ -93,7 +93,7 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             && stateResult.emailError === false
             && stateResult.passwordError === false
             && stateResult.passwordConfirmError === false) {
-            registerProps.regRole = 'user'
+            registerProps.role = 'user'
 
             this.props.addUser({ ...registerProps, id: generateGuid() })
             

@@ -2,6 +2,12 @@ import { UsersState } from './users.state';
 import { UsersActions, UsersActionNames } from './users.actions';
 
 export const usersReducer = (state: UsersState = {
+    'd40c5539-81e1-445c-ba2a-84a239442dc3': {
+        id: 'd40c5539-81e1-445c-ba2a-84a239442dc3',
+        email: 'admin@admin.pl',
+        password: 'admin',
+        role: 'Administrator'
+    }
 
 }, action: UsersActions) => {
     switch (action.type) {

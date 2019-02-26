@@ -11,7 +11,8 @@ describe('users reducer', () => {
             user: {
                 id: '12345-67890',
                 email: 'test@test.pl',
-                password: 'qwerqwer'
+                password: 'qwerqwer',
+                role: 'user'
             } as UserEntity
         };
 
@@ -21,7 +22,8 @@ describe('users reducer', () => {
             '12345-67890': {
                 id: '12345-67890',
                 email: 'test@test.pl',
-                password: 'qwerqwer'
+                password: 'qwerqwer',
+                role: 'user'
             }
         })
     });
@@ -31,7 +33,8 @@ describe('users reducer', () => {
             '12345-67890': {
                 id: '12345-67890',
                 email: 'test@test.pl',
-                password: 'qwerqwer'
+                password: 'qwerqwer',
+                role: 'user'
             }
         }
 

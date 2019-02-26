@@ -1,6 +1,6 @@
 export function mapObjectToArray (state: any) {
-    return Object.keys(state).map((key: string) => {
-        return state[key]
+    return Object.keys(state).map((id: string) => {
+        return state[id]
     })
 
     

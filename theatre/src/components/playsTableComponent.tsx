@@ -4,6 +4,7 @@ import { State } from 'src/state';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
 import { PlayEntity } from 'src/plays/Plays.state';
+import { mapObjectToArray } from 'src/common/mapObjectToArray';
 
 function PlaysTableComponent(props: PlaysTableComponentProps) {
     console.log(props);
@@ -36,9 +37,5 @@ export interface PlaysTableComponentProps {
 const mapStateToProps = (state: State) => ({
     plays: mapObjectToArray(state.plays)
 })
-
-function mapObjectToArray(obj: any) {
-    return Object.keys(obj).map((item) => obj[item]);
-}
 
 export default connect(mapStateToProps, _.noop)(withRouter(PlaysTableComponent as any))
