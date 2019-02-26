@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import users from 'src/database/usersDatabase';
+import { UsersActionNames } from 'src/users/users.actions';
+import { UserEntity } from 'src/users/users.state';
+import autobind from 'autobind-decorator';
+import { State } from 'src/state';
+import { generateGuid } from 'src/common/guid';
+import { mapObjectToArray } from 'src/common/mapObjectToArray';
 
 export class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreenState> {
     constructor(props: any) {
@@ -18,35 +23,36 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             passwordConfirmError: false
         };
     }
-
+    @autobind
     onEmailChange(event: any) {
         this.setState({
             regEmail: event.target.value
         })
     }
-
+    @autobind
     onPasswordChange(event: any) {
         this.setState({
             regPassword: event.target.value
         })
     }
-
+    @autobind
     onPasswordConfirmChange(event: any) {
         this.setState({
             regConfirmPassword: event.target.value
         })
     }
-
+    @autobind
     private register(event: any) {
 
         const registerProps = {
-            regEmail: this.state.regEmail,
-            regPassword: this.state.regPassword,
+            email: this.state.regEmail,
+            password: this.state.regPassword,
             regRole: ''
         };
 
-        for (var i = 0; i < users.length; i++) {
-            if (this.state.regEmail === users[i].email || this.state.regPassword !== this.state.regConfirmPassword) {
+        for (var i = 0; i < this.props.allUsers.length; i++) {
+            if (this.state.regEmail === this.props.allUsers[i].email
+                || this.state.regPassword !== this.state.regConfirmPassword) {
                 this.setState({
                     isRegisterError: true
                 });
@@ -83,14 +89,14 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             }
         }
 
-        if (this.state.isRegisterError === false && stateResult.emailError === false && stateResult.passwordError === false && stateResult.passwordConfirmError === false) {
+        if (this.state.isRegisterError === false
+            && stateResult.emailError === false
+            && stateResult.passwordError === false
+            && stateResult.passwordConfirmError === false) {
             registerProps.regRole = 'user'
 
-            users.push({
-                email: registerProps.regEmail,
-                password: registerProps.regPassword,
-                role: registerProps.regRole
-            });
+            this.props.addUser({ ...registerProps, id: generateGuid() })
+            
             this.props.history.push('/')
         }
 
@@ -227,7 +233,7 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
     }
 }
 
-interface RegisterScreenProps {
+interface RegisterScreenProps extends UserEntity {
     history: any;
     regEmail: string;
     regPassword: string;
@@ -235,7 +241,8 @@ interface RegisterScreenProps {
     emailError: boolean,
     passwordError: boolean,
     passwordConfirmError: boolean,
-    registerUser: (regEmail: string, regPassword: string, regRole: string) => void;
+    addUser: (user: UserEntity) => void;
+    allUsers: UserEntity[]
 }
 
 interface RegisterScreenState {
@@ -249,9 +256,13 @@ interface RegisterScreenState {
     passwordConfirmError: boolean,
 }
 
-const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: RegisterScreenProps) => ({})
+const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: RegisterScreenProps) => ({
+    addUser: (user: UserEntity) => dispatch({ type: UsersActionNames.ADD_USER, user })
+})
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state: State) => ({
+    allUsers: mapObjectToArray(state.users),
+})
 
 const RegisterRedux = connect(
     mapStateToProps,

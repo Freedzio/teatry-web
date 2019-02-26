@@ -3,8 +3,8 @@ import { Route, withRouter } from 'react-router-dom'
 import PlayDetailsScreen from 'src/screens/playDetailsScreen'
 import { PlayEntity } from 'src/plays/Plays.state';
 import { State } from 'src/state';
-import {mapObjectToArray} from 'src/common/mapObjectToArray';
 import { connect } from 'react-redux';
+import { mapObjectToArray } from 'src/common/mapObjectToArray';
 
 function MappedPlaysDetailsComponent(props: MappedPlaysDetailsComponentProps) {
     return (

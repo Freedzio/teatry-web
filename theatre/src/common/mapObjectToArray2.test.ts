@@ -1,5 +1,5 @@
 import { PlayEntity, PlaysState } from "src/plays/Plays.state";
-import { mapObjectToArray2 } from './mapObjectToArray2';
+import { mapObjectToArray } from './mapObjectToArray';
 
 describe('mapObjectToArray2', () => {
 
@@ -22,7 +22,7 @@ describe('mapObjectToArray2', () => {
             }
         }
 
-        var resultValue = mapObjectToArray2(inputValue)
+        var resultValue = mapObjectToArray(inputValue)
 
 expect (resultValue).toEqual(expectedValue)
 

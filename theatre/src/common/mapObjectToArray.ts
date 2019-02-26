@@ -1,3 +1,7 @@
-export function mapObjectToArray(obj: any) {
-    return Object.keys(obj).map((item) => obj[item]);
+export function mapObjectToArray (state: any) {
+    return Object.keys(state).map((key: string) => {
+        return state[key]
+    })
+
+    
 }

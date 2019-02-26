@@ -8,7 +8,7 @@ import { PlaysActionNames } from 'src/plays/plays.actions';
 import { generateGuid } from 'src/common/guid';
 import autobind from 'autobind-decorator'
 import { State } from 'src/state';
-import { mapObjectToArray2 } from 'src/common/mapObjectToArray2';
+import { mapObjectToArray } from 'src/common/mapObjectToArray';
 import { EditingActionNames } from 'src/editing/editing.actions';
 
 export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteComponentProps<any>, AddPlayScreenState> {
@@ -528,7 +528,7 @@ const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
 });
 
 const mapStateToProps = (state: State) => ({
-    allPlays: mapObjectToArray2(state.plays),
+    allPlays: mapObjectToArray(state.plays),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddPlayForm));

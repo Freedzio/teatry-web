@@ -1,7 +1,9 @@
 import { PlaysAction, PlaysActionNames } from "./plays.actions";
 import { PlaysState } from './Plays.state';
 
-export const playsReducer = (state: PlaysState = {}, action: PlaysAction) => {
+export const playsReducer = (state: PlaysState = {
+    
+}, action: PlaysAction) => {
     switch (action.type) {
 
         case PlaysActionNames.ADD_PLAY:
