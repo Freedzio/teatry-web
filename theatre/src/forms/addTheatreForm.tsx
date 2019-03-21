@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import theatres from 'src/database/theatresDatabase';
-import { TheatreEntity } from 'src/theatres/theatres.state';
+import { TheatreEntity, TheatresState } from 'src/theatres/theatres.state';
 import { TheatresActionNames } from 'src/theatres/theatres.actions';
 import { connect } from 'react-redux';
 import { generateGuid } from 'src/common/guid';
+import { mapObjectToArray } from 'src/common/mapObjectToArray';
 
 export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTheatreScreenState> {
     constructor(props: any) {
@@ -66,17 +66,19 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
 
         };
 
-        for (var i = 0; i < theatres.length; i++) {
-            if (this.state.name === theatres[i].name && this.state.town === theatres[i].town) {
+        for (var i = 0; i < this.props.allTheatres.length; i++) {
+            if (this.state.name === this.props.allTheatres[i].name && this.state.town === this.props.allTheatres[i].town) {
                 this.setState({
+                    
                     isError: true
                 });
 
                 return;
-            }
+            } else this.setState({ isError: false })
         }
 
         let stateResult = {
+            isError: false,
             nameError: false,
             townError: false,
             descriptionError: false,
@@ -119,7 +121,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
             }
         }
 
-        if (this.state.isError === false
+        if (stateResult.isError === false
             && stateResult.townError === false
             && stateResult.nameError === false
             && stateResult.linkError === false
@@ -270,12 +272,15 @@ interface AddTheatreScreenState {
 interface AddTheatreScreenProps extends TheatreEntity{
     history: any,
     addTheatre: (theatre: TheatreEntity) => void;
+    allTheatres: TheatreEntity[]
 }
 
 const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
     addTheatre: (theatre: TheatreEntity) => dispatch({ type: TheatresActionNames.ADD_THEATRE, theatre})
 })
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state: TheatresState) => ({
+    allTheatres: mapObjectToArray(state.theatres)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddTheatreForm);

@@ -2,11 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { UsersActionNames } from 'src/users/users.actions';
-import { UserEntity } from 'src/users/users.state';
-import autobind from 'autobind-decorator';
+import { UserEntity, UsersState } from 'src/users/users.state';
 import { generateGuid } from 'src/common/guid';
 import { mapObjectToArray } from 'src/common/mapObjectToArray';
-import { State } from 'src/state';
 
 export class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreenState> {
     constructor(props: any) {
@@ -20,29 +18,36 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             isRegisterError: false,
             emailError: false,
             passwordError: false,
-            passwordConfirmError: false
+            passwordConfirmError: false,
+            passwordMatchError: false
         };
     }
-    @autobind
+
     onEmailChange(event: any) {
         this.setState({
             regEmail: event.target.value
         })
     }
-    @autobind
+
     onPasswordChange(event: any) {
         this.setState({
             regPassword: event.target.value
         })
     }
-    @autobind
+
     onPasswordConfirmChange(event: any) {
         this.setState({
             regConfirmPassword: event.target.value
         })
     }
-    @autobind
+
     private register(event: any) {
+
+        if (this.state.isRegisterError) {
+            this.setState({
+                isRegisterError: false
+            })
+        }
 
         const registerProps = {
             email: this.state.regEmail,
@@ -51,21 +56,24 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
         };
 
         for (var i = 0; i < this.props.allUsers.length; i++) {
+
             if (this.state.regEmail === this.props.allUsers[i].email
                 || this.state.regPassword !== this.state.regConfirmPassword) {
                 this.setState({
                     isRegisterError: true
-                });
+                })
 
                 return;
 
-            }
+            } else this.setState({ isRegisterError: false })
         }
 
         let stateResult = {
+            isRegisterError: false,
             emailError: false,
             passwordError: false,
-            passwordConfirmError: false
+            passwordConfirmError: false,
+            passwordMatchError: false
         }
 
         if (this.state.regEmail === '') {
@@ -82,21 +90,30 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             }
         }
 
-        if (this.state.regConfirmPassword !== this.state.regPassword) {
+        if (this.state.regConfirmPassword === '') {
             stateResult = {
                 ...stateResult,
                 passwordConfirmError: true
             }
         }
 
-        if (this.state.isRegisterError === false
+        if (this.state.regConfirmPassword !== this.state.regPassword) {
+            stateResult = {
+                ...stateResult,
+                passwordMatchError: true
+            }
+        }
+
+        if (stateResult.isRegisterError === false
             && stateResult.emailError === false
             && stateResult.passwordError === false
-            && stateResult.passwordConfirmError === false) {
+            && stateResult.passwordConfirmError === false
+            && stateResult.passwordMatchError === false) {
+
             registerProps.role = 'user'
 
             this.props.addUser({ ...registerProps, id: generateGuid() })
-            
+
             this.props.history.push('/')
         }
 
@@ -254,13 +271,14 @@ interface RegisterScreenState {
     emailError: boolean,
     passwordError: boolean,
     passwordConfirmError: boolean,
+    passwordMatchError: boolean
 }
 
 const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: RegisterScreenProps) => ({
     addUser: (user: UserEntity) => dispatch({ type: UsersActionNames.ADD_USER, user })
 })
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: UsersState) => ({
     allUsers: mapObjectToArray(state.users),
 })
 

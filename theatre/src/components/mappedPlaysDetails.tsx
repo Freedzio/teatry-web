@@ -12,7 +12,7 @@ function MappedPlaysDetailsComponent(props: MappedPlaysDetailsComponentProps) {
             {
                 props.plays.map(({ id, title, theatre, description, category, link }) => (
                     <Route
-                        exact path={`/plays/${title}`}
+                        exact path={`/plays/${title}-${theatre}`}
                         render={() =>
                             <PlayDetailsScreen
                                 id={id as string}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { State } from 'src/state';
 import plays from 'src/database/playsDatabase';
@@ -42,6 +42,8 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
 
     deletePlay() {
         this.props.deletePlay(this.props.id)
+
+        this.props.history.push('/plays')
     }
 
     render() {
@@ -55,12 +57,13 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                         theatre={this.props.theatre}
                         link={this.props.link}
                         category={this.props.category}
-                        description={this.props.description} />
+                        description={this.props.description}
+                        editing={this.props.editing} />
                     <button
                         type='button'
                         className='btn btn-default'
                         onClick={this.toggleEdit.bind(this)}>
-                        Zakończ edycję
+                        Anuluj edycję
                             </button>
                 </div>
             )
@@ -88,6 +91,16 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 <div className='col-md-9'>
                                     <p className='form-control-static'>
                                         {this.props.title}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className='form-group'>
+                                <label className='control-label col-md-3'>
+                                    Teatr
+                                </label>
+                                <div className='col-md-9'>
+                                    <p className='form-control-static'>
+                                        {this.props.theatre}
                                     </p>
                                 </div>
                             </div>
@@ -239,7 +252,7 @@ interface PlayDetailsScreenProps {
     title: string,
     description: string,
     category: string,
-    link: string,
+    link: string,   
     theatre: string,
     isAdmin: boolean,
     isLoggedIn: boolean,
@@ -255,7 +268,8 @@ interface PlayDetailsScreenProps {
     }],
     deletePlay: (id: string) => void;
     changeEditing: (editing: boolean) => void;
-    editing: boolean
+    editing: boolean,
+    history: any
 }
 
 
@@ -277,4 +291,9 @@ const mapStateToProps = () => (state: State) => ({
     editing: state.editing.editing
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayDetailsScreen);
+const PlayDetailsRedux = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(PlayDetailsScreen));
+
+export default PlayDetailsRedux

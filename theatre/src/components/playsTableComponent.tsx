@@ -20,7 +20,7 @@ function PlaysTableComponent(props: PlaysTableComponentProps) {
             <tbody>
                 {props.plays.map((play, index) =>
                     <tr key={play.title + play.theatre + index}>
-                        <td><Link to={`/plays/${play.title}`}><strong>{play.title}</strong></Link></td>
+                        <td><Link to={`/plays/${play.title}-${play.theatre}`}><strong>{play.title}</strong></Link></td>
                         <td>{play.category}</td>
                         <td>{play.theatre}</td>
                     </tr>

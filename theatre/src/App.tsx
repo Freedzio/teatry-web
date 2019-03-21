@@ -18,8 +18,10 @@ import MappedPlaysDetailsComponent from './components/mappedPlaysDetails'
 import MappedAddTicket from './components/mappedAddTicket';
 import MappedAddReview from './components/mappedAddReview';
 import AddNewPlayScreen from './screens/addNewPlayScreen';
+import { State } from './state';
+import { connect } from 'react-redux';
 
-class App extends React.Component {
+class App extends React.Component<AppProps> {
   public render() {
     return (
       <Router>
@@ -52,4 +54,14 @@ class App extends React.Component {
   }
 }
 
-export default App;
+interface AppProps {
+  editing: boolean
+}
+
+const mapStateToProps = () => (state: State) => ({
+  editing: state.editing.editing
+})
+
+const mapDispatchToProps = () => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

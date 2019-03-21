@@ -82,10 +82,11 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
 
                 return;
 
-            }
+            } else this.setState({ isError: false })
         }
 
         let stateResult = {
+            isError: false,
             categoryError: false,
             theatreError: false,
             titleError: false,
@@ -130,7 +131,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
             };
         }
 
-        if (this.state.isError === false
+        if (stateResult.isError === false
             && stateResult.categoryError === false
             && stateResult.titleError === false
             && stateResult.theatreError === false
@@ -148,6 +149,8 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
 
             this.props.addPlay({ ...playProps, id: generateGuid() });
 
+            this.props.history.push('/plays')
+
             stateResult = {
                 ...stateResult,
                 playSubmitted: true
@@ -158,7 +161,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
     }
 
     @autobind
-    private editPlay(event: any) {
+    private editPlay(event: any) {       
 
         const playProps = {
             title: this.state.title,
@@ -182,6 +185,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
         }*/
 
         let stateResult = {
+            isError: false,
             categoryError: false,
             theatreError: false,
             titleError: false,
@@ -227,8 +231,8 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
 
         for (var i = 0; i < this.props.allPlays.length; i++) {
 
-            if (this.props.title === this.props.allPlays[i].title
-                && this.props.theatre === this.props.allPlays[i].theatre
+            if (this.state.title === this.props.allPlays[i].title
+                && this.state.theatre === this.props.allPlays[i].theatre
                 && stateResult.categoryError === false
                 && stateResult.titleError === false
                 && stateResult.theatreError === false
@@ -255,7 +259,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
 
                 this.props.changeEditing(this.props.editing)
 
-                this.props.history.push(`/plays/${playProps.title}`)
+                this.props.history.push(`/plays/${playProps.title}-${playProps.theatre}`)
 
                 return;
 
@@ -531,4 +535,9 @@ const mapStateToProps = (state: State) => ({
     allPlays: mapObjectToArray(state.plays),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddPlayForm));
+const AddPlayRedux = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(AddPlayForm))
+
+export default AddPlayRedux
