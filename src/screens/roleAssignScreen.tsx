@@ -64,10 +64,7 @@ export default class RoleAssignScreen extends React.Component<RoleAssignScreenPr
 
         this.setState(stateResult);
     }
-
-
-
-export default class RoleAssignScreen extends React.Component {
+    
     render() {
         return (
             <div className="container">
