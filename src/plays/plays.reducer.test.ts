@@ -1,5 +1,5 @@
 import { PlaysActionNames } from "./plays.actions";
-import { PlayEntity } from './Plays.state';
+import { PlayEntity } from './plays.state';
 import { playsReducer } from './plays.reducer';
 
 describe('Plays reducer', () => {

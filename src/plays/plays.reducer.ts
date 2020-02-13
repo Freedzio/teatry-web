@@ -1,5 +1,5 @@
 import { PlaysAction, PlaysActionNames } from "./plays.actions";
-import { PlaysState } from './Plays.state';
+import { PlaysState } from './plays.state';
 
 export const playsReducer = (state: PlaysState = {
     
