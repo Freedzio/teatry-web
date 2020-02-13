@@ -4,8 +4,25 @@ import { connect } from 'react-redux';
 import { State } from 'src/state';
 import TheatresTableComponent from 'src/components/theatresTableComponent';
 
-export class TheatresScreen extends React.Component<TheatresProps> {
-    render () {
+export class TheatresScreen extends React.Component<TheatresProps, TheatresState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            search: ''
+        }
+    }
+
+    onInputChange(event: any) {
+        this.setState({ search: event.target.value })
+    }
+
+    render() {
+        // let filteredTheatres = theatres.filter(
+        //     (theatre) => {
+        //         return theatre.name.toLocaleLowerCase().indexOf(this.state.search) !== -1
+        //     }
+        // )
+
         return (
             <div className="container">
                 <div className="row">
@@ -28,9 +45,13 @@ export class TheatresScreen extends React.Component<TheatresProps> {
                             <form>
                                 <div className="form-group">
                                     <label htmlFor="inputSearch">Wyszukaj</label><br />
-                                    <input type="text" id="inputSearch" placeholder="Wyszukaj teatr..." />
-                                    <button type="submit" className="btn btn-default">Szukaj</button> 
-                                </div>                              
+                                    <input
+                                        type="text"
+                                        id="inputSearch"
+                                        placeholder="Wyszukaj teatr..."
+                                        onChange={this.onInputChange.bind(this)} />
+                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -38,7 +59,7 @@ export class TheatresScreen extends React.Component<TheatresProps> {
                 <div>
                     <TheatresTableComponent />
                 </div>        
-            </div>            
+            </div> 
         )
     }
 }
@@ -47,6 +68,10 @@ interface TheatresProps {
     isLoggedIn: boolean
 };
 
+interface TheatresState {
+    search: string
+}
+        
 const mapDispatchToProps = () => ({})
 
 export default connect((state: State) => ({

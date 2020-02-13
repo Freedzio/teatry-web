@@ -1,17 +1,29 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import theatres from 'src/database/theatresDatabase';
+import { TheatreEntity, TheatresState } from 'src/theatres/theatres.state';
+import { TheatresActionNames } from 'src/theatres/theatres.actions';
+import { connect } from 'react-redux';
+import { generateGuid } from 'src/common/guid';
+import { mapObjectToArray } from 'src/common/mapObjectToArray';
 
-export default class AddTheatreForm extends React.Component<AddTheatreScreenState, AddTheatreScreenProps> {
+export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTheatreScreenState> {
+
     constructor(props: any) {
         super(props);
 
         this.state = {
             name: '',
             town: '',
+            description: '',
+            contact: '',
+            link: '',
             isError: false,
             nameError: false,
             townError: false,
+            descriptionError: false,
+            linkError: false,
+            contactError: false
+
         };
     }
 
@@ -27,26 +39,56 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
         })
     }
 
+    onDescriptionChange(event: any) {
+        this.setState({
+            description: event.target.value
+        })
+    }
+
+    onLinkChange(event: any) {
+        this.setState({
+            link: event.target.value
+        })
+    }
+
+    onContactChange(event: any) {
+        this.setState({
+            contact: event.target.value
+        })
+    }
+
+
     private addTheatre(event: any) {
 
         const theatreProps = {
             name: this.state.name,
-            town: this.state.town
+            description: this.state.description,
+            town: this.state.town,
+            contact: this.state.contact,
+            link: this.state.contact
+
         };
 
-        for (var i = 0; i < theatres.length; i++) {
-            if (this.state.name === theatres[i].name && this.state.town === theatres[i].town) {
+        for (var i = 0; i < this.props.allTheatres.length; i++) {
+            if (this.state.name === this.props.allTheatres[i].name && this.state.town === this.props.allTheatres[i].town) {
                 this.setState({
+                    
+
                     isError: true
                 });
 
                 return;
-            }
+            } else this.setState({ isError: false })
         }
 
         let stateResult = {
+            isError: false,
             nameError: false,
-            townError: false
+            townError: false,
+            descriptionError: false,
+            contactError: false,
+            linkError: false
+
         }
 
         if (this.state.name === '') {
@@ -63,11 +105,38 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
             }
         }
 
-        if (this.state.isError === false && stateResult.townError === false && stateResult.nameError === false) {
-            theatres.push({
-                name: theatreProps.name,
-                town: theatreProps.town
-            });
+        if (this.state.description === '') {
+            stateResult = {
+                ...stateResult,
+                descriptionError: true
+            }
+        }
+
+        if (this.state.link === '') {
+            stateResult = {
+                ...stateResult,
+                linkError: true
+            }
+        }
+
+        if (this.state.contact === '') {
+            stateResult = {
+                ...stateResult,
+                contactError: true
+            }
+        }
+
+        if (stateResult.isError === false
+            && stateResult.townError === false
+            && stateResult.nameError === false
+            && stateResult.linkError === false
+            && stateResult.contactError === false
+            && stateResult.descriptionError === false) {
+            
+                this.props.addTheatre({ ...theatreProps, id: generateGuid()})
+
+            this.props.history.push('/theatres')
+
         }
 
         this.setState(stateResult);
@@ -105,7 +174,12 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
                                     Opis
                                     </label>
                                 <div className="col-md-3">
-                                    <textarea className="form-control" rows={3} id="descName" />
+                                    <textarea
+                                        className="form-control"
+                                        rows={3}
+                                        id="descName"
+                                        onChange={this.onDescriptionChange.bind(this)} />
+
                                 </div>
                                 <div className="col-md-3" />
                             </div>
@@ -132,7 +206,12 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
                                     Kontakt
                                     </label>
                                 <div className="col-md-3">
-                                    <input type="text" className="form-control" id="contactName" />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="contactName"
+                                        onChange={this.onContactChange.bind(this)} />
+
                                 </div>
                                 <div className="col-md-3" />
                             </div>
@@ -142,20 +221,28 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
                                     Link do strony teatru
                                     </label>
                                 <div className="col-md-3">
-                                    <input type="url" className="form-control" id="linkName" />
+                                    <input
+                                     type="url" 
+                                     className="form-control"
+                                      id="linkName"
+                                      onChange={this.onLinkChange.bind(this)} />
+
                                 </div>
                                 <div className="col-md-3" />
                             </div>
                         </form>
-
                     </div>
                 </div>
-                {!!this.state.isError && <div>Ten teatr jest już w bazie danych</div>}
-                {!!this.state.nameError && <div>Podaj nazwę teatru</div>}
-                {!!this.state.townError && <div> Podaj miasto</div>}
                 <div className="row">
                     <div className="col-md-5" />
                     <div className="col-md-3">
+                        {!!this.state.isError && <div>Ten teatr jest już w bazie danych</div>}
+                        {!!this.state.nameError && <div>Podaj nazwę teatru</div>}
+                        {!!this.state.townError && <div> Podaj miasto</div>}
+                        {!!this.state.linkError && <div> Podaj link do strony teatru</div>}
+                        {!!this.state.contactError && <div>Podaj kontakt do teatru</div>}
+                        {!!this.state.descriptionError && <div> Podaj opis teatru</div>}
+
                         <button
                             type="button"
                             className="btn btn-default"
@@ -180,14 +267,31 @@ export default class AddTheatreForm extends React.Component<AddTheatreScreenStat
 interface AddTheatreScreenState {
     name: string,
     town: string,
-    isError: boolean
-}
-
-
-interface AddTheatreScreenProps {
-    name: string,
-    town: string,
+    description: string,
+    link: string,
+    contact: string,
     isError: boolean,
+    nameError: boolean,
     townError: boolean,
-    nameError: boolean
+    descriptionError: boolean,
+    linkError: boolean,
+    contactError: boolean
 }
+
+
+interface AddTheatreScreenProps extends TheatreEntity{
+    history: any,
+    addTheatre: (theatre: TheatreEntity) => void;
+    allTheatres: TheatreEntity[]
+}
+
+const mapDispatchToProps = (dispatch: (arg: any) => void) => ({
+    addTheatre: (theatre: TheatreEntity) => dispatch({ type: TheatresActionNames.ADD_THEATRE, theatre})
+})
+
+const mapStateToProps = (state: TheatresState) => ({
+    allTheatres: mapObjectToArray(state.theatres)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTheatreForm);
+

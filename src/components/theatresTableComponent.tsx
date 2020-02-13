@@ -1,7 +1,13 @@
-import theatres from 'src/database/theatresDatabase'
 import * as React from 'react'
+import { State } from 'src/state';
+import { mapObjectToArray } from 'src/common/mapObjectToArray';
+import { TheatreEntity } from 'src/theatres/theatres.state';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import * as _ from 'lodash';
 
-function TheatresTableComponent() {
+function TheatresTableComponent(props: TheatresTableComponentProps) {
+
     return (
         <table className="table">
             <thead>
@@ -11,10 +17,11 @@ function TheatresTableComponent() {
                 </tr>
             </thead>
             <tbody>
-                {theatres.map((theatre, index) =>
-                    <tr key={theatre.name + theatre.town + index}>
-                        <td>{theatre.name}</td>
-                        <td>{theatre.town}</td>
+                {props.theatres.map(({ name, description, town, contact, link }, index) =>
+                    <tr key={name + town + index}>
+                        <td>{name}</td>
+                        <td>{town}</td>
+
                     </tr>
                 )}
             </tbody>
@@ -22,4 +29,12 @@ function TheatresTableComponent() {
     )
 }
 
-export default TheatresTableComponent
+export interface TheatresTableComponentProps {
+    theatres: TheatreEntity[];
+}
+
+const mapStateToProps = (state: State) => ({
+    theatres: mapObjectToArray(state.theatres)
+})
+
+export default connect(mapStateToProps, _.noop)(withRouter(TheatresTableComponent as any))

@@ -2,10 +2,29 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { State } from 'src/state';
 import { connect } from 'react-redux'
-import PlaysTableComponent from 'src/components/playsTableComponent'
+// import plays from 'src/database/playsDatabase';
+import PlaysTableComponent from '../components/playsTableComponent';
 
-export class PlaysScreen extends React.Component<PlaysProps> {
+export class PlaysScreen extends React.Component<PlaysProps, PlaysState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            search: ''
+        }
+    }
+
+    onInputChange(event: any) {
+        this.setState({ search: event.target.value })
+    }
+
     render() {
+        // let filteredPlays = plays.filter(
+        //     (play) => {
+        //         return play.title.toLowerCase().indexOf(this.state.search) !== -1;
+        //     }
+        // )
+
+
         return (
             <div className="container">
                 <div className="row">
@@ -28,8 +47,12 @@ export class PlaysScreen extends React.Component<PlaysProps> {
                             <form>
                                 <div className="form-group">
                                     <label htmlFor="inputSearch">Wyszukaj</label><br />
-                                    <input type="text" id="inputSearch" placeholder="Wyszukaj spektakl..." />
-                                    <button type="submit" className="btn btn-default">Szukaj</button>
+                                    <input
+                                        type="text"
+                                        id="inputSearch"
+                                        placeholder="Wyszukaj spektakl..."
+                                        onChange={this.onInputChange.bind(this)} />
+
                                 </div>
                             </form>
                         </div>
@@ -46,6 +69,10 @@ export class PlaysScreen extends React.Component<PlaysProps> {
 interface PlaysProps {
     isLoggedIn: boolean
 };
+
+interface PlaysState {
+    search: string
+}
 
 const mapDispatchToProps = () => ({})
 

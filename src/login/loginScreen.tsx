@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SessionActionNames } from 'src/session/sesion.actions';
-import { __values } from 'tslib';
-import users from 'src/database/usersDatabase';
+import { UsersState, UserEntity } from 'src/users/users.state';
+import { mapObjectToArray } from 'src/common/mapObjectToArray';
+
 
 export class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState>{
     constructor(props: any) {
@@ -39,9 +40,10 @@ export class LoginScreen extends React.Component<LoginScreenProps, LoginScreenSt
             role: ''
         };
 
-        for (var i = 0; i < users.length; i++) {
-            if (this.state.email === users[i].email && this.state.password === users[i].password) {
-                sessionProps.role = users[i].role
+        for (var i = 0; i < this.props.allUsers.length; i++) {
+            if (this.state.email === this.props.allUsers[i].email && this.state.password === this.props.allUsers[i].password) {
+                sessionProps.role = this.props.allUsers[i].role
+
 
                 this.props.setSession(sessionProps.email, sessionProps.password, sessionProps.role);
                 this.props.history.push('/');
@@ -103,7 +105,8 @@ export class LoginScreen extends React.Component<LoginScreenProps, LoginScreenSt
                                     <div className="col-md-4" />
                                     <label><input type="checkbox" />Zapamiętać Cię?</label>
                                 </div>
-                                {!!this.state.isError && <span>Error</span>}
+                                {!!this.state.isError && <span>Nieprawidłowe dane logowania</span>}
+
                                 <div className="col-md-12">
                                     <div className="col-md-4" />
                                     <div className="col-md-4">
@@ -155,6 +158,8 @@ interface LoginScreenProps {
     email: string;
     password: string;
     role: string;
+    allUsers: UserEntity[]
+
     setSession: (email: string, password: string, role: string) => void;
 }
 
@@ -162,7 +167,10 @@ const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: LoginScreenP
     setSession: (email: string, password: string, role: string) => dispatch({ type: SessionActionNames.SESSION_SET, email, password, role })
 });
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state: UsersState) => ({
+    allUsers: mapObjectToArray(state.users)
+})
+
 
 const LoginRedux = connect(
     mapStateToProps,

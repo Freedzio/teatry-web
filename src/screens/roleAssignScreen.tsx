@@ -2,6 +2,70 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import UsersListComponent from 'src/components/usersListComponent';
 import RolesListComponent from 'src/components/rolesListComponent';
+import users from 'src/database/usersDatabase';
+
+export default class RoleAssignScreen extends React.Component<RoleAssignScreenProps, RoleAssignScreenState> {
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            chosenUser: '',
+            roleToAssign: '',
+            userError: false,
+            roleError: false
+        }
+    }
+
+    onUserChange(event: any) {
+        this.setState({
+            chosenUser: event.target.value
+        })
+    }
+
+    onRoleChange(event: any) {
+        this.setState({
+            roleToAssign: event.target.value
+        })
+    }
+
+    private assignRole(event: any) {
+        let assigningProps = {
+            chosenUser: this.state.chosenUser,
+            roleToAssign: this.state.roleToAssign
+        }
+
+        let stateResult = {
+            userError: false,
+            roleError: false
+        }
+
+        if (this.state.chosenUser === '' || this.state.chosenUser === 'Wybierz użytkownika...') {
+            stateResult = {
+                ...stateResult,
+                userError: true
+            }
+        }
+
+        if (this.state.roleToAssign === '' || this.state.roleToAssign === 'Wybierz rolę...') {
+            stateResult = {
+                ...stateResult,
+                roleError: true
+            }
+        }
+
+        for (var i = 0; i < users.length; i++) {
+            if (this.state.chosenUser === users[i].email) {
+                users[i].role = assigningProps.roleToAssign
+                this.props.history.push('/roles')
+
+                return;
+            }
+        }
+
+        this.setState(stateResult);
+    }
+
+
 
 export default class RoleAssignScreen extends React.Component {
     render() {
@@ -21,7 +85,13 @@ export default class RoleAssignScreen extends React.Component {
                                     <strong>Wybierz rolę</strong>
                                 </label>
                                 <div className="col-md-4">
-                                    <RolesListComponent />
+                                    <select
+                                        className='form-control'
+                                        id='roleName'
+                                        onChange={this.onRoleChange.bind(this)}>
+                                        <RolesListComponent />
+                                    </select>
+
                                 </div>
                                 <div className="col-md-4" />
                             </div>
@@ -31,7 +101,15 @@ export default class RoleAssignScreen extends React.Component {
                                     <strong>Wybierz użytkownika</strong>
                                 </label>
                                 <div className="col-md-4">
-                                    <UsersListComponent />
+                                    <select
+                                        className='form-control'
+                                        id='userName'
+                                        onChange={this.onUserChange.bind(this)}>
+                                        <UsersListComponent />
+                                    </select>
+                                    {!!this.state.userError && <div>Wybierz użytkownika</div>}
+                                    {!!this.state.roleError && <div>Wybierz rolę</div>}
+
                                 </div>
                                 <div className="col-md-4" />
                             </div>
@@ -41,7 +119,11 @@ export default class RoleAssignScreen extends React.Component {
                 <div className="row">
                     <div className="col-md-4" />
                     <div className="col-md-8">
-                        <button type="button" className="btn btn-default">
+                        <button
+                            type="button"
+                            className="btn btn-default"
+                            onClick={this.assignRole.bind(this)}>
+
                             Przypisz rolę
                         </button>
                     </div>
@@ -54,4 +136,15 @@ export default class RoleAssignScreen extends React.Component {
             </div>
         )
     }
+}
+
+interface RoleAssignScreenProps {
+    history: any
+}
+
+interface RoleAssignScreenState {
+    chosenUser: string,
+    roleToAssign: string,
+    userError: boolean,
+    roleError: boolean
 }
