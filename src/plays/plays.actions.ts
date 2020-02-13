@@ -1,5 +1,5 @@
 import { createAction, ActionsUnion } from '../common/createAction';
-import { PlayEntity } from './Plays.state';
+import { PlayEntity } from './plays.state';
 
 export enum PlaysActionNames {
     ADD_PLAY = 'ADD_PLAY',
