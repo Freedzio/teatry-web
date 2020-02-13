@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import MappedTheatresListComponent from 'src/components/mappedTheatresList';
 import MappedCategoriesListComponent from 'src/components/mappedCategoriesList';
-import { PlayEntity } from 'src/plays/Plays.state';
+import { PlayEntity } from 'src/plays/plays.state';
 import { connect } from 'react-redux';
 import { PlaysActionNames } from 'src/plays/plays.actions';
 import { generateGuid } from 'src/common/guid';

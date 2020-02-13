@@ -1,4 +1,4 @@
-import { PlayEntity, PlaysState } from "src/plays/Plays.state";
+import { PlayEntity, PlaysState } from "src/plays/plays.state";
 import { mapObjectToArray } from './mapObjectToArray';
 
 describe('mapObjectToArray2', () => {
