@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { State } from 'src/state';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
-import { PlayEntity } from 'src/plays/Plays.state';
+import { PlayEntity } from 'src/plays/plays.state';
 import { mapObjectToArray } from 'src/common/mapObjectToArray';
 
 function PlaysTableComponent(props: PlaysTableComponentProps) {
