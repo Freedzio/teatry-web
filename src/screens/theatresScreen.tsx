@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { State } from 'src/state';
 import TheatresTableComponent from 'src/components/theatresTableComponent';
@@ -22,23 +22,24 @@ export class TheatresScreen extends React.Component<TheatresProps, TheatresState
         //         return theatre.name.toLocaleLowerCase().indexOf(this.state.search) !== -1
         //     }
         // )
+
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                        <h1>
-                            Teatry
+                    <h1>
+                        Teatry
                     </h1>
                     </div>
                 </div>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6">
-                            {!!this.props.isLoggedIn && <Link to='/theatreForm'>
-                                <button type="button" className="btn btn-default">
-                                    Dodaj teatr
+                        {!!this.props.isLoggedIn && <Link to='/theatreForm'>
+                            <button type="button" className="btn btn-default">
+                                Dodaj teatr
                             </button>
-                            </Link>}
+                        </Link>}
                         </div>
                         <div className="col-md-6">
                             <form>
@@ -50,32 +51,15 @@ export class TheatresScreen extends React.Component<TheatresProps, TheatresState
                                         placeholder="Wyszukaj teatr..."
                                         onChange={this.onInputChange.bind(this)} />
                                 </div>
+
                             </form>
                         </div>
                     </div>
                 </div>
                 <div>
-                    {/*<table className="table">
-                        <thead>
-                            <tr>
-                                <th>Nazwa</th>
-                                <th>Miasto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredTheatres.map(({ name, description, town, contact, link }, index) =>
-                                <tr key={name + town + index}>
-                                    <td>{name}</td>
-                                    <td>{town}</td>
-                                </tr>
-                            )}
-                        </tbody>
-        </table>*/}
-
-
                     <TheatresTableComponent />
-                </div>
-            </div>
+                </div>        
+            </div> 
         )
     }
 }
@@ -87,7 +71,7 @@ interface TheatresProps {
 interface TheatresState {
     search: string
 }
-
+        
 const mapDispatchToProps = () => ({})
 
 export default connect((state: State) => ({

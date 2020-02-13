@@ -6,6 +6,7 @@ import { UserEntity, UsersState } from 'src/users/users.state';
 import { generateGuid } from 'src/common/guid';
 import { mapObjectToArray } from 'src/common/mapObjectToArray';
 
+
 export class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreenState> {
     constructor(props: any) {
         super(props);
@@ -20,6 +21,7 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             passwordError: false,
             passwordConfirmError: false,
             passwordMatchError: false
+
         };
     }
 
@@ -42,7 +44,6 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
     }
 
     private register(event: any) {
-
         if (this.state.isRegisterError) {
             this.setState({
                 isRegisterError: false
@@ -74,6 +75,7 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             passwordError: false,
             passwordConfirmError: false,
             passwordMatchError: false
+
         }
 
         if (this.state.regEmail === '') {
@@ -113,6 +115,7 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
             registerProps.role = 'user'
 
             this.props.addUser({ ...registerProps, id: generateGuid() })
+
 
             this.props.history.push('/')
         }
@@ -251,6 +254,7 @@ export class RegisterScreen extends React.Component<RegisterScreenProps, Registe
 }
 
 interface RegisterScreenProps extends UserEntity {
+
     history: any;
     regEmail: string;
     regPassword: string;
@@ -260,6 +264,7 @@ interface RegisterScreenProps extends UserEntity {
     passwordConfirmError: boolean,
     addUser: (user: UserEntity) => void;
     allUsers: UserEntity[]
+
 }
 
 interface RegisterScreenState {
@@ -281,6 +286,7 @@ const mapDispatchToProps = (dispatch: (arg: any) => void, ownProps: RegisterScre
 const mapStateToProps = (state: UsersState) => ({
     allUsers: mapObjectToArray(state.users),
 })
+
 
 const RegisterRedux = connect(
     mapStateToProps,

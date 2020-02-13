@@ -13,6 +13,7 @@ import { EditingActionNames } from 'src/editing/editing.actions';
 
 export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteComponentProps<any>, AddPlayScreenState> {
 
+
     constructor(props: any) {
         super(props);
 
@@ -33,18 +34,21 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
         };
     }
     @autobind
+
     onTitleChange(event: any) {
         this.setState({
             title: event.target.value
         })
     }
     @autobind
+
     onTheatreChange(event: any) {
         this.setState({
             theatre: event.target.value
         })
     }
     @autobind
+
     onCategoryChange(event: any) {
         this.setState({
             category: event.target.value
@@ -63,6 +67,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
         })
     }
     @autobind
+
     private addPlay(event: any) {
 
         const playProps = {
@@ -76,6 +81,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
         for (var i = 0; i < this.props.allPlays.length; i++) {
             if (this.state.title === this.props.allPlays[i].title
                 && this.state.theatre === this.props.allPlays[i].theatre) {
+
                 this.setState({
                     isError: true
                 });
@@ -199,6 +205,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
                 ...stateResult,
                 theatreError: true
             };
+
         }
 
         if (this.state.category === '' || this.state.category === 'Wybierz kategorię...') {
@@ -285,6 +292,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
                 </div>
             )
         }
+
 
         return (
             <div className="container">
@@ -494,6 +502,7 @@ export class AddPlayForm extends React.Component<AddPlayScreenProps & RouteCompo
                                     <div className="col-md-4" />
                                 </div>
                             </form>}
+
                     </div>
                 </div>
             </div>
@@ -541,3 +550,4 @@ const AddPlayRedux = connect(
 )(withRouter(AddPlayForm))
 
 export default AddPlayRedux
+

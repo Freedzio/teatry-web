@@ -27,6 +27,7 @@ var theatres = [
         contact: 'Lorem bacon',
         link: 'yadayada.com'
     }
+
 ]
 
 export default theatres

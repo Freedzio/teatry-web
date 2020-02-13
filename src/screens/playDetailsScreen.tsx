@@ -68,6 +68,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                 </div>
             )
         }
+
         return (
             <div className="container">
                 <div className='row'>
@@ -111,6 +112,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 <div className='col-md-9'>
                                     <p className='form-control-static'>
                                         {this.props.description}
+
                                     </p>
                                 </div>
                             </div>
@@ -121,6 +123,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 <div className='col-md-9'>
                                     <p className='form-control-static'>
                                         {this.props.category}
+
                                     </p>
                                 </div>
                             </div>
@@ -131,6 +134,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 <div className='col-md-9'>
                                     <p className='form-control-static'>
                                         {this.props.link}
+
                                     </p>
                                 </div>
                             </div>
@@ -159,6 +163,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                         Usuń spektakl  </button> </span>}
 
                             </strong></p>
+
                     </div>
                 </div>
                 <div className='row'>
@@ -170,6 +175,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                             <button className='btn btn-default'><strong>
                                 Dodaj bilet
                         </strong></button></Link>}
+
                         <table className='table'>
                             <thead>
                                 <tr>
@@ -197,6 +203,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                     </tr>
                                 ))
                                 }
+
                             </tbody>
                         </table>
                     </div>
@@ -213,6 +220,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                 </strong>
                             </button>
                         </Link>}
+
                         <table className='table'>
                             <thead>
                                 <tr>
@@ -238,6 +246,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                                     </tr>
                                 ))
                                 }
+
                             </tbody>
                         </table>
                     </div>

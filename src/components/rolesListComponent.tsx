@@ -1,6 +1,5 @@
 import * as React from 'react'
 import roles from 'src/database/rolesDatabase'
-
 function RolesListComponent() {
     return (
         <>
@@ -13,6 +12,7 @@ function RolesListComponent() {
                 )
             }
         </>
+
     )
 }
 

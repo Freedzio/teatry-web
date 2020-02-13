@@ -3,6 +3,7 @@ import MainScreen from 'src/screens/mainScreen';
 import Navbar from 'src/components/navbar';
 import mask from './mask.png';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import RegisterScreen from 'src/register/register';
 import TheatresScreen from 'src/screens/theatresScreen';
 import PlaysScreen from 'src/screens/playsScreen';
@@ -25,6 +26,7 @@ class App extends React.Component<AppProps> {
   public render() {
     return (
       <Router>
+
         <div className="App">
           <header className="App-header">
             <Link to='/'>
@@ -48,6 +50,7 @@ class App extends React.Component<AppProps> {
           <MappedPlaysDetailsComponent />
           <MappedAddTicket />
           <MappedAddReview />
+
         </div>
       </Router>
     );
@@ -65,3 +68,4 @@ const mapStateToProps = () => (state: State) => ({
 const mapDispatchToProps = () => ({})
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+

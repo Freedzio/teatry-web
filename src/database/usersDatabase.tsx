@@ -3,6 +3,7 @@ var users = [
     { email: 'kasia@wp.pl', password: '1234', role: 'user' },
     { email: 'misiaczek@buziaczek.pl', password: 'dupa', role: 'user' },
     { email: 'admin@admin.pl', password: 'admin', role: 'Administrator' }
+
 ]
 
 export default users
