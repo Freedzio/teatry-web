@@ -4,6 +4,8 @@ import { Route } from 'react-router-dom'
 import { AddTicketForm } from 'src/forms/addTicketForm';
 import { State } from 'src/state';
 import { connect } from 'react-redux';
+import { mapObjectToArray } from 'src/common/mapObjectToArray';
+import { PlayEntity } from 'src/plays/Plays.state';
 
 class MappedAddTicket extends React.Component<MappedAddTicketProps> {
     render() {
@@ -28,11 +30,13 @@ class MappedAddTicket extends React.Component<MappedAddTicketProps> {
 }
 
 interface MappedAddTicketProps {
-    user: string
+    user: string,
+    plays: PlayEntity[]
 }
 
 const mapDispatchToProps = () => ({})
 
 export default connect((state: State) => ({
-    user: state.session.email
+    user: state.session.email,
+    plays: mapObjectToArray(state.plays)
 }), mapDispatchToProps)(MappedAddTicket)
