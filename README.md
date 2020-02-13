@@ -1,3 +1,3 @@
 Homemade project
 
-The task is to create whole front-end for a service aggregating theatres
+The task is to create whole front-end for a theatres aggregating site 
