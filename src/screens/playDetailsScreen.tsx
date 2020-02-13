@@ -166,7 +166,7 @@ export class PlayDetailsScreen extends React.Component<PlayDetailsScreenProps, P
                         <h1>
                             Bilety
                         </h1>
-                        {!!this.props.isLoggedIn && <Link to={`/plays/${this.props.title}/addTicket`}>
+                        {!!this.props.isLoggedIn && <Link to={`/plays/${this.props.title}-${this.props.theatre}/addTicket`}>
                             <button className='btn btn-default'><strong>
                                 Dodaj bilet
                         </strong></button></Link>}

@@ -6,7 +6,7 @@ import { PlayEntity } from 'src/plays/Plays.state';
 import { connect } from 'react-redux';
 import { PlaysActionNames } from 'src/plays/plays.actions';
 import { generateGuid } from 'src/common/guid';
-import autobind from 'autobind-decorator'
+import autobind from 'autobind-decorator';
 import { State } from 'src/state';
 import { mapObjectToArray } from 'src/common/mapObjectToArray';
 import { EditingActionNames } from 'src/editing/editing.actions';

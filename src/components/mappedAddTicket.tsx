@@ -10,9 +10,9 @@ class MappedAddTicket extends React.Component<MappedAddTicketProps> {
         return (
             <>
                 {
-                    plays.map(({ title }) => (
+                    plays.map(({ title, theatre }) => (
                         <Route
-                            exact path={`/plays/${title}/addTicket`}
+                            exact path={`/plays/${title}-${theatre}/addTicket`}
                             render={() =>
                                 <AddTicketForm
                                     title={title}
