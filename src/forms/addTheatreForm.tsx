@@ -7,6 +7,7 @@ import { generateGuid } from 'src/common/guid';
 import { mapObjectToArray } from 'src/common/mapObjectToArray';
 
 export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTheatreScreenState> {
+
     constructor(props: any) {
         super(props);
 
@@ -22,6 +23,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
             descriptionError: false,
             linkError: false,
             contactError: false
+
         };
     }
 
@@ -55,6 +57,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
         })
     }
 
+
     private addTheatre(event: any) {
 
         const theatreProps = {
@@ -70,6 +73,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
             if (this.state.name === this.props.allTheatres[i].name && this.state.town === this.props.allTheatres[i].town) {
                 this.setState({
                     
+
                     isError: true
                 });
 
@@ -84,6 +88,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
             descriptionError: false,
             contactError: false,
             linkError: false
+
         }
 
         if (this.state.name === '') {
@@ -131,6 +136,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
                 this.props.addTheatre({ ...theatreProps, id: generateGuid()})
 
             this.props.history.push('/theatres')
+
         }
 
         this.setState(stateResult);
@@ -173,6 +179,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
                                         rows={3}
                                         id="descName"
                                         onChange={this.onDescriptionChange.bind(this)} />
+
                                 </div>
                                 <div className="col-md-3" />
                             </div>
@@ -204,6 +211,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
                                         className="form-control"
                                         id="contactName"
                                         onChange={this.onContactChange.bind(this)} />
+
                                 </div>
                                 <div className="col-md-3" />
                             </div>
@@ -218,6 +226,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
                                      className="form-control"
                                       id="linkName"
                                       onChange={this.onLinkChange.bind(this)} />
+
                                 </div>
                                 <div className="col-md-3" />
                             </div>
@@ -233,6 +242,7 @@ export class AddTheatreForm extends React.Component<AddTheatreScreenProps, AddTh
                         {!!this.state.linkError && <div> Podaj link do strony teatru</div>}
                         {!!this.state.contactError && <div>Podaj kontakt do teatru</div>}
                         {!!this.state.descriptionError && <div> Podaj opis teatru</div>}
+
                         <button
                             type="button"
                             className="btn btn-default"
@@ -284,3 +294,4 @@ const mapStateToProps = (state: TheatresState) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddTheatreForm);
+

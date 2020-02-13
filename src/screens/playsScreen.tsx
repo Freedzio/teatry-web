@@ -24,6 +24,7 @@ export class PlaysScreen extends React.Component<PlaysProps, PlaysState> {
         //     }
         // )
 
+
         return (
             <div className="container">
                 <div className="row">
@@ -51,6 +52,7 @@ export class PlaysScreen extends React.Component<PlaysProps, PlaysState> {
                                         id="inputSearch"
                                         placeholder="Wyszukaj spektakl..."
                                         onChange={this.onInputChange.bind(this)} />
+
                                 </div>
                             </form>
                         </div>
@@ -58,25 +60,6 @@ export class PlaysScreen extends React.Component<PlaysProps, PlaysState> {
                 </div>
                 <div>
                     <PlaysTableComponent />
-
-                    {/* <table className='table'>
-                        <thead>
-                            <tr>
-                                <th>Tytuł</th>
-                                <th>Kategoria</th>
-                                <th>Teatr</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredPlays.map((play, index) =>
-                                <tr key={play.title + play.theatre + index}>
-                                    <td><Link to={`/plays/${play.title}`}><strong>{play.title}</strong></Link></td>
-                                    <td>{play.category}</td>
-                                    <td>{play.theatre}</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table> */}
                 </div>
             </div>
         )

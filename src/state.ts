@@ -10,4 +10,3 @@ export interface State {
     plays: PlaysState,
     theatres: TheatresState,
     editing: EditingState,
-};

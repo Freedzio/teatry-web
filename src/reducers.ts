@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
     theatres: theatresReducer,
     users: usersReducer,
     editing: editingReducer
+
 });
 
 export default rootReducer;

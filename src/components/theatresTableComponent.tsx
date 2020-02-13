@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 import * as _ from 'lodash';
 
 function TheatresTableComponent(props: TheatresTableComponentProps) {
+
     return (
         <table className="table">
             <thead>
@@ -20,6 +21,7 @@ function TheatresTableComponent(props: TheatresTableComponentProps) {
                     <tr key={name + town + index}>
                         <td>{name}</td>
                         <td>{town}</td>
+
                     </tr>
                 )}
             </tbody>
